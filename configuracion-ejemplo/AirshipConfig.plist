@@ -1,0 +1,7 @@
+{
+	"APP_STORE_OR_AD_HOC_BUILD" = YES;
+	"DEVELOPMENT_APP_KEY" = "blablabla";
+	"DEVELOPMENT_APP_SECRET" = "blablabla";
+	"PRODUCTION_APP_KEY" = "blablabla";
+	"PRODUCTION_APP_SECRET" = "blablabla";
+}
