@@ -105,6 +105,7 @@
 		B9D8CF901657017C00F53CA6 /* paso1_campodetexto@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D8CF8A1657017C00F53CA6 /* paso1_campodetexto@2x.png */; };
 		B9D8CF911657017C00F53CA6 /* paso1_titulo.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D8CF8B1657017C00F53CA6 /* paso1_titulo.png */; };
 		B9D8CF921657017C00F53CA6 /* paso1_titulo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D8CF8C1657017C00F53CA6 /* paso1_titulo@2x.png */; };
+		B9F2D77F16584A290003CEE5 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9F2D77E16584A290003CEE5 /* AirshipConfig.plist */; };
 		CF4155D916068A6300E488ED /* UIImage+CropCaptcha.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4155D816068A6300E488ED /* UIImage+CropCaptcha.m */; };
 /* End PBXBuildFile section */
 
@@ -291,7 +292,8 @@
 		B9D8CF8A1657017C00F53CA6 /* paso1_campodetexto@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paso1_campodetexto@2x.png"; sourceTree = "<group>"; };
 		B9D8CF8B1657017C00F53CA6 /* paso1_titulo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = paso1_titulo.png; sourceTree = "<group>"; };
 		B9D8CF8C1657017C00F53CA6 /* paso1_titulo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "paso1_titulo@2x.png"; sourceTree = "<group>"; };
-		B9D8CF99165708CD00F53CA6 /* OAprivate-configure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OAprivate-configure.h"; path = "../../../Documents/iOSDev/OperadorApp/configuracion/OAprivate-configure.h"; sourceTree = SOURCE_ROOT; };
+		B9D8CF99165708CD00F53CA6 /* OAprivate-configure.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "OAprivate-configure.h"; path = "configuracion/OAprivate-configure.h"; sourceTree = SOURCE_ROOT; };
+		B9F2D77E16584A290003CEE5 /* AirshipConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = AirshipConfig.plist; path = configuracion/AirshipConfig.plist; sourceTree = SOURCE_ROOT; };
 		CF4155D716068A6300E488ED /* UIImage+CropCaptcha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CropCaptcha.h"; sourceTree = "<group>"; };
 		CF4155D816068A6300E488ED /* UIImage+CropCaptcha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CropCaptcha.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -500,6 +502,7 @@
 				B95DB0DD13688D0400E87EB6 /* OperadorApp-Prefix.pch */,
 				B95DB0DE13688D0400E87EB6 /* main.m */,
 				B9D8CF99165708CD00F53CA6 /* OAprivate-configure.h */,
+				B9F2D77E16584A290003CEE5 /* AirshipConfig.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -911,6 +914,7 @@
 				B9D8CF901657017C00F53CA6 /* paso1_campodetexto@2x.png in Resources */,
 				B9D8CF911657017C00F53CA6 /* paso1_titulo.png in Resources */,
 				B9D8CF921657017C00F53CA6 /* paso1_titulo@2x.png in Resources */,
+				B9F2D77F16584A290003CEE5 /* AirshipConfig.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
