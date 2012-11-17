@@ -1,5 +1,6 @@
-OperadorApp
-===========
+
+![](https://github.com/patoroco/OperadorApp/raw/master/Recursos/00%20-%20icono%20y%20default/Icon%402x.png) OperadorApp
+======================
 OperadorApp sirve para descubrir de qué compañía es un número de teléfono móvil (de momento únicamente en España).
 
 Se puede descargar gratuítamente desde la AppStore: [OperadorApp](https://itunes.apple.com/es/app/operadorapp/id431750600?mt=8).
@@ -21,4 +22,4 @@ Copiar configuraciones
 ----------------------
 	mv configuracion-ejemplo configuracion
 
-Editar los dos ficheros que contiene este directorio con los parámetros que se deseen.
+Sería conveniente editar los dos ficheros que contiene el directorio que se acaba de renombrar con los parámetros de cada servicio (UrbanAirship, Flurry, …).
