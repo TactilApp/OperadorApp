@@ -115,7 +115,12 @@ static MKStoreManager* _sharedStoreManager;
     return UINT_MAX;  //denotes an object that cannot be released
 }
 
-- (void)release
+/*
+    oneway is a keyword used with distributed objects to indicate that the call can be made asynchronously.
+    Since the NSObject header uses it when it declares the release method, you must also use it.
+    It won't affect your program unless you use distributed objects, but it will satisfy the compiler.
+*/
+- (oneway void)release
 {
     //do nothing
 }
@@ -339,7 +344,7 @@ static MKStoreManager* _sharedStoreManager;
 // Read my blog post http://mk.sg/31
 - (BOOL) canCurrentDeviceUseFeature: (NSString*) featureID
 {
-	NSString *uniqueID = [[UIDevice currentDevice] uniqueIdentifier];
+	NSString *uniqueID = @"not-valid"; //[[UIDevice currentDevice] uniqueIdentifier];
 	// check udid and featureid with developer's server
 	
 	if(ownServer == nil) return NO; // sanity check
