@@ -6,4 +6,4 @@
 	url = https://github.com/pokeb/asi-http-request.git
 [submodule "ThirdParty/ElementParser"]
 	path = ThirdParty/ElementParser
-	url = git://github.com/Objective3/ElementParser.git
+	url = git@github.com:Objective3/ElementParser.git
