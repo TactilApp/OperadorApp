@@ -1,5 +1,5 @@
 
-![](https://github.com/patoroco/OperadorApp/raw/master/Recursos/00%20-%20icono%20y%20default/Icon%402x.png) OperadorApp
+![](https://github.com/TactilApp/OperadorApp/raw/master/Recursos/00%20-%20icono%20y%20default/Icon%402x.png) OperadorApp
 ======================
 OperadorApp sirve para descubrir de qué compañía es un número de teléfono móvil (de momento únicamente en España).
 
