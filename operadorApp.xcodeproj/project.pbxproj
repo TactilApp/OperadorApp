@@ -67,6 +67,7 @@
 		B9AF9CF7165EA22300EFA1CF /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B9AF9CEC165EA22300EFA1CF /* AFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		B9AF9CF8165EA22300EFA1CF /* AFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B9AF9CEE165EA22300EFA1CF /* AFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		B9AF9CF9165EA22300EFA1CF /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = B9AF9CF0165EA22300EFA1CF /* UIImageView+AFNetworking.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		B9AF9CFD165EA49B00EFA1CF /* TOARequestKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = B9AF9CFC165EA49B00EFA1CF /* TOARequestKernel.m */; };
 		B9CD92B91624503200DA9B27 /* libGoogleAdMobAds.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CD92B81624503200DA9B27 /* libGoogleAdMobAds.a */; };
 		B9CD92BD1624505400DA9B27 /* libFlurryAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CD92BC1624505400DA9B27 /* libFlurryAnalytics.a */; };
 		B9CD9419162450C900DA9B27 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = B9CD93C8162450C900DA9B27 /* ASIAuthenticationDialog.m */; };
@@ -223,6 +224,8 @@
 		B9AF9CEE165EA22300EFA1CF /* AFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFXMLRequestOperation.m; sourceTree = "<group>"; };
 		B9AF9CEF165EA22300EFA1CF /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		B9AF9CF0165EA22300EFA1CF /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		B9AF9CFB165EA49B00EFA1CF /* TOARequestKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOARequestKernel.h; sourceTree = "<group>"; };
+		B9AF9CFC165EA49B00EFA1CF /* TOARequestKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOARequestKernel.m; sourceTree = "<group>"; };
 		B9CD92B21624503200DA9B27 /* GADBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerView.h; sourceTree = "<group>"; };
 		B9CD92B31624503200DA9B27 /* GADBannerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADBannerViewDelegate.h; sourceTree = "<group>"; };
 		B9CD92B41624503200DA9B27 /* GADInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GADInterstitial.h; sourceTree = "<group>"; };
@@ -477,6 +480,8 @@
 				B9D8CF93165705DF00F53CA6 /* Mail */,
 				B9714C861539C05900D37EBE /* Parser */,
 				B93362D4153A52670032C7C4 /* Publicidad */,
+				B9AF9CFB165EA49B00EFA1CF /* TOARequestKernel.h */,
+				B9AF9CFC165EA49B00EFA1CF /* TOARequestKernel.m */,
 			);
 			name = Controladores;
 			sourceTree = "<group>";
@@ -1036,6 +1041,7 @@
 				B9AF9CF7165EA22300EFA1CF /* AFURLConnectionOperation.m in Sources */,
 				B9AF9CF8165EA22300EFA1CF /* AFXMLRequestOperation.m in Sources */,
 				B9AF9CF9165EA22300EFA1CF /* UIImageView+AFNetworking.m in Sources */,
+				B9AF9CFD165EA49B00EFA1CF /* TOARequestKernel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

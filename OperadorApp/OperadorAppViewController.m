@@ -12,7 +12,13 @@
 #import "TACompanyView.h"
 #import "UIColor+Hex.h"
 
+#import "TOARequestKernel.h"
+
 #import "OAprivate-configure.h"
+
+
+#import "AFNetworking.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface OperadorAppViewController (){
     TACompanyView *_companyView;
@@ -58,6 +64,10 @@
     [self.view insertSubview:scroll atIndex:2];
 
     [super viewDidLoad];
+    
+#warning TMP
+    TOARequestKernel *kernel = [TOARequestKernel new];
+    [kernel doRequest];
     
     pantallaCarga = [[PantallaCarga alloc] iniciarEnVista:self.view];
 
@@ -355,7 +365,5 @@
 
 - (void)viewDidUnload{
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 @end
