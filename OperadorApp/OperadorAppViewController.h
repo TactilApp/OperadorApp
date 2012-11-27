@@ -64,6 +64,7 @@
     
     PantallaCarga *pantallaCarga;
 }
+@property (retain, nonatomic) IBOutlet UIImageView *imagenDelCaptcha;
 
 @property (nonatomic, retain) IBOutlet UIImageView *captcha;
 

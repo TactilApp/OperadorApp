@@ -40,6 +40,7 @@
     [pantallaCarga release];
     
     [_companyView release];
+    [_imagenDelCaptcha release];
     [super dealloc];
 }
 
@@ -67,7 +68,7 @@
     
 #warning TMP
     TOARequestKernel *kernel = [TOARequestKernel new];
-    [kernel doRequest];
+    [kernel doRequestWithCaptcha:self.imagenDelCaptcha];
     
     pantallaCarga = [[PantallaCarga alloc] iniciarEnVista:self.view];
 
@@ -85,6 +86,8 @@
         publicidad.hidden = TRUE;
 	}
 }
+
+
 
 
 -(void)cargarImagen{
@@ -364,6 +367,7 @@
 #pragma mark - Ciclo de vida
 
 - (void)viewDidUnload{
+    [self setImagenDelCaptcha:nil];
     [super viewDidUnload];
 }
 @end

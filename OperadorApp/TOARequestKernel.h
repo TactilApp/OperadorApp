@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface TOARequestKernel : NSObject
--(void)doRequest;
+@property (nonatomic, retain) UIImage *recaptcha;
+-(void)doRequestWithCaptcha:(UIImageView *)captchaImgView;
 @end
