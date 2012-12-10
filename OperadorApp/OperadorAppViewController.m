@@ -22,6 +22,7 @@
 
 @interface OperadorAppViewController (){
     TACompanyView *_companyView;
+    TOARequestKernel *kernel;
 }
 @end
 
@@ -41,6 +42,7 @@
     
     [_companyView release];
     [_imagenDelCaptcha release];
+    [_campoCaptcha release];
     [super dealloc];
 }
 
@@ -67,8 +69,9 @@
     [super viewDidLoad];
     
 #warning TMP
-    TOARequestKernel *kernel = [TOARequestKernel new];
-    [kernel doRequestWithCaptcha:self.imagenDelCaptcha];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(verCaptcha) name:TANOTIF_CAPTCHA_LOADED object:nil];
+    kernel = [TOARequestKernel new];
+    [kernel reloadCaptcha];
     
     pantallaCarga = [[PantallaCarga alloc] iniciarEnVista:self.view];
 
@@ -88,7 +91,9 @@
 }
 
 
-
+-(void)verCaptcha{
+    self.imagenDelCaptcha.image = kernel.recaptcha;
+}
 
 -(void)cargarImagen{
     NSURL *url = [NSURL URLWithString:CAPTCHA_URL];
@@ -106,6 +111,10 @@
     [captcha setImage:[[UIImage imageWithData:[request responseData]] usefulRectangle]];
     
     [request release];
+}
+
+- (IBAction)enviar:(id)sender {
+    [kernel doRequestForNumber:self.TFtelefono.text captcha:self.campoCaptcha.text];
 }
 
 -(IBAction)desplazarScroll:(id)sender{
@@ -368,6 +377,7 @@
 
 - (void)viewDidUnload{
     [self setImagenDelCaptcha:nil];
+    [self setCampoCaptcha:nil];
     [super viewDidUnload];
 }
 @end

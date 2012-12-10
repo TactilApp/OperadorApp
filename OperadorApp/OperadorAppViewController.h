@@ -78,7 +78,6 @@
 @property (nonatomic, retain) IBOutlet UITextField *codigoCaptcha;
 @property (nonatomic, retain) IBOutlet UITextField *TFtelefono;
 
-
 -(IBAction)desplazarScroll:(id)sender;
 
 -(void)ocultarTeclado;
@@ -95,6 +94,11 @@
 
 -(void)hacerPeticionCompleta;
 
+
+
+#warning TMP
+- (IBAction)enviar:(id)sender;
+@property (retain, nonatomic) IBOutlet UITextField *campoCaptcha;
 
 
     

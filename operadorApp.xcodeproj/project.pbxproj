@@ -336,6 +336,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B95DB2B8136898E000E87EB6 /* SystemConfiguration.framework in Frameworks */,
 				B954CEB415D1A57400E9E312 /* AudioToolbox.framework in Frameworks */,
 				B954CEB315D1A56F00E9E312 /* MessageUI.framework in Frameworks */,
 				B954CEB215D1A55000E9E312 /* CoreLocation.framework in Frameworks */,
@@ -346,7 +347,6 @@
 				B95DB2B31368987800E87EB6 /* CFNetwork.framework in Frameworks */,
 				B94FAD0D153A34B7001B7049 /* MobileCoreServices.framework in Frameworks */,
 				B94FAD0A153A342C001B7049 /* CoreGraphics.framework in Frameworks */,
-				B95DB2B8136898E000E87EB6 /* SystemConfiguration.framework in Frameworks */,
 				B94FAD08153A3329001B7049 /* iAd.framework in Frameworks */,
 				B90C713713733BA900BEFD81 /* StoreKit.framework in Frameworks */,
 				B95553E3136DFE1D0038DF00 /* AddressBook.framework in Frameworks */,
@@ -589,8 +589,8 @@
 			isa = PBXGroup;
 			children = (
 				B95DB29F1368966800E87EB6 /* OperadorAppViewController.xib */,
-				B95DB29D1368966000E87EB6 /* OperadorAppViewController.m */,
 				B95DB2A11368970E00E87EB6 /* OperadorAppViewController.h */,
+				B95DB29D1368966000E87EB6 /* OperadorAppViewController.m */,
 			);
 			name = Vista;
 			sourceTree = "<group>";

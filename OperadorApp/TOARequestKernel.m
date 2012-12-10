@@ -26,18 +26,12 @@ NSString * const recaptcha_image_base_URL    = @"http://www.google.com/recaptcha
 @end
 
 
-@implementation TOARequestKernel
--(void)doRequestWithCaptcha:(UIImageView *)captchaImgView{
-    // Obtenemos el cookie en la web de la CMT
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithString:cmt_iframe_URL]];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {}
-                                     failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                         NSLog(@"Error WEB CMT: %@", error);
-                                     }
-    ];
-    [operation start];
+@interface TOARequestKernel()
+    @property (nonatomic, retain) NSString *codigoJS;
+@end
 
-    
+@implementation TOARequestKernel
+-(void)reloadCaptcha{
     // Cargamos la imagen a partir del JS de Google
     AFHTTPRequestOperation *javascriptOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithString:recaptcha_js_base_URL]];
     [javascriptOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -54,18 +48,19 @@ NSString * const recaptcha_image_base_URL    = @"http://www.google.com/recaptcha
             NSLog(@"%@", errRegex);
         }
         
-        NSString *challenge = nil;
         if (coincidencias.count > 0){
             NSTextCheckingResult *resultado = (NSTextCheckingResult *)coincidencias[0];
-            challenge = [[strSource substringWithRange:[resultado rangeAtIndex:1]] retain];
+            self.codigoJS = [strSource substringWithRange:[resultado rangeAtIndex:1]];
         }
         
-        NSString *recaptcha_full_URL = [NSString stringWithFormat:@"%@%@", recaptcha_image_base_URL, challenge];
+        NSString *recaptcha_full_URL = [NSString stringWithFormat:@"%@%@", recaptcha_image_base_URL, self.codigoJS];
+        
+        NSLog(@"URL: %@", recaptcha_full_URL);
         
         AFHTTPRequestOperation *imagenRecaptcha = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithString:recaptcha_full_URL]];
         [imagenRecaptcha setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.recaptcha = [UIImage imageWithData:responseObject];
-            captchaImgView.image = self.recaptcha;
+            [[NSNotificationCenter defaultCenter] postNotificationName:TANOTIF_CAPTCHA_LOADED object:nil];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
         }];
@@ -74,5 +69,34 @@ NSString * const recaptcha_image_base_URL    = @"http://www.google.com/recaptcha
         NSLog(@"Error: %@", error);
     }];
     [javascriptOperation start];
+}
+
+
+
+-(void)doRequestForNumber:(NSString *)mobileNumber captcha:(NSString *)captchaStr{
+    /**
+         tb_numMov : <telefono>
+         recaptcha_challenge_field: codigo
+         recaptcha_response_field: <valor_del_captcha>
+         submit : Buscar
+         validar : 1
+         tipo : buscar
+     */
+    
+    NSURL *url = [NSURL URLWithString:@"http://www.cmt.es"];
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    NSDictionary *params = @{@"tb_numMov" : mobileNumber, @"recaptcha_challenge_field" : self.codigoJS, @"recaptcha_response_field" : captchaStr, @"submit" : @"Buscar", @"validar" : @1, @"tipo" : @"buscar"};
+    
+    NSLog(@"Enviando: \n%@", params);
+    
+    NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST" path:@"/pmovil/SelectOption.do" parameters:params];
+    
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"OK: \n%@", operation.responseString);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"FAIL! %@", error.description);
+    }];
+    [operation start];
 }
 @end
