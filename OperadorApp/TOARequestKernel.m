@@ -35,22 +35,26 @@ NSString * const recaptcha_image_base_URL    = @"http://www.google.com/recaptcha
     // Cargamos la imagen a partir del JS de Google
     AFHTTPRequestOperation *javascriptOperation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithString:recaptcha_js_base_URL]];
     [javascriptOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *strSource = operation.responseString;
+        NSString *strSource = [operation.responseString stringByReplacingOccurrencesOfString:@" " withString:@""];
+        
         NSError *errRegex = NULL;
         
         NSRegularExpression *regex = [NSRegularExpression
                                       regularExpressionWithPattern:@"challenge:'([A-Z0-9a-z._%+-]*)'"
-                                      options:NSRegularExpressionCaseInsensitive | NSRegularExpressionAllowCommentsAndWhitespace
+                                      options:NSRegularExpressionAllowCommentsAndWhitespace |  NSRegularExpressionUseUnixLineSeparators
                                       error:&errRegex];
         
         NSArray *coincidencias = [regex matchesInString:strSource options:0 range:NSMakeRange(0, strSource.length)];
         if (errRegex) {
-            NSLog(@"%@", errRegex);
+            NSLog(@"Error regex: %@", errRegex);
         }
         
         if (coincidencias.count > 0){
             NSTextCheckingResult *resultado = (NSTextCheckingResult *)coincidencias[0];
             self.codigoJS = [strSource substringWithRange:[resultado rangeAtIndex:1]];
+        }else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:TANOTIF_CAPTCHA_ERROR_LOAD object:nil];
+            return ;
         }
         
         NSString *recaptcha_full_URL = [NSString stringWithFormat:@"%@%@", recaptcha_image_base_URL, self.codigoJS];
@@ -60,10 +64,15 @@ NSString * const recaptcha_image_base_URL    = @"http://www.google.com/recaptcha
             self.recaptcha = [UIImage imageWithData:responseObject];
             [[NSNotificationCenter defaultCenter] postNotificationName:TANOTIF_CAPTCHA_LOADED object:nil];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"Se ha liado parda con el captcha: %@", error);
+            [[NSNotificationCenter defaultCenter] postNotificationName:TANOTIF_CAPTCHA_ERROR_LOAD object:nil];
+            return ;
         }];
         [imagenRecaptcha start];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        [[NSNotificationCenter defaultCenter] postNotificationName:TANOTIF_CAPTCHA_ERROR_LOAD object:nil];
+        return ;
     }];
     [javascriptOperation start];
 }

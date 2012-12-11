@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#define TANOTIF_CAPTCHA_LOADED             @"captchaCargado"
+#define TANOTIF_CAPTCHA_LOADED          @"captchaCargado"
+#define TANOTIF_CAPTCHA_ERROR_LOAD      @"errorAlCargarElCaptcha"
 
 @interface TOARequestKernel : NSObject
 @property (nonatomic, retain) UIImage *recaptcha;
