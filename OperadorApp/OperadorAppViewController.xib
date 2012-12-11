@@ -129,7 +129,7 @@
 					<object class="IBUIImageView" id="1058374803">
 						<reference key="NSNextResponder" ref="774585933"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{40, -20}, {240, 128}}</string>
+						<string key="NSFrame">{{51, 13}, {218, 84}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="134988259"/>
@@ -198,6 +198,16 @@
 							<double key="NSSize">14</double>
 							<int key="NSfFlags">16</int>
 						</object>
+					</object>
+					<object class="IBUIImageView" id="1000207536">
+						<reference key="NSNextResponder" ref="774585933"/>
+						<int key="NSvFlags">292</int>
+						<string key="NSFrame">{{40, 143}, {240, 128}}</string>
+						<reference key="NSSuperview" ref="774585933"/>
+						<reference key="NSWindow"/>
+						<string key="NSReuseIdentifierKey">_NS:9</string>
+						<bool key="IBUIUserInteractionEnabled">NO</bool>
+						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
@@ -751,6 +761,14 @@
 					<int key="connectionID">116</int>
 				</object>
 				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">captchaCompleto</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="1000207536"/>
+					</object>
+					<int key="connectionID">118</int>
+				</object>
+				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchEventConnection" key="connection">
 						<string key="label">paginaSiguiente:</string>
 						<reference key="source" ref="314228457"/>
@@ -951,9 +969,10 @@
 							<reference ref="915938789"/>
 							<reference ref="568821824"/>
 							<reference ref="363851575"/>
-							<reference ref="1058374803"/>
 							<reference ref="40232625"/>
 							<reference ref="134988259"/>
+							<reference ref="1000207536"/>
+							<reference ref="1058374803"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Pantalla principal</string>
@@ -1142,6 +1161,11 @@
 						<reference key="object" ref="134988259"/>
 						<reference key="parent" ref="774585933"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">117</int>
+						<reference key="object" ref="1000207536"/>
+						<reference key="parent" ref="774585933"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -1159,6 +1183,7 @@
 					<string>110.IBPluginDependency</string>
 					<string>112.IBPluginDependency</string>
 					<string>114.IBPluginDependency</string>
+					<string>117.IBPluginDependency</string>
 					<string>16.IBPluginDependency</string>
 					<string>19.IBPluginDependency</string>
 					<string>20.IBPluginDependency</string>
@@ -1213,6 +1238,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<real value="1"/>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -1253,7 +1279,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">116</int>
+			<int key="maxID">118</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1349,6 +1375,7 @@
 							<string>TFtelefono</string>
 							<string>campoCaptcha</string>
 							<string>captcha</string>
+							<string>captchaCompleto</string>
 							<string>codigoCaptcha</string>
 							<string>imagenDelCaptcha</string>
 							<string>informacion</string>
@@ -1361,6 +1388,7 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>UITextField</string>
 							<string>UITextField</string>
+							<string>UIImageView</string>
 							<string>UIImageView</string>
 							<string>UITextField</string>
 							<string>UIImageView</string>
@@ -1378,6 +1406,7 @@
 							<string>TFtelefono</string>
 							<string>campoCaptcha</string>
 							<string>captcha</string>
+							<string>captchaCompleto</string>
 							<string>codigoCaptcha</string>
 							<string>imagenDelCaptcha</string>
 							<string>informacion</string>
@@ -1398,6 +1427,10 @@
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">captcha</string>
+								<string key="candidateClassName">UIImageView</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">captchaCompleto</string>
 								<string key="candidateClassName">UIImageView</string>
 							</object>
 							<object class="IBToOneOutletInfo">

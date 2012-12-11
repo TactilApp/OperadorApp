@@ -55,14 +55,11 @@ NSString * const recaptcha_image_base_URL    = @"http://www.google.com/recaptcha
         
         NSString *recaptcha_full_URL = [NSString stringWithFormat:@"%@%@", recaptcha_image_base_URL, self.codigoJS];
         
-        NSLog(@"URL: %@", recaptcha_full_URL);
-        
         AFHTTPRequestOperation *imagenRecaptcha = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithString:recaptcha_full_URL]];
         [imagenRecaptcha setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             self.recaptcha = [UIImage imageWithData:responseObject];
             [[NSNotificationCenter defaultCenter] postNotificationName:TANOTIF_CAPTCHA_LOADED object:nil];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
         }];
         [imagenRecaptcha start];
     }failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -76,7 +73,7 @@ NSString * const recaptcha_image_base_URL    = @"http://www.google.com/recaptcha
 -(void)doRequestForNumber:(NSString *)mobileNumber captcha:(NSString *)captchaStr{
     /**
          tb_numMov : <telefono>
-         recaptcha_challenge_field: codigo
+         recaptcha_challenge_field: <codigo>
          recaptcha_response_field: <valor_del_captcha>
          submit : Buscar
          validar : 1

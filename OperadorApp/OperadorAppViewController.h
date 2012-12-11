@@ -99,6 +99,7 @@
 #warning TMP
 - (IBAction)enviar:(id)sender;
 @property (retain, nonatomic) IBOutlet UITextField *campoCaptcha;
+@property (retain, nonatomic) IBOutlet UIImageView *captchaCompleto;
 
 
     

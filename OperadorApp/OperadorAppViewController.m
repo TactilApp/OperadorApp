@@ -43,6 +43,7 @@
     [_companyView release];
     [_imagenDelCaptcha release];
     [_campoCaptcha release];
+    [_captchaCompleto release];
     [super dealloc];
 }
 
@@ -92,7 +93,9 @@
 
 
 -(void)verCaptcha{
-    self.imagenDelCaptcha.image = kernel.recaptcha;
+    self.captchaCompleto.image = kernel.recaptcha;
+    self.imagenDelCaptcha.image = [kernel.recaptcha usefulRectangle];
+    [kernel reloadCaptcha];
 }
 
 -(void)cargarImagen{
@@ -378,6 +381,7 @@
 - (void)viewDidUnload{
     [self setImagenDelCaptcha:nil];
     [self setCampoCaptcha:nil];
+    [self setCaptchaCompleto:nil];
     [super viewDidUnload];
 }
 @end
