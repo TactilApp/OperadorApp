@@ -43,7 +43,6 @@
     [_companyView release];
     [_imagenDelCaptcha release];
     [_campoCaptcha release];
-    [_captchaCompleto release];
     [super dealloc];
 }
 
@@ -71,7 +70,7 @@
     
 #warning TMP
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(verCaptcha) name:TANOTIF_CAPTCHA_LOADED object:nil];
-    kernel = [TOARequestKernel new];
+    kernel = [TOARequestKernel sharedRequestKernel];
     [kernel reloadCaptcha];
     
     pantallaCarga = [[PantallaCarga alloc] iniciarEnVista:self.view];
@@ -91,12 +90,26 @@
 	}
 }
 
-
--(void)verCaptcha{
-    self.captchaCompleto.image = kernel.recaptcha;
-    self.imagenDelCaptcha.image = [kernel.recaptcha usefulRectangle];
+- (IBAction)recargarCaptcha:(id)sender {
     [kernel reloadCaptcha];
 }
+
+-(void)verCaptcha{
+    self.imagenDelCaptcha.image = [kernel.recaptcha usefulRectangle];
+}
+
+- (IBAction)enviar:(id)sender {
+    [kernel doRequestForNumber:self.TFtelefono.text captcha:self.campoCaptcha.text success:^(NSString *companyString) {
+        [self mostrarAlertaConTitulo:@"Yuju!" mensaje:companyString];
+    } failure:^(NSError *error) {
+        [self mostrarAlertaConTitulo:@"FAIL!" mensaje:error.localizedDescription];
+        NSLog(@"%@", error.localizedFailureReason);
+    }];
+    
+    self.campoCaptcha.text = nil;
+    [kernel reloadCaptcha];
+}
+
 
 -(void)cargarImagen{
     NSURL *url = [NSURL URLWithString:CAPTCHA_URL];
@@ -116,9 +129,6 @@
     [request release];
 }
 
-- (IBAction)enviar:(id)sender {
-    [kernel doRequestForNumber:self.TFtelefono.text captcha:self.campoCaptcha.text];
-}
 
 -(IBAction)desplazarScroll:(id)sender{
     if ([sender tag] == PANTALLA_TELEFONO){

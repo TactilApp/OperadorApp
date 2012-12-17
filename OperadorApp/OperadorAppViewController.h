@@ -64,8 +64,6 @@
     
     PantallaCarga *pantallaCarga;
 }
-@property (retain, nonatomic) IBOutlet UIImageView *imagenDelCaptcha;
-
 @property (nonatomic, retain) IBOutlet UIImageView *captcha;
 
 @property (nonatomic, retain) IBOutlet UIScrollView *scroll;
@@ -99,7 +97,7 @@
 #warning TMP
 - (IBAction)enviar:(id)sender;
 @property (retain, nonatomic) IBOutlet UITextField *campoCaptcha;
-@property (retain, nonatomic) IBOutlet UIImageView *captchaCompleto;
+@property (retain, nonatomic) IBOutlet UIImageView *imagenDelCaptcha;
 
 
     

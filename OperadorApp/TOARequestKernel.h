@@ -13,6 +13,11 @@
 @interface TOARequestKernel : NSObject
 @property (nonatomic, retain) UIImage *recaptcha;
 
+
++ (id)sharedRequestKernel;
+
 -(void)reloadCaptcha;
--(void)doRequestForNumber:(NSString *)mobileNumber captcha:(NSString *)captchaStr;
+-(void)doRequestForNumber:(NSString *)mobileNumber captcha:(NSString *)captchaStr
+                  success:(void (^)(NSString *companyString))success
+                  failure:(void (^)(NSError *error))failure;
 @end
