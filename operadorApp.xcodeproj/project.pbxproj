@@ -48,7 +48,6 @@
 		B95DB0D413688D0400E87EB6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95DB0D313688D0400E87EB6 /* Foundation.framework */; };
 		B95DB0DF13688D0400E87EB6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B95DB0DE13688D0400E87EB6 /* main.m */; };
 		B95DB0E213688D0400E87EB6 /* OperadorAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B95DB0E113688D0400E87EB6 /* OperadorAppDelegate.m */; };
-		B95DB14B13688EAC00E87EB6 /* PantallaCarga.m in Sources */ = {isa = PBXBuildFile; fileRef = B95DB14A13688EAC00E87EB6 /* PantallaCarga.m */; };
 		B95DB1591368901200E87EB6 /* EnviarMail.m in Sources */ = {isa = PBXBuildFile; fileRef = B95DB1571368901200E87EB6 /* EnviarMail.m */; };
 		B95DB29E1368966000E87EB6 /* OperadorAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95DB29D1368966000E87EB6 /* OperadorAppViewController.m */; };
 		B95DB2A01368966800E87EB6 /* OperadorAppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95DB29F1368966800E87EB6 /* OperadorAppViewController.xib */; };
@@ -188,8 +187,6 @@
 		B95DB0DE13688D0400E87EB6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B95DB0E013688D0400E87EB6 /* OperadorAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OperadorAppDelegate.h; sourceTree = "<group>"; };
 		B95DB0E113688D0400E87EB6 /* OperadorAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OperadorAppDelegate.m; sourceTree = "<group>"; };
-		B95DB14913688EAC00E87EB6 /* PantallaCarga.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PantallaCarga.h; sourceTree = "<group>"; };
-		B95DB14A13688EAC00E87EB6 /* PantallaCarga.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PantallaCarga.m; sourceTree = "<group>"; };
 		B95DB1561368901200E87EB6 /* EnviarMail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnviarMail.h; sourceTree = "<group>"; };
 		B95DB1571368901200E87EB6 /* EnviarMail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EnviarMail.m; sourceTree = "<group>"; };
 		B95DB29D1368966000E87EB6 /* OperadorAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OperadorAppViewController.m; sourceTree = "<group>"; };
@@ -474,7 +471,6 @@
 				B9D8CF971657072B00F53CA6 /* Agenda */,
 				B9D8CF981657073600F53CA6 /* Captcha */,
 				B9CD91F116244A2000DA9B27 /* Companies */,
-				B9D8CF961657068E00F53CA6 /* Pantalla Carga */,
 				B9D8CF951657064E00F53CA6 /* Reseñas */,
 				B95DB2A21368980700E87EB6 /* Contenedor Web */,
 				B9D8CF93165705DF00F53CA6 /* Mail */,
@@ -861,15 +857,6 @@
 			name = "Reseñas";
 			sourceTree = "<group>";
 		};
-		B9D8CF961657068E00F53CA6 /* Pantalla Carga */ = {
-			isa = PBXGroup;
-			children = (
-				B95DB14913688EAC00E87EB6 /* PantallaCarga.h */,
-				B95DB14A13688EAC00E87EB6 /* PantallaCarga.m */,
-			);
-			name = "Pantalla Carga";
-			sourceTree = "<group>";
-		};
 		B9D8CF971657072B00F53CA6 /* Agenda */ = {
 			isa = PBXGroup;
 			children = (
@@ -992,7 +979,6 @@
 			files = (
 				B95DB0DF13688D0400E87EB6 /* main.m in Sources */,
 				B95DB0E213688D0400E87EB6 /* OperadorAppDelegate.m in Sources */,
-				B95DB14B13688EAC00E87EB6 /* PantallaCarga.m in Sources */,
 				B95DB1591368901200E87EB6 /* EnviarMail.m in Sources */,
 				B95DB29E1368966000E87EB6 /* OperadorAppViewController.m in Sources */,
 				B95DB2A61368981500E87EB6 /* ControladorWeb.m in Sources */,

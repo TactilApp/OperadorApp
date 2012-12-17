@@ -122,13 +122,6 @@ static TOARequestKernel *sharedRequestKernel = nil;
     [javascriptOperation start];
 }
 
-#warning Quitar
--(void)mostrarAlertaConTitulo:(NSString *)titulo mensaje:(NSString *)mensaje{
-    UIAlertView *alerta = [[UIAlertView alloc] initWithTitle:titulo message:mensaje delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
-    [alerta show];
-    [alerta release];
-}
-
 
 -(void)doRequestForNumber:(NSString *)mobileNumber captcha:(NSString *)captchaStr
                   success:(void (^)(NSString *companyString))success
