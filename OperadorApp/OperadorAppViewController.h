@@ -15,7 +15,6 @@
 
 #import "Agenda.h"
 
-#import "PantallaCarga.h"
 #import "ControladorWeb.h"
 #import "EnviarMail.h"
 
@@ -59,12 +58,7 @@
     UITextField *codigoCaptcha;
     
     UITextField *TFtelefono;
-    
-    NSString *companiaActual;
-    
-    PantallaCarga *pantallaCarga;
 }
-
 @property (nonatomic, retain) IBOutlet UIImageView *captcha;
 
 @property (nonatomic, retain) IBOutlet UIScrollView *scroll;
@@ -77,7 +71,6 @@
 @property (nonatomic, retain) IBOutlet UITextField *codigoCaptcha;
 @property (nonatomic, retain) IBOutlet UITextField *TFtelefono;
 
-
 -(IBAction)desplazarScroll:(id)sender;
 
 -(void)ocultarTeclado;
@@ -87,16 +80,8 @@
 -(IBAction)mostrarPantallaInformacion;
 -(IBAction)paginaSiguiente:(id)sender;
 
--(BOOL)analizarResultados:(NSString *)cadena;
+-(void)enviarPeticionCompleta;
 
--(void)cargarImagen;
--(void)mostrarAlertaConTitulo:(NSString *)titulo mensaje:(NSString *)mensaje;
-
--(void)hacerPeticionCompleta;
-
-
-
-    
 // Parafernalia de la pantalla de info
 -(IBAction)cargarWeb:(id)sender;
 -(IBAction)mandarMailAlSoporte;
@@ -110,6 +95,4 @@
 
 //Llamar
 -(IBAction)llamarAlTelefono;
-
-
 @end

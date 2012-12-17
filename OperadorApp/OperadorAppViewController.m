@@ -12,10 +12,17 @@
 #import "TACompanyView.h"
 #import "UIColor+Hex.h"
 
+#import "TOARequestKernel.h"
+
 #import "OAprivate-configure.h"
+
+
+#import "AFNetworking.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface OperadorAppViewController (){
     TACompanyView *_companyView;
+    TOARequestKernel *kernel;
 }
 @end
 
@@ -31,7 +38,6 @@
     [scroll release];
     
     [captcha release];
-    [pantallaCarga release];
     
     [_companyView release];
     [super dealloc];
@@ -59,7 +65,11 @@
 
     [super viewDidLoad];
     
-    pantallaCarga = [[PantallaCarga alloc] iniciarEnVista:self.view];
+#warning TMP
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(verCaptcha) name:TANOTIF_CAPTCHA_LOADED object:nil];
+    kernel = [TOARequestKernel sharedRequestKernel];
+    [kernel reloadCaptcha];
+    
 
     #warning Cambiar este texto en futuras versiones
     if ([Contador primeraCarga]){
@@ -76,24 +86,58 @@
 	}
 }
 
-
--(void)cargarImagen{
-    NSURL *url = [NSURL URLWithString:CAPTCHA_URL];
-    ASIHTTPRequest *request = [[ASIHTTPRequest alloc] initWithURL:url];
-    
-    [request startSynchronous];
-    
-    if ([[request responseCookies] count] > 0){
-        cookieSession = [[request responseCookies] objectAtIndex:0];
-        
-        [request setRequestCookies:[NSMutableArray arrayWithObject:cookieSession]];
-    }
-    [request startSynchronous];
-    
-    [captcha setImage:[[UIImage imageWithData:[request responseData]] usefulRectangle]];
-    
-    [request release];
+- (IBAction)recargarCaptcha:(id)sender {
+    [kernel reloadCaptcha];
 }
+
+-(void)verCaptcha{
+    self.captcha.image = [kernel.recaptcha usefulRectangle];
+}
+
+- (void)enviarPeticionCompleta{
+    [kernel doRequestForNumber:self.TFtelefono.text captcha:self.codigoCaptcha.text
+                       success:^(NSString *companyString) {
+                           [self loadCompanyView:companyString];
+                           [self irAPagina:PANTALLA_RESULTADOS];
+                       } failure:^(NSError *error) {
+                           [self mostrarAlertaConTitulo:@"FAIL!" mensaje:error.localizedDescription];
+                           NSLog(@"%@", error.localizedFailureReason);
+                       }];
+    
+    self.codigoCaptcha.text = nil;
+    [kernel reloadCaptcha];
+}
+
+-(void)loadCompanyView:(NSString *)companyString{
+    NSDictionary *plistData = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"companies-color.plist"]];
+    NSString *companyKey = @"Default";
+    bool findFlag = false;
+    
+    for(NSString *key in plistData){
+        NSArray *companyStrings = [[plistData objectForKey:key] objectForKey:@"strings"];
+        for (NSString *companyTmp in companyStrings){
+            if ([companyString isEqualToString:companyTmp]){
+                companyKey = key;
+                break;
+            }
+        }
+        
+        if (findFlag)
+            break;
+        else
+            [FlurryAnalytics logEvent:@"New Company" withParameters:[NSDictionary dictionaryWithObject:companyString forKey:@"stringFromCMT"]];
+    }
+    
+    UIColor *topColor = [UIColor colorWithHexString:[[plistData objectForKey:companyKey] objectForKey:@"top"]];
+    UIColor *bottomColor = [UIColor colorWithHexString:[[plistData objectForKey:companyKey] objectForKey:@"bottom"]];
+    if (findFlag)  companyKey = companyString;
+    
+    [_companyView removeFromSuperview];
+    _companyView = [[TACompanyView alloc] initWithFrame:CGRectMake(0, 110, 261, 50) topColor:topColor bottomColor:bottomColor text:companyKey];
+    [self.paso3 addSubview:_companyView];
+    [_companyView release];
+}
+
 
 -(IBAction)desplazarScroll:(id)sender{
     if ([sender tag] == PANTALLA_TELEFONO){
@@ -116,48 +160,9 @@
 
 #pragma mark - Peticiones y análisis de los resultados
 
--(void)hacerPeticionCompleta{
-    NSURL *url = [NSURL URLWithString:POST_URL];
-    ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:url];
-    [request setRequestCookies:[NSMutableArray arrayWithObject:cookieSession]];
-   
-    [request setPostValue:TFtelefono.text forKey:@"tb_numMov"];
-    [request setPostValue:[codigoCaptcha text] forKey:@"jcaptcha"];
-    [request setPostValue:@"Buscar" forKey:@"Submit"];
-    [request setPostValue:@"1" forKey:@"validar"];
-    [request setPostValue:@"buscar" forKey:@"tipo"];
-    [request setDelegate:self];
-    [request startAsynchronous];
-}
-
-
-- (void)requestFinished:(ASIHTTPRequest *)request{
-    //Comprueba los resultados de analizar la cadena de la web
-    if ([[request.url absoluteString] isEqualToString:POST_URL]){
-        if ([self analizarResultados:[request responseString]]){
-            [self irAPagina:PANTALLA_RESULTADOS];
-        }else{
-            [self irAPagina:PANTALLA_TELEFONO];
-            [codigoCaptcha setText:@""];
-        }
-        [pantallaCarga hide];
-    }
-}
-
-- (void)requestFailed:(ASIHTTPRequest *)request{
-    NSError *error = [request error];
-    [self mostrarAlertaConTitulo:@"Ha ocurrido un error" mensaje:[error description]];
-
-    NSDictionary *dictData = [NSDictionary dictionaryWithObject:[error description] forKey:@"Error"];
-    [FlurryAnalytics logEvent:@"Request Failed" withParameters:dictData];
-    
-    [pantallaCarga hide];
-    [self irAPagina:PANTALLA_TELEFONO];
-    [codigoCaptcha setText:@""];
-}
-
-
 -(BOOL)analizarResultados:(NSString *)cadena{
+    NSString *companiaActual = nil;
+    
     @try {
         companiaActual = [TAParserOperadorApp parsearStringWebCMT:cadena];   
     }@catch (NSException *exception) {
@@ -251,7 +256,6 @@
                 return FALSE;
             }
 
-            [self cargarImagen];
             [codigoCaptcha setText:@""];
             
             [self irAPagina:PANTALLA_CAPTCHA];
@@ -261,11 +265,10 @@
             break;
             
         case PANTALLA_RESULTADOS:
-            [pantallaCarga show];
             [self ocultarTecladoYColocarScroll];
             
             // Enviar la solicitud y esperar a la respuesta
-            [self hacerPeticionCompleta];            
+            [self enviarPeticionCompleta];
             break;
             
         case PANTALLA_INFORMACION:
@@ -355,7 +358,5 @@
 
 - (void)viewDidUnload{
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 @end

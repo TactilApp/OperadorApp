@@ -32,6 +32,7 @@
         
         NSDictionary *dictData = [NSDictionary dictionaryWithObject:stringDeError forKey:@"Error"];
         [FlurryAnalytics logEvent:@"Errores Analisis" withParameters:dictData];
+
         
         [NSException raise:keCaptchaTelefono format:@"%@", stringDeError];
     }

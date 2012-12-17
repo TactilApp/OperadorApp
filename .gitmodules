@@ -7,3 +7,6 @@
 [submodule "ThirdParty/ElementParser"]
 	path = ThirdParty/ElementParser
 	url = git@github.com:Objective3/ElementParser.git
+[submodule "ThirdParty/AFNetworking"]
+	path = ThirdParty/AFNetworking
+	url = git@github.com:patoroco/AFNetworking.git
