@@ -1,9 +1,6 @@
 [submodule "Companies"]
 	path = Companies
 	url = git@github.com:TactilApp/OperadorApp-Companies.git
-[submodule "ThirdParty/ASIHTTPRequest"]
-	path = ThirdParty/ASIHTTPRequest
-	url = https://github.com/pokeb/asi-http-request.git
 [submodule "ThirdParty/ElementParser"]
 	path = ThirdParty/ElementParser
 	url = git@github.com:Objective3/ElementParser.git
