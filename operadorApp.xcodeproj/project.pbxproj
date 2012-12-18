@@ -116,6 +116,7 @@
 		B9F018C716809AAB00801F74 /* OAPatternContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F018C616809AAA00801F74 /* OAPatternContainer.m */; };
 		B9F018D316810B1D00801F74 /* refresh_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B9F018D116810B1D00801F74 /* refresh_icon.png */; };
 		B9F018D416810B1D00801F74 /* refresh_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9F018D216810B1D00801F74 /* refresh_icon@2x.png */; };
+		B9F018D71681135600801F74 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F018D61681135600801F74 /* MBProgressHUD.m */; };
 		B9F2D77F16584A290003CEE5 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9F2D77E16584A290003CEE5 /* AirshipConfig.plist */; };
 		CF4155D916068A6300E488ED /* UIImage+CropCaptcha.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4155D816068A6300E488ED /* UIImage+CropCaptcha.m */; };
 /* End PBXBuildFile section */
@@ -318,6 +319,8 @@
 		B9F018C616809AAA00801F74 /* OAPatternContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAPatternContainer.m; sourceTree = "<group>"; };
 		B9F018D116810B1D00801F74 /* refresh_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = refresh_icon.png; sourceTree = "<group>"; };
 		B9F018D216810B1D00801F74 /* refresh_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh_icon@2x.png"; sourceTree = "<group>"; };
+		B9F018D51681135600801F74 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = ThirdParty/MBProgressHUD/MBProgressHUD.h; sourceTree = "<group>"; };
+		B9F018D61681135600801F74 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = ThirdParty/MBProgressHUD/MBProgressHUD.m; sourceTree = "<group>"; };
 		B9F2D77E16584A290003CEE5 /* AirshipConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = AirshipConfig.plist; path = configuracion/AirshipConfig.plist; sourceTree = SOURCE_ROOT; };
 		CF4155D716068A6300E488ED /* UIImage+CropCaptcha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CropCaptcha.h"; sourceTree = "<group>"; };
 		CF4155D816068A6300E488ED /* UIImage+CropCaptcha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CropCaptcha.m"; sourceTree = "<group>"; };
@@ -423,6 +426,7 @@
 				B937A97A1625928B00C5B868 /* EDColor */,
 				B90EB598165E5EB700A49A0A /* ElementParser */,
 				B9CD92BA1624505400DA9B27 /* FlurryAnalytics */,
+				B9F018D81681135E00801F74 /* MBProgressHUD */,
 				B9CD94931624575000DA9B27 /* MKStoreKit */,
 				B9F0188A167FF8B900801F74 /* TestFlightSDK1.1 */,
 				B954CEAF15D1A4E600E9E312 /* UrbanAirship */,
@@ -459,8 +463,7 @@
 				B9D8CF93165705DF00F53CA6 /* Mail */,
 				B9714C861539C05900D37EBE /* Parser */,
 				B93362D4153A52670032C7C4 /* Publicidad */,
-				B9AF9CFB165EA49B00EFA1CF /* TOARequestKernel.h */,
-				B9AF9CFC165EA49B00EFA1CF /* TOARequestKernel.m */,
+				B9F018DD1681254F00801F74 /* Request Kernel */,
 			);
 			name = Controladores;
 			sourceTree = "<group>";
@@ -538,14 +541,14 @@
 		B95DB0D713688D0400E87EB6 /* OperadorApp */ = {
 			isa = PBXGroup;
 			children = (
+				B9F0187F167FE1AC00801F74 /* TAHelper.h */,
+				B9F01880167FE1AC00801F74 /* TAHelper.m */,
 				B95DB0E013688D0400E87EB6 /* OperadorAppDelegate.h */,
 				B95DB0E113688D0400E87EB6 /* OperadorAppDelegate.m */,
 				B94FAD10153A369E001B7049 /* Controladores */,
 				B95DB15413688FC700E87EB6 /* Vista */,
 				B9D8CF45165700E400F53CA6 /* Recursos */,
 				B95DB0D813688D0400E87EB6 /* Supporting Files */,
-				B9F0187F167FE1AC00801F74 /* TAHelper.h */,
-				B9F01880167FE1AC00801F74 /* TAHelper.m */,
 			);
 			path = OperadorApp;
 			sourceTree = "<group>";
@@ -855,6 +858,24 @@
 			path = TestFlightSDK1.1;
 			sourceTree = "<group>";
 		};
+		B9F018D81681135E00801F74 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				B9F018D51681135600801F74 /* MBProgressHUD.h */,
+				B9F018D61681135600801F74 /* MBProgressHUD.m */,
+			);
+			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		B9F018DD1681254F00801F74 /* Request Kernel */ = {
+			isa = PBXGroup;
+			children = (
+				B9AF9CFB165EA49B00EFA1CF /* TOARequestKernel.h */,
+				B9AF9CFC165EA49B00EFA1CF /* TOARequestKernel.m */,
+			);
+			name = "Request Kernel";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1008,6 +1029,7 @@
 				B9F01881167FE1AC00801F74 /* TAHelper.m in Sources */,
 				B9F018B31680980100801F74 /* OAPatternBackground.m in Sources */,
 				B9F018C716809AAB00801F74 /* OAPatternContainer.m in Sources */,
+				B9F018D71681135600801F74 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

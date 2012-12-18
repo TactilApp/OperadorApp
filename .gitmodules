@@ -7,3 +7,6 @@
 [submodule "ThirdParty/AFNetworking"]
 	path = ThirdParty/AFNetworking
 	url = git@github.com:patoroco/AFNetworking.git
+[submodule "ThirdParty/MBProgressHUD"]
+	path = ThirdParty/MBProgressHUD
+	url = git@github.com:jdg/MBProgressHUD.git

@@ -7,18 +7,19 @@
 //
 
 #import "OperadorAppViewController.h"
-#import "TAParserOperadorApp.h"
-#import "UIImage+CropCaptcha.h"
-#import "TACompanyView.h"
+
 #import "UIColor+Hex.h"
 
+#import "TAParserOperadorApp.h"
+#import "TAPublicidadView.h"
 #import "TOARequestKernel.h"
-
-#import "OAprivate-configure.h"
-
-
-#import "AFNetworking.h"
-#import "UIImageView+AFNetworking.h"
+#import "TACompanyView.h"
+#import "UIImage+CropCaptcha.h"
+#import "Contador.h"
+#import "SugerirResena.h"
+#import "Agenda.h"
+#import "ControladorWeb.h"
+#import "EnviarMail.h"
 
 
 /*
@@ -51,6 +52,7 @@ const float scrollMarginX   = 30;
     TACompanyView *_companyView;
     TOARequestKernel *kernel;
     UIScrollView *_scroll;
+    MBProgressHUD *HUD;
 }
 @end
 
@@ -102,12 +104,6 @@ const float scrollMarginX   = 30;
     [_scroll addSubview:self.paso2];
     [_scroll addSubview:self.paso3];
     
-    #warning Cambiar este texto en futuras versiones
-    if ([Contador primeraCarga]){
-        [TAHelper mostrarAlertaConTitulo:[NSString stringWithFormat:@"OperadorApp %@", kVERSION] mensaje:[NSString stringWithFormat:@"Hola, bienvenido a OperadorApp %@. Ésta es la última versión de la aplicación compatible con iOS4, por lo que si tienes una versión anterior, aconsejamos actualizar tu dispositivo para poder seguir disfrutando de las mejoras de OperadorApp en futuras versiones.", kVERSION]];
-        [self intentaIrAPagina:scrINFO];
-    }
-    
     
     // Add ad view
     TAPublicidadView *publicidad = [[TAPublicidadView alloc] initWithFrame:CGRectMake(0, screenHeight - 20 - ADSHEIGHT, WIDTH(self.view), ADSHEIGHT)];
@@ -121,6 +117,20 @@ const float scrollMarginX   = 30;
 	if([MKStoreManager isFeaturePurchased:AGENDA_PRODUCT_ID]){
         publicidad.hidden = TRUE;
 	}
+    
+
+    // Add HUD to the screen
+	HUD = [[MBProgressHUD alloc] initWithView:self.view];
+	[self.view addSubview:HUD];
+	HUD.delegate = self;
+    
+    
+    if ([Contador primeraCarga]){
+    //  NSString *title = [NSString stringWithFormat:@"OperadorApp %@", kVERSION];
+    //  NSString *description = [NSString stringWithFormat:@"Hola, bienvenido a OperadorApp %@. Ésta es la última versión de la aplicación compatible con iOS4, por lo que si tienes una versión anterior, aconsejamos actualizar tu dispositivo para poder seguir disfrutando de las mejoras de OperadorApp en futuras versiones.", kVERSION];
+    //  [TAHelper mostrarAlertaConTitulo:title mensaje:description];
+        [self intentaIrAPagina:scrINFO];
+    }
 }
 
 - (IBAction)recargarCaptcha:(id)sender {
@@ -133,18 +143,36 @@ const float scrollMarginX   = 30;
 }
 
 - (void)enviarPeticionCompleta{
+    [self ocultarTecladoYColocarScroll];
+    HUD.mode = MBProgressHUDModeIndeterminate;
+    HUD.labelText = @"Cargando";
+	HUD.detailsLabelText = @"Realizando consulta a la CMT";
+	HUD.square = NO;
+    [HUD show:YES];
+
     [kernel doRequestForNumber:self.TFtelefono.text captcha:self.codigoCaptcha.text
                        success:^(NSString *companyString) {
+                           [HUD hide:YES];
+
                            [self loadCompanyView:companyString];
                            [self goToPage:scrRESULT];
                            self.codigoCaptcha.text = nil;
                            [kernel reloadCaptcha];
                        } failure:^(NSError *error) {
+                           HUD.mode = MBProgressHUDModeText;
+                           HUD.labelText = @"Error";
+                           HUD.detailsLabelText = error.localizedDescription;
+                           
+                           [HUD hide:YES afterDelay:1];
+                           [self performSelector:@selector(captchaBecomeFirstResponder) withObject:nil afterDelay:1];
+                           
                            self.codigoCaptcha.text = nil;
                            [kernel reloadCaptcha];
-                           [TAHelper mostrarAlertaConTitulo:@"FAIL!" mensaje:error.localizedDescription];
-                           NSLog(@"%@", error.localizedFailureReason);
                        }];
+}
+
+-(void)captchaBecomeFirstResponder{
+   [self.codigoCaptcha becomeFirstResponder];
 }
 
 -(void)loadCompanyView:(NSString *)companyString{
@@ -233,7 +261,11 @@ const float scrollMarginX   = 30;
         case scrCAPTCHA:
             // Comprobar longitud del teléfono
             if ([self.TFtelefono.text length] != minPHONELength){
-                [TAHelper mostrarAlertaConTitulo:@"Error" mensaje:@"El teléfono introducido no es válido"];
+                HUD.mode = MBProgressHUDModeText;
+                HUD.labelText = @"Error";
+                HUD.detailsLabelText = @"El teléfono introducido no es válido";
+                [HUD show:YES];
+                [HUD hide:YES afterDelay:1];
                 return FALSE;
             }
             
@@ -241,7 +273,7 @@ const float scrollMarginX   = 30;
             self.codigoCaptcha.text = nil;
             
             [self goToPage:scrCAPTCHA];
-            [self.codigoCaptcha becomeFirstResponder];
+            [self captchaBecomeFirstResponder];
             break;
             
         case scrRESULT:
@@ -322,6 +354,7 @@ const float scrollMarginX   = 30;
         return ;
     }
     [self presentModalViewController:webACargar animated:YES];
+    [webACargar release];
 }
 
 -(IBAction)mandarMailAlSoporte{

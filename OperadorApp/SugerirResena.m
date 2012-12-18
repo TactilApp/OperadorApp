@@ -7,8 +7,6 @@
 //
 
 #import "SugerirResena.h"
-#import "OAprivate-configure.h"
-
 
 @implementation SugerirResena
 
