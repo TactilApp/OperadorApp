@@ -95,9 +95,6 @@ const float scrollMarginX   = 30;
 
     [self.paso2 setFrame:CGRectMake(0, HEIGHT(_scroll)*2, WIDTH(_scroll), HEIGHT(_scroll))];
     [self.paso3 setFrame:CGRectMake(0, HEIGHT(_scroll)*3, WIDTH(_scroll), HEIGHT(_scroll))];
-
-    #warning Delete on production
-        self.TFtelefono.text = @"651234567";
     
     [_scroll addSubview:self.informacion];
     [_scroll addSubview:self.paso1];
