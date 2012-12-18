@@ -159,13 +159,13 @@ static TOARequestKernel *sharedRequestKernel = nil;
         }@catch (NSException *exception) {
             if ([exception.name isEqualToString:keCaptchaTelefono]){
                 failure([NSError errorWithDomain:@"OperadorApp" code:1001 userInfo:
-                         @{NSLocalizedFailureReasonErrorKey : exception.description, NSLocalizedDescriptionKey : @"Error en datos"}]);
+                         @{NSLocalizedFailureReasonErrorKey : exception.description, NSLocalizedDescriptionKey : @"Error en datos."}]);
             }else if([exception.name isEqualToString:keDesconocido]){
                 failure([NSError errorWithDomain:@"OperadorApp" code:1002 userInfo:
-                         @{NSLocalizedFailureReasonErrorKey : exception.description, NSLocalizedDescriptionKey : @"Error desconocido"}]);
+                         @{NSLocalizedFailureReasonErrorKey : exception.description, NSLocalizedDescriptionKey : @"Error desconocido."}]);
             }else if([exception.name isEqualToString:keParseHTML]){
                 failure([NSError errorWithDomain:@"OperadorApp" code:1003 userInfo:
-                         @{NSLocalizedFailureReasonErrorKey : exception.description, NSLocalizedDescriptionKey : @"Error al parsear"}]);
+                         @{NSLocalizedFailureReasonErrorKey : exception.description, NSLocalizedDescriptionKey : @"Error al parsear."}]);
             }
             return ;
         }

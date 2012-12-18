@@ -463,8 +463,7 @@
 				B9D8CF93165705DF00F53CA6 /* Mail */,
 				B9714C861539C05900D37EBE /* Parser */,
 				B93362D4153A52670032C7C4 /* Publicidad */,
-				B9AF9CFB165EA49B00EFA1CF /* TOARequestKernel.h */,
-				B9AF9CFC165EA49B00EFA1CF /* TOARequestKernel.m */,
+				B9F018DD1681254F00801F74 /* Request Kernel */,
 			);
 			name = Controladores;
 			sourceTree = "<group>";
@@ -542,14 +541,14 @@
 		B95DB0D713688D0400E87EB6 /* OperadorApp */ = {
 			isa = PBXGroup;
 			children = (
+				B9F0187F167FE1AC00801F74 /* TAHelper.h */,
+				B9F01880167FE1AC00801F74 /* TAHelper.m */,
 				B95DB0E013688D0400E87EB6 /* OperadorAppDelegate.h */,
 				B95DB0E113688D0400E87EB6 /* OperadorAppDelegate.m */,
 				B94FAD10153A369E001B7049 /* Controladores */,
 				B95DB15413688FC700E87EB6 /* Vista */,
 				B9D8CF45165700E400F53CA6 /* Recursos */,
 				B95DB0D813688D0400E87EB6 /* Supporting Files */,
-				B9F0187F167FE1AC00801F74 /* TAHelper.h */,
-				B9F01880167FE1AC00801F74 /* TAHelper.m */,
 			);
 			path = OperadorApp;
 			sourceTree = "<group>";
@@ -866,6 +865,15 @@
 				B9F018D61681135600801F74 /* MBProgressHUD.m */,
 			);
 			name = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		B9F018DD1681254F00801F74 /* Request Kernel */ = {
+			isa = PBXGroup;
+			children = (
+				B9AF9CFB165EA49B00EFA1CF /* TOARequestKernel.h */,
+				B9AF9CFC165EA49B00EFA1CF /* TOARequestKernel.m */,
+			);
+			name = "Request Kernel";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

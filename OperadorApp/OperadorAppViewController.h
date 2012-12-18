@@ -8,15 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Contador.h"
-#import "SugerirResena.h"
-
-#import "Agenda.h"
-
-#import "ControladorWeb.h"
-#import "EnviarMail.h"
-
-#import "TAPublicidadView.h"
+#import "MBProgressHUD.h"
 
 #define URL_TACTILAPP   @"http://tactilapp.com"
 #define URL_CMT     @"http://www.cmt.es/estado-portabilidad-movil"
@@ -24,7 +16,7 @@
 #define CAPTCHA_URL @"http://www.cmt.es/pmovil/jcaptcha.jpg"
 
 
-@interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
+@interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
 @property (nonatomic, retain) IBOutlet UIView *informacion;
 @property (nonatomic, retain) IBOutlet UIView *paso1;
 @property (nonatomic, retain) IBOutlet UIView *paso2;
