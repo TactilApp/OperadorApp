@@ -24,29 +24,7 @@
 #define CAPTCHA_URL @"http://www.cmt.es/pmovil/jcaptcha.jpg"
 
 
-#define SCROLL_HEIGHT   347
-#define SCROLL_WIDTH    260
-
-#define PANTALLA_INFORMACION    0
-#define PANTALLA_TELEFONO       1
-#define PANTALLA_CAPTCHA        2
-#define PANTALLA_RESULTADOS     3
-
-#define ALERTA_NUMERO_SIN_IMAGEN    56
-
-//  Constantes sobre el tama–o de los strings que se est‡n solicitando
-#define LONGITUD_TELEFONO   9
-
-#define BOTON_WEB_CMT       0
-#define BOTON_SOPORTE       1
-#define BOTON_WEB_TACTILAPP 2
-
-
 @interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
-
-
-@property (nonatomic, retain) IBOutlet UIScrollView *scroll;
-
 @property (nonatomic, retain) IBOutlet UIView *informacion;
 @property (nonatomic, retain) IBOutlet UIView *paso1;
 @property (nonatomic, retain) IBOutlet UIView *paso2;
@@ -59,10 +37,10 @@
 
 -(IBAction)desplazarScroll:(id)sender;
 
--(void)ocultarTeclado;
+-(void)hideKeyboard;
 -(IBAction)ocultarTecladoYColocarScroll;
 
--(void)irAPagina:(int)pagina;
+-(void)goToPage:(int)pagina;
 -(IBAction)mostrarPantallaInformacion;
 -(IBAction)paginaSiguiente:(id)sender;
 

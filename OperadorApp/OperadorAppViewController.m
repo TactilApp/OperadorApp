@@ -20,9 +20,37 @@
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 
+
+/*
+   *************
+   * CONSTANTS *
+   *************
+*/
+
+// Screen tags
+#define scrINFO         0
+#define scrTELEPHONE    1
+#define scrCAPTCHA      2
+#define scrRESULT       3
+
+
+// Layout constants
+const float headHeight      = 58;
+const float scrollMarginX   = 30;
+
+// Info screen
+#define BOTON_WEB_CMT       0
+#define BOTON_SOPORTE       1
+#define BOTON_WEB_TACTILAPP 2
+
+// Misc constants
+#define minPHONELength  9
+
+
 @interface OperadorAppViewController (){
     TACompanyView *_companyView;
     TOARequestKernel *kernel;
+    UIScrollView *_scroll;
 }
 @end
 
@@ -41,42 +69,54 @@
 }
 
 #pragma mark - View lifecycle
-
 - (void)viewDidLoad{
-    [self.scroll setContentSize:CGSizeMake(SCROLL_WIDTH, SCROLL_HEIGHT*4)];
-    [self.scroll setFrame:CGRectMake(30, 65, SCROLL_WIDTH, SCROLL_HEIGHT)];
-
-    [self.paso1 setFrame:CGRectMake(0, SCROLL_HEIGHT, SCROLL_WIDTH, SCROLL_HEIGHT)];
-    [super viewDidLoad];
-
-    [self.informacion setFrame:CGRectMake(0, 0, SCROLL_WIDTH, SCROLL_HEIGHT)];
-
-    [self.paso2 setFrame:CGRectMake(0, SCROLL_HEIGHT*2, SCROLL_WIDTH, SCROLL_HEIGHT)];
-    [self.paso3 setFrame:CGRectMake(0, SCROLL_HEIGHT*3, SCROLL_WIDTH, SCROLL_HEIGHT)];
+    // Init the scroll
+    float screenHeight = [UIScreen mainScreen].bounds.size.height;
+    _scroll = [[UIScrollView alloc] initWithFrame:
+               CGRectMake(scrollMarginX, headHeight,
+                          320 - 2 * scrollMarginX, screenHeight - 20 - headHeight - ADSHEIGHT)];
+    _scroll.scrollEnabled = FALSE;
+    _scroll.pagingEnabled = TRUE;
+    _scroll.showsVerticalScrollIndicator = FALSE;
+    [_scroll setContentSize:CGSizeMake(WIDTH(_scroll), HEIGHT(_scroll)*4)];
+    [_scroll setContentOffset:CGPointMake(0, HEIGHT(_scroll))];    // (info = 0; first page = 1)
+    [self.view addSubview:_scroll];
     
-    [self.scroll addSubview:self.informacion];
-    [self.scroll addSubview:self.paso1];
-    [self.scroll addSubview:self.paso2];
-    [self.scroll addSubview:self.paso3];
-    
-    [self.scroll setContentOffset:CGPointMake(0, SCROLL_HEIGHT)];
-    
-    [self.view insertSubview:self.scroll atIndex:2];
-
-
-    
+    // Add steps
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(verCaptcha) name:TANOTIF_CAPTCHA_LOADED object:nil];
     kernel = [TOARequestKernel sharedRequestKernel];
+    
+    [self.paso1 setFrame:CGRectMake(0, HEIGHT(_scroll), WIDTH(_scroll), HEIGHT(_scroll))];
+    [super viewDidLoad];
 
+    [self.informacion setFrame:CGRectMake(0, 0, WIDTH(_scroll), HEIGHT(_scroll))];
+
+    [self.paso2 setFrame:CGRectMake(0, HEIGHT(_scroll)*2, WIDTH(_scroll), HEIGHT(_scroll))];
+    [self.paso3 setFrame:CGRectMake(0, HEIGHT(_scroll)*3, WIDTH(_scroll), HEIGHT(_scroll))];
+
+    #warning Delete on production
+        self.TFtelefono.text = @"651234567";
+    
+    [_scroll addSubview:self.informacion];
+    [_scroll addSubview:self.paso1];
+    [_scroll addSubview:self.paso2];
+    [_scroll addSubview:self.paso3];
+    
     #warning Cambiar este texto en futuras versiones
     if ([Contador primeraCarga]){
         [TAHelper mostrarAlertaConTitulo:[NSString stringWithFormat:@"OperadorApp %@", kVERSION] mensaje:[NSString stringWithFormat:@"Hola, bienvenido a OperadorApp %@. Ésta es la última versión de la aplicación compatible con iOS4, por lo que si tienes una versión anterior, aconsejamos actualizar tu dispositivo para poder seguir disfrutando de las mejoras de OperadorApp en futuras versiones.", kVERSION]];
-        [self intentaIrAPagina:PANTALLA_INFORMACION];
+        [self intentaIrAPagina:scrINFO];
     }
     
-    TAPublicidadView *publicidad = [[TAPublicidadView alloc] initWithRootViewController:self];
+    
+    // Add ad view
+    TAPublicidadView *publicidad = [[TAPublicidadView alloc] initWithFrame:CGRectMake(0, screenHeight - 20 - ADSHEIGHT, WIDTH(self.view), ADSHEIGHT)];
+    publicidad.rootViewController = self;
+    [publicidad loadAds];
+    
     [self.view addSubview:publicidad];
     [publicidad release];
+
 
 	if([MKStoreManager isFeaturePurchased:AGENDA_PRODUCT_ID]){
         publicidad.hidden = TRUE;
@@ -84,6 +124,7 @@
 }
 
 - (IBAction)recargarCaptcha:(id)sender {
+    self.codigoCaptcha.text = nil;
     [kernel reloadCaptcha];
 }
 
@@ -95,7 +136,7 @@
     [kernel doRequestForNumber:self.TFtelefono.text captcha:self.codigoCaptcha.text
                        success:^(NSString *companyString) {
                            [self loadCompanyView:companyString];
-                           [self irAPagina:PANTALLA_RESULTADOS];
+                           [self goToPage:scrRESULT];
                            self.codigoCaptcha.text = nil;
                            [kernel reloadCaptcha];
                        } failure:^(NSError *error) {
@@ -141,18 +182,16 @@
 }
 
 
--(IBAction)desplazarScroll:(id)sender{
-    if ([sender tag] == PANTALLA_TELEFONO){
-        //Al sacar el teclado en el paso 1, se desplaza el scroll hacia arriba para ver bien el botón
-        // 20 es el margen por encima del botón
-        int nuevoHeigth = (PANTALLA_TELEFONO * SCROLL_HEIGHT) + 20;
-        [self.scroll setContentOffset:CGPointMake(0, nuevoHeigth) animated:YES];
-    }
-    if ([sender tag] == PANTALLA_CAPTCHA){
-        //Al sacar el teclado en el paso 2, se desplaza el scroll hacia arriba para ver bien el texto
-        // 62 = 20 de margen + 42 que ocupa el botón
-        int nuevoHeigth = (PANTALLA_CAPTCHA * SCROLL_HEIGHT) + 82;
-        [self.scroll setContentOffset:CGPointMake(0, nuevoHeigth) animated:YES];
+-(IBAction)desplazarScroll:(UIButton *)sender{
+    // On iPhone 5 isn't necessary to move the scroll because keyboard never hide the fields.
+    if ([TAHelper isIphone4]){
+        // When keyboard is showed in step 1, scroll is moved to up to show well top-button.
+        int newHeight = (sender.tag * HEIGHT(_scroll)) + 14;
+        
+        // If is the captcha-screen, we move up a little bit for show correctly all the captcha (on this screen, keyboar cover the next-button but user can press on the background to hide it).
+        if (sender.tag == scrCAPTCHA) newHeight += 62;
+        
+        [_scroll setContentOffset:CGPointMake(0, newHeight) animated:YES];
     }
 }
 
@@ -160,23 +199,23 @@
 
 #pragma mark - Controlador de navegacion
 -(IBAction)mostrarPantallaInformacion{
-    [self irAPagina:PANTALLA_INFORMACION];
+    [self goToPage:scrINFO];
 }
 
--(IBAction)paginaSiguiente:(id)sender{
-    if ([sender tag] == PANTALLA_INFORMACION)
-        [self intentaIrAPagina:PANTALLA_TELEFONO];
-    else if ([sender tag] == PANTALLA_TELEFONO)
-        [self intentaIrAPagina:PANTALLA_CAPTCHA];
-    else if ([sender tag] == PANTALLA_CAPTCHA)
-        [self intentaIrAPagina:PANTALLA_RESULTADOS];
-    else if ([sender tag] == PANTALLA_RESULTADOS){
+-(IBAction)paginaSiguiente:(UIButton *)sender{
+    if (sender.tag == scrINFO)
+        [self intentaIrAPagina:scrTELEPHONE];
+    else if (sender.tag == scrTELEPHONE)
+        [self intentaIrAPagina:scrCAPTCHA];
+    else if (sender.tag == scrCAPTCHA)
+        [self intentaIrAPagina:scrRESULT];
+    else if (sender.tag == scrRESULT){
         self.TFtelefono.text = nil;
         if ([Contador sugerirResena]){
             SugerirResena *resena = [[SugerirResena alloc] init];
             [resena sugerir];
         }else
-            [self intentaIrAPagina:PANTALLA_TELEFONO];
+            [self intentaIrAPagina:scrTELEPHONE];
     }
 }
 
@@ -187,13 +226,13 @@
 */
 -(BOOL)intentaIrAPagina:(int)pagina{
     switch (pagina) {
-        case PANTALLA_TELEFONO:
-            [self irAPagina:PANTALLA_TELEFONO];
+        case scrTELEPHONE:
+            [self goToPage:scrTELEPHONE];
             break;
             
-        case PANTALLA_CAPTCHA:
+        case scrCAPTCHA:
             // Comprobar longitud del teléfono
-            if ([self.TFtelefono.text length] != LONGITUD_TELEFONO){
+            if ([self.TFtelefono.text length] != minPHONELength){
                 [TAHelper mostrarAlertaConTitulo:@"Error" mensaje:@"El teléfono introducido no es válido"];
                 return FALSE;
             }
@@ -201,21 +240,16 @@
             [kernel reloadCaptcha];
             self.codigoCaptcha.text = nil;
             
-            [self irAPagina:PANTALLA_CAPTCHA];
-            [self.codigoCaptcha becomeFirstResponder];
-            [self.codigoCaptcha resignFirstResponder];
+            [self goToPage:scrCAPTCHA];
             [self.codigoCaptcha becomeFirstResponder];
             break;
             
-        case PANTALLA_RESULTADOS:
-            [self ocultarTecladoYColocarScroll];
-            
-            // Enviar la solicitud y esperar a la respuesta
+        case scrRESULT:
             [self enviarPeticionCompleta];
             break;
             
-        case PANTALLA_INFORMACION:
-            [self irAPagina:PANTALLA_INFORMACION];
+        case scrINFO:
+            [self goToPage:scrINFO];
             break;
     }    
     return TRUE;
@@ -225,32 +259,36 @@
 /*
     Cambia el scroll a la página indicada.
  */
--(void)irAPagina:(int)pagina{
-    int nuevoHeigth = pagina * SCROLL_HEIGHT;
-    [self ocultarTeclado];
-    [self.scroll setContentOffset:CGPointMake(0, nuevoHeigth) animated:YES];
+-(void)goToPage:(int)page{
+    int newHeight = page * HEIGHT(_scroll);
+    
+    if (page == scrINFO || page == scrRESULT)
+        [self hideKeyboard];
+    
+    [_scroll setContentOffset:CGPointMake(0, newHeight) animated:YES];
 }
 
 
 
--(void)ocultarTeclado{
+-(void)hideKeyboard{
     [self.TFtelefono resignFirstResponder];
     [self.codigoCaptcha resignFirstResponder];
     [self.TFtelefono resignFirstResponder];
 }
 
 -(IBAction)ocultarTecladoYColocarScroll{
-    [self ocultarTeclado];
+    [self hideKeyboard];
     
-    double paginaActual = floor(self.scroll.contentOffset.y / SCROLL_HEIGHT);
-    [self irAPagina:(int)paginaActual];
+    double currentPage = floor(_scroll.contentOffset.y / HEIGHT(_scroll));
+    
+    [self goToPage:(int)currentPage];
 }
 
 
 #pragma mark - Delegados para los UITextField
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    if ([textField tag] == PANTALLA_CAPTCHA) {
-        [self intentaIrAPagina:PANTALLA_RESULTADOS];
+    if ([textField tag] == scrCAPTCHA) {
+        [self intentaIrAPagina:scrRESULT];
     }
     return YES; 
 }

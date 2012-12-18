@@ -8,54 +8,37 @@
 
 #import "TAPublicidadView.h"
 
-#import "OAprivate-configure.h"
-
-#define kFRAMEBANNER    CGRectMake(0, 0, 320, 50)
-
 @implementation TAPublicidadView
-@synthesize rootViewController = _rootViewController;
-@synthesize iAdBannerView, gAdBannerView;
-
--(id)initWithRootViewController:(UIViewController *)viewController{
-    self = [super initWithFrame:CGRectMake(0, 410, 320, 50)];
-    if (self){
-        _rootViewController = viewController;
-        [self cargarPublicidad];
-    }
-    return self;
-}
-
--(void)cargarPublicidad{
-    iAdBannerView = [[ADBannerView alloc] initWithFrame:kFRAMEBANNER];
-    iAdBannerView.delegate = self;
-    iAdBannerView.backgroundColor = [UIColor clearColor];
-    [self showTopBanner:iAdBannerView];
-    [self addSubview:iAdBannerView];
-    [iAdBannerView release];
+-(void)loadAds{
+    CGRect frameBanner = CGRectMake(0, 0, WIDTH(self), HEIGHT(self));
+    self.iAdBannerView = [[[ADBannerView alloc] initWithFrame:frameBanner] autorelease];
+    self.iAdBannerView.delegate = self;
+    self.iAdBannerView.backgroundColor = [UIColor clearColor];
+    [self showTopBanner:self.iAdBannerView];
+    [self addSubview:self.iAdBannerView];
     
-    gAdBannerView = [[GADBannerView alloc] initWithFrame:kFRAMEBANNER];
-    gAdBannerView.adUnitID = OAadmobID;
-    [self hideTopBanner:gAdBannerView];
-    gAdBannerView.rootViewController = self.rootViewController;
-    gAdBannerView.backgroundColor = [UIColor clearColor];
-    [self addSubview:gAdBannerView];
-    [gAdBannerView release];
+    self.gAdBannerView = [[[GADBannerView alloc] initWithFrame:frameBanner] autorelease];
+    self.gAdBannerView.adUnitID = OAadmobID;
+    [self hideTopBanner:self.gAdBannerView];
+    self.gAdBannerView.rootViewController = self.rootViewController;
+    self.gAdBannerView.backgroundColor = [UIColor clearColor];
+    [self addSubview:self.gAdBannerView];
 }
 
 #pragma mark - Delegados iAD
 -(void)bannerViewDidLoadAd:(ADBannerView *)banner{
-    [self hideTopBanner:gAdBannerView];
+    [self hideTopBanner:self.gAdBannerView];
     [self showTopBanner:banner];
 }
 -(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error{
-    [gAdBannerView loadRequest:[GADRequest request]];
-    [self hideTopBanner:iAdBannerView];
-    [self showTopBanner:gAdBannerView];
+    [self.gAdBannerView loadRequest:[GADRequest request]];
+    [self hideTopBanner:self.iAdBannerView];
+    [self showTopBanner:self.gAdBannerView];
 }
 
 #pragma mark - Delegados AdMob
 -(void)adViewDidReceiveAd:(GADBannerView *)banner{
-    if ([iAdBannerView isHidden]) {
+    if ([self.iAdBannerView isHidden]) {
         [self showTopBanner:banner];
     }
 }
