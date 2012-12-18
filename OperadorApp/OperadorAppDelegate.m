@@ -8,8 +8,6 @@
 
 #import "OperadorAppDelegate.h"
 
-#import "OAprivate-configure.h"
-
 #import "MKStoreManager.h"
 #import "UAPush.h"
 
@@ -19,7 +17,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
-    [FlurryAnalytics startSession:FLURRY_TOKEN];
+    #ifdef FLURRY
+        [FlurryAnalytics startSession:FLURRY_TOKEN];
+    #endif
     
     [MKStoreManager sharedManager];
     
