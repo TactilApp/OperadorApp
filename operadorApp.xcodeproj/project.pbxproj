@@ -107,6 +107,7 @@
 		B9F0187C167FE07A00801F74 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F0187B167FE07A00801F74 /* CoreGraphics.framework */; };
 		B9F0187E167FE0F100801F74 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F0187D167FE0F100801F74 /* CoreTelephony.framework */; };
 		B9F01881167FE1AC00801F74 /* TAHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F01880167FE1AC00801F74 /* TAHelper.m */; };
+		B9F0188F167FF8B900801F74 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9F0188B167FF8B900801F74 /* libTestFlight.a */; };
 		B9F2D77F16584A290003CEE5 /* AirshipConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9F2D77E16584A290003CEE5 /* AirshipConfig.plist */; };
 		CF4155D916068A6300E488ED /* UIImage+CropCaptcha.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4155D816068A6300E488ED /* UIImage+CropCaptcha.m */; };
 /* End PBXBuildFile section */
@@ -295,6 +296,10 @@
 		B9F0187D167FE0F100801F74 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		B9F0187F167FE1AC00801F74 /* TAHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAHelper.h; sourceTree = "<group>"; };
 		B9F01880167FE1AC00801F74 /* TAHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAHelper.m; sourceTree = "<group>"; };
+		B9F0188B167FF8B900801F74 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		B9F0188C167FF8B900801F74 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		B9F0188D167FF8B900801F74 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		B9F0188E167FF8B900801F74 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		B9F2D77E16584A290003CEE5 /* AirshipConfig.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = AirshipConfig.plist; path = configuracion/AirshipConfig.plist; sourceTree = SOURCE_ROOT; };
 		CF4155D716068A6300E488ED /* UIImage+CropCaptcha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CropCaptcha.h"; sourceTree = "<group>"; };
 		CF4155D816068A6300E488ED /* UIImage+CropCaptcha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CropCaptcha.m"; sourceTree = "<group>"; };
@@ -325,6 +330,7 @@
 				B954CEA915D1A45100E9E312 /* libUAirship-1.2.2.a in Frameworks */,
 				B9CD92B91624503200DA9B27 /* libGoogleAdMobAds.a in Frameworks */,
 				B9CD92BD1624505400DA9B27 /* libFlurryAnalytics.a in Frameworks */,
+				B9F0188F167FF8B900801F74 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,6 +406,7 @@
 				B90EB598165E5EB700A49A0A /* ElementParser */,
 				B9CD92BA1624505400DA9B27 /* FlurryAnalytics */,
 				B9CD94931624575000DA9B27 /* MKStoreKit */,
+				B9F0188A167FF8B900801F74 /* TestFlightSDK1.1 */,
 				B954CEAF15D1A4E600E9E312 /* UrbanAirship */,
 			);
 			name = "Third Part";
@@ -809,6 +816,17 @@
 			name = UrbanAirship;
 			sourceTree = "<group>";
 		};
+		B9F0188A167FF8B900801F74 /* TestFlightSDK1.1 */ = {
+			isa = PBXGroup;
+			children = (
+				B9F0188B167FF8B900801F74 /* libTestFlight.a */,
+				B9F0188C167FF8B900801F74 /* README.md */,
+				B9F0188D167FF8B900801F74 /* release_notes.md */,
+				B9F0188E167FF8B900801F74 /* TestFlight.h */,
+			);
+			path = TestFlightSDK1.1;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -977,7 +995,7 @@
 			};
 			name = Debug;
 		};
-		B95DB0E713688D0400E87EB6 /* Release */ = {
+		B95DB0E713688D0400E87EB6 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -990,7 +1008,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 			};
-			name = Release;
+			name = TestFlight;
 		};
 		B95DB0E913688D0400E87EB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1002,6 +1020,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OperadorApp/OperadorApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
@@ -1010,6 +1029,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"./**",
 					"$(inherited)",
+					"\"$(SRCROOT)/TestFlightSDK1.1\"",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1020,7 +1040,7 @@
 			};
 			name = Debug;
 		};
-		B95DB0EA13688D0400E87EB6 /* Release */ = {
+		B95DB0EA13688D0400E87EB6 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1029,6 +1049,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OperadorApp/OperadorApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = TESTFLIGHT;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
@@ -1037,6 +1058,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"./**",
 					"$(inherited)",
+					"\"$(SRCROOT)/TestFlightSDK1.1\"",
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1046,7 +1068,52 @@
 				VALID_ARCHS = "armv6 armv7";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Release;
+			name = TestFlight;
+		};
+		B9F01899167FFE7600801F74 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = AppStore;
+		};
+		B9F0189A167FFE7600801F74 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TactilApp  SL";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OperadorApp/OperadorApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = FLURRY;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
+				INFOPLIST_FILE = "OperadorApp/OperadorApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"./**",
+					"$(inherited)",
+					"\"$(SRCROOT)/TestFlightSDK1.1\"",
+				);
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FB564D25-69DC-4D53-ADCE-88261DBC3304";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv6 armv7";
+				WRAPPER_EXTENSION = app;
+			};
+			name = AppStore;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1055,19 +1122,21 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B95DB0E613688D0400E87EB6 /* Debug */,
-				B95DB0E713688D0400E87EB6 /* Release */,
+				B95DB0E713688D0400E87EB6 /* TestFlight */,
+				B9F01899167FFE7600801F74 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = TestFlight;
 		};
 		B95DB0E813688D0400E87EB6 /* Build configuration list for PBXNativeTarget "OperadorApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B95DB0E913688D0400E87EB6 /* Debug */,
-				B95DB0EA13688D0400E87EB6 /* Release */,
+				B95DB0EA13688D0400E87EB6 /* TestFlight */,
+				B9F0189A167FFE7600801F74 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = TestFlight;
 		};
 /* End XCConfigurationList section */
 	};

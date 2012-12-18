@@ -15,13 +15,17 @@
 -(void)sugerir{
     UIAlertView *alerta = [[UIAlertView alloc] initWithTitle:TITULO message:MENSAJE delegate:self cancelButtonTitle:NEGATIVO otherButtonTitles:POSITIVO, nil];
     [alerta show];
-    [FlurryAnalytics logEvent:@"Sugiere reseña"];
+    #ifdef FLURRY
+        [FlurryAnalytics logEvent:@"Sugiere reseña"];
+    #endif
 }
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1){
-        [FlurryAnalytics logEvent:@"Reseña efectuada"];
+        #ifdef FLURRY
+                [FlurryAnalytics logEvent:@"Reseña efectuada"];
+        #endif
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:@"SI" forKey:kHARESENADO];

@@ -30,9 +30,10 @@
         for (NSString *errorConcreto in erroresEnString)
             [stringDeError appendFormat:@"\n%@", errorConcreto];
         
-        NSDictionary *dictData = [NSDictionary dictionaryWithObject:stringDeError forKey:@"Error"];
-        [FlurryAnalytics logEvent:@"Errores Analisis" withParameters:dictData];
-
+            #ifdef FLURRY
+                NSDictionary *dictData = @{@"Error" : stringDeError};
+                [FlurryAnalytics logEvent:@"Errores Analisis" withParameters:dictData];
+            #endif
         
         [NSException raise:keCaptchaTelefono format:@"%@", stringDeError];
     }
@@ -52,8 +53,10 @@
     
     NSString *operadorStr = [bloquesOperador objectAtIndex:1];
     
-    NSDictionary *dictData = [NSDictionary dictionaryWithObject:operadorStr forKey:@"Compañía"];
-    [FlurryAnalytics logEvent:@"OperadorApp Acierto" withParameters:dictData];
+    #ifdef FLURRY
+        NSDictionary *dictData = @{@"Compañía" : operadorStr};
+        [FlurryAnalytics logEvent:@"OperadorApp Acierto" withParameters:dictData];
+    #endif
     
     return operadorStr;
 }

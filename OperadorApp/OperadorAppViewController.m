@@ -122,8 +122,12 @@
         
         if (findFlag)
             break;
-        else
-            [FlurryAnalytics logEvent:@"New Company" withParameters:[NSDictionary dictionaryWithObject:companyString forKey:@"stringFromCMT"]];
+        else{
+            #ifdef FLURRY
+                 [FlurryAnalytics logEvent:@"New Company" withParameters:[NSDictionary dictionaryWithObject:companyString forKey:@"stringFromCMT"]];
+            #endif
+        }
+    
     }
     
     UIColor *topColor = [UIColor colorWithHexString:[[plistData objectForKey:companyKey] objectForKey:@"top"]];

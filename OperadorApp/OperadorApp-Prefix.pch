@@ -15,7 +15,14 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import <MobileCoreServices/MobileCoreServices.h>
 
-    #import "FlurryAnalytics.h"
-
+    #import "OAprivate-configure.h"
     #import "TAHelper.h"
+
+    #ifdef TESTFLIGHT
+        #import "TestFlight.h"
+    #endif
+
+    #ifdef FLURRY
+        #import "FlurryAnalytics.h"
+    #endif
 #endif
