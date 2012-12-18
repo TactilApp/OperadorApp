@@ -8,14 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@interface ControladorWeb : UIViewController<UIWebViewDelegate>
 
-@interface ControladorWeb : UIViewController {
-    UIWebView *web;
-    NSString *url;
-}
-
+@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activity;
 @property (nonatomic, retain) IBOutlet UIWebView *web;
-@property (nonatomic, retain) IBOutlet NSString *url;
+@property (nonatomic, retain) NSString *url;
 
 -(IBAction)volver;
 @end

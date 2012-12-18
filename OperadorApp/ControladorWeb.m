@@ -10,36 +10,44 @@
 
 
 @implementation ControladorWeb
-@synthesize web, url;
-
-- (void)dealloc{
-    [web release];
-    [url release];
-
-    [super dealloc];
-}
-
-- (void)viewDidLoad{
-    [web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-    [super viewDidLoad];
-}
-
 -(IBAction)volver{
     [self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)didReceiveMemoryWarning{
-    [super didReceiveMemoryWarning];
+#pragma mark - View lifecycle
+- (void)viewDidLoad{
+    [super viewDidLoad];
+    [self.web loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.url]]];
 }
 
-#pragma mark - View lifecycle
-
-- (void)viewDidUnload{
+- (void)viewDidUnload {
+    self.activity = nil;
+    self.web = nil;
     [super viewDidUnload];
 }
 
+#pragma mark - WebViewDelegate
+-(void)webViewDidStartLoad:(UIWebView *)webView{
+    [self.activity startAnimating];
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    [self.activity stopAnimating];
+}
+
+-(void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    [TAHelper mostrarAlertaConTitulo:@"Error" mensaje:error.localizedDescription];
+    [self.activity stopAnimating];
+}
+#pragma mark - Misc
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)dealloc{
+    [_web release];
+    [_url release];
+    [_activity release];
+    [super dealloc];
+}
 @end
