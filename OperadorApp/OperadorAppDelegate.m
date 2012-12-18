@@ -20,6 +20,22 @@
     #ifdef FLURRY
         [FlurryAnalytics startSession:FLURRY_TOKEN];
     #endif
+    #ifdef TESTFLIGHT
+        NSSetUncaughtExceptionHandler(&HandleExceptions);
+        struct sigaction newSignalAction;
+        memset(&newSignalAction, 0, sizeof(newSignalAction));
+        newSignalAction.sa_handler = &SignalHandler;
+        sigaction(SIGABRT, &newSignalAction, NULL);
+        sigaction(SIGILL, &newSignalAction, NULL);
+        sigaction(SIGBUS, &newSignalAction, NULL);
+
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            [TestFlight setDeviceIdentifier:[[UIDevice currentDevice] uniqueIdentifier]];
+        #pragma clang diagnostic pop
+
+        [TestFlight takeOff:TESTFLIGHT_TOKEN];
+    #endif
     
     [MKStoreManager sharedManager];
     
@@ -43,7 +59,6 @@
 }
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    // Updates the device token and registers the token with UA
     [[UAirship shared] registerDeviceToken:deviceToken];
 }
 
@@ -51,5 +66,17 @@
     [_window release];
     [super dealloc];
 }
+
+
+#ifdef TESTFLIGHT
+void HandleExceptions(NSException *exception) {
+    NSLog(@"This is where we save the application data during a exception");
+    // Save application data on crash
+}
+void SignalHandler(int sig) {
+    NSLog(@"This is where we save the application data during a signal");
+    // Save application data on crash
+}
+#endif
 
 @end
