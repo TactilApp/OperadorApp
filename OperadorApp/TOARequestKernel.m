@@ -135,14 +135,17 @@ static TOARequestKernel *sharedRequestKernel = nil;
          validar : 1
          tipo : buscar
      */
+    if (!self.recaptchaChallenge | !captchaStr | !mobileNumber){
+        NSError *errorDatos = [NSError errorWithDomain:@"OperadorApp" code:0 userInfo:@{NSLocalizedDescriptionKey : @"Error en los datos introducidos"}];
+        failure(errorDatos);
+        return;
+    }
     
     NSURL *url = [NSURL URLWithString:@"http://www.cmt.es"];
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    NSDictionary *params = @{
-                            @"tb_numMov" : mobileNumber, @"recaptcha_challenge_field" : self.recaptchaChallenge,
+    NSDictionary *params = @{@"tb_numMov" : mobileNumber, @"recaptcha_challenge_field" : self.recaptchaChallenge,
                             @"recaptcha_response_field" : captchaStr, @"submit" : @"Buscar", @"validar" : @1,
-                            @"tipo" : @"buscar"
-                            };
+                            @"tipo" : @"buscar"};
     
     NSLog(@"Enviando: \n%@", params);
     
@@ -154,23 +157,18 @@ static TOARequestKernel *sharedRequestKernel = nil;
         @try {
             companiaActual = [TAParserOperadorApp parsearStringWebCMT:operation.responseString];
         }@catch (NSException *exception) {
-            NSError *errorDevuelto = nil;
-            NSMutableDictionary *errorDetail = [NSMutableDictionary dictionary];
-            [errorDetail setValue:exception.description forKey:NSLocalizedFailureReasonErrorKey];
-            
             if ([exception.name isEqualToString:keCaptchaTelefono]){
-                [errorDetail setValue:@"Error en datos" forKey:NSLocalizedDescriptionKey];
-                errorDevuelto = [NSError errorWithDomain:@"OperadorApp" code:1001 userInfo:errorDetail];
+                failure([NSError errorWithDomain:@"OperadorApp" code:1001 userInfo:
+                         @{NSLocalizedFailureReasonErrorKey : exception.description, NSLocalizedDescriptionKey : @"Error en datos"}]);
             }else if([exception.name isEqualToString:keDesconocido]){
-                [errorDetail setValue:@"Error desconocido" forKey:NSLocalizedDescriptionKey];
-                errorDevuelto = [NSError errorWithDomain:@"OperadorApp" code:1002 userInfo:errorDetail];
+                failure([NSError errorWithDomain:@"OperadorApp" code:1002 userInfo:
+                         @{NSLocalizedFailureReasonErrorKey : exception.description, NSLocalizedDescriptionKey : @"Error desconocido"}]);
             }else if([exception.name isEqualToString:keParseHTML]){
-                [errorDetail setValue:@"Error al parsear" forKey:NSLocalizedDescriptionKey];
-                errorDevuelto = [NSError errorWithDomain:@"OperadorApp" code:1003 userInfo:errorDetail];
+                failure([NSError errorWithDomain:@"OperadorApp" code:1003 userInfo:
+                         @{NSLocalizedFailureReasonErrorKey : exception.description, NSLocalizedDescriptionKey : @"Error al parsear"}]);
             }
-            failure(errorDevuelto);
             return ;
-        }@finally {}
+        }
         success(companiaActual);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         failure(error);

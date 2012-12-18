@@ -71,7 +71,7 @@
         return NO;
     }
     
-    [viewController mostrarAlertaConTitulo:@"Teléfono incorrecto" mensaje:@"OperadorApp solo funciona con números de móviles en España"];
+    [TAHelper mostrarAlertaConTitulo:@"Teléfono incorrecto" mensaje:@"OperadorApp solo funciona con números de móviles en España"];
     
     return NO;   
 }

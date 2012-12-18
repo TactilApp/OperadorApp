@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ASIHTTPRequest.h"
-#import "ASIFormDataRequest.h"
 
 #import "Contador.h"
 #import "SugerirResena.h"
@@ -44,22 +42,8 @@
 #define BOTON_WEB_TACTILAPP 2
 
 
-@interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate> {
-    NSHTTPCookie *cookieSession;
-        
-    UIScrollView *scroll;
-    
-    UIView *informacion;
-    UIView *paso1;
-    UIView *paso2;
-    UIView *paso3;
-    
-    UIImageView *captcha;
-    UITextField *codigoCaptcha;
-    
-    UITextField *TFtelefono;
-}
-@property (nonatomic, retain) IBOutlet UIImageView *captcha;
+@interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate>
+
 
 @property (nonatomic, retain) IBOutlet UIScrollView *scroll;
 
@@ -68,8 +52,10 @@
 @property (nonatomic, retain) IBOutlet UIView *paso2;
 @property (nonatomic, retain) IBOutlet UIView *paso3;
 
-@property (nonatomic, retain) IBOutlet UITextField *codigoCaptcha;
 @property (nonatomic, retain) IBOutlet UITextField *TFtelefono;
+@property (nonatomic, retain) IBOutlet UIImageView *captcha;
+@property (nonatomic, retain) IBOutlet UITextField *codigoCaptcha;
+
 
 -(IBAction)desplazarScroll:(id)sender;
 
@@ -88,7 +74,6 @@
 
 // Navegaci—n
 -(BOOL)intentaIrAPagina:(int)pagina;
-
 
 //Agenda
 -(IBAction)cargarAgendaDeContactos;
