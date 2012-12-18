@@ -995,7 +995,7 @@
 			};
 			name = Debug;
 		};
-		B95DB0E713688D0400E87EB6 /* Release */ = {
+		B95DB0E713688D0400E87EB6 /* TestFlight */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -1008,7 +1008,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 			};
-			name = Release;
+			name = TestFlight;
 		};
 		B95DB0E913688D0400E87EB6 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1020,10 +1020,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OperadorApp/OperadorApp-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					DEBUG,
-					TESTFLIGHT,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
@@ -1043,7 +1040,52 @@
 			};
 			name = Debug;
 		};
-		B95DB0EA13688D0400E87EB6 /* Release */ = {
+		B95DB0EA13688D0400E87EB6 /* TestFlight */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TactilApp  SL";
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "OperadorApp/OperadorApp-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = TESTFLIGHT;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = "";
+				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
+				INFOPLIST_FILE = "OperadorApp/OperadorApp-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				LIBRARY_SEARCH_PATHS = (
+					"./**",
+					"$(inherited)",
+					"\"$(SRCROOT)/TestFlightSDK1.1\"",
+				);
+				OTHER_LDFLAGS = "-lxml2";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "075F96D4-E63D-47BD-88C2-A7A79D3005B6";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "armv6 armv7";
+				WRAPPER_EXTENSION = app;
+			};
+			name = TestFlight;
+		};
+		B9F01899167FFE7600801F74 /* AppStore */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = "";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = AppStore;
+		};
+		B9F0189A167FFE7600801F74 /* AppStore */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -1065,13 +1107,13 @@
 				);
 				OTHER_LDFLAGS = "-lxml2";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "075F96D4-E63D-47BD-88C2-A7A79D3005B6";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FB564D25-69DC-4D53-ADCE-88261DBC3304";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "armv6 armv7";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Release;
+			name = AppStore;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1080,19 +1122,21 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B95DB0E613688D0400E87EB6 /* Debug */,
-				B95DB0E713688D0400E87EB6 /* Release */,
+				B95DB0E713688D0400E87EB6 /* TestFlight */,
+				B9F01899167FFE7600801F74 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = TestFlight;
 		};
 		B95DB0E813688D0400E87EB6 /* Build configuration list for PBXNativeTarget "OperadorApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B95DB0E913688D0400E87EB6 /* Debug */,
-				B95DB0EA13688D0400E87EB6 /* Release */,
+				B95DB0EA13688D0400E87EB6 /* TestFlight */,
+				B9F0189A167FFE7600801F74 /* AppStore */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = TestFlight;
 		};
 /* End XCConfigurationList section */
 	};
