@@ -18,6 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     #ifdef FLURRY
+        NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
         [FlurryAnalytics startSession:FLURRY_TOKEN];
     #endif
     #ifdef TESTFLIGHT
@@ -43,14 +44,12 @@
     NSMutableDictionary *takeOffOptions = [[[NSMutableDictionary alloc] init] autorelease];
     [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
     [UAirship takeOff:takeOffOptions];
-    [[UIApplication sharedApplication]
-     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
-    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+        (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     self.window.rootViewController = [[OperadorAppViewController new] autorelease];
     [self.window makeKeyAndVisible];
-    
     return YES;
 }
 
@@ -77,6 +76,12 @@ void SignalHandler(int sig) {
     NSLog(@"This is where we save the application data during a signal");
     // Save application data on crash
 }
+#endif
+
+#ifdef FLURRY
+    void uncaughtExceptionHandler(NSException *exception) {
+        [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
+    }
 #endif
 
 @end

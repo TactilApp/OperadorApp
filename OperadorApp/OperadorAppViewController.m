@@ -134,6 +134,11 @@ const float scrollMarginX   = 30;
 }
 
 - (IBAction)recargarCaptcha:(id)sender {
+    #ifdef FLURRY
+        NSDictionary *dictData = @{@"Tipo" : @"Manual"};
+        [FlurryAnalytics logEvent:@"Recargar Captcha" withParameters:dictData];
+    #endif
+
     self.codigoCaptcha.text = nil;
     [kernel reloadCaptcha];
 }
@@ -158,6 +163,11 @@ const float scrollMarginX   = 30;
                            [self goToPage:scrRESULT];
                            self.codigoCaptcha.text = nil;
                            [kernel reloadCaptcha];
+                            #ifdef FLURRY
+                               NSDictionary *dictData = @{@"Tipo" : @"Automática"};
+                               [FlurryAnalytics logEvent:@"Recargar Captcha" withParameters:dictData];
+                            #endif
+
                        } failure:^(NSError *error) {
                            HUD.mode = MBProgressHUDModeText;
                            HUD.labelText = @"Error";
@@ -168,6 +178,10 @@ const float scrollMarginX   = 30;
                            
                            self.codigoCaptcha.text = nil;
                            [kernel reloadCaptcha];
+                            #ifdef FLURRY
+                               NSDictionary *dictData = @{@"Tipo" : @"Errónea"};
+                               [FlurryAnalytics logEvent:@"Recargar Captcha" withParameters:dictData];
+                            #endif
                        }];
 }
 
@@ -365,12 +379,5 @@ const float scrollMarginX   = 30;
     [pantallaMail setMensaje:@"Hola,<br />quiero sugerir para operadorApp..."];
 
     [pantallaMail mostrarPanelDelEmail];
-}
-
-
-#pragma mark - Ciclo de vida
-
-- (void)viewDidUnload{
-    [super viewDidUnload];
 }
 @end
