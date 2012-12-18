@@ -80,7 +80,7 @@ void SignalHandler(int sig) {
 
 #ifdef FLURRY
     void uncaughtExceptionHandler(NSException *exception) {
-        [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
+        [FlurryAnalytics logError:@"Uncaught" message:@"Crash!" exception:exception];
     }
 #endif
 
