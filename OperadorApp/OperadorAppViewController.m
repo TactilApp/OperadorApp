@@ -10,7 +10,6 @@
 
 #import "UIColor+Hex.h"
 
-#import "TAParserOperadorApp.h"
 #import "TAPublicidadView.h"
 #import "TOARequestKernel.h"
 #import "TACompanyView.h"

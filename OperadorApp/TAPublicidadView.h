@@ -8,17 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-#import "GADBannerView.h"
+#warning HAY QUE AÑADIR GOOGLE
+//#import <Admob/GADBannerView.h>
 #import <iAd/iAd.h>
 
 #define ADSHEIGHT   50
 
-@interface TAPublicidadView : UIView<ADBannerViewDelegate, GADBannerViewDelegate>
+@interface TAPublicidadView : UIView<ADBannerViewDelegate>// GADBannerViewDelegate>
 
 @property (nonatomic, assign) UIViewController *rootViewController;
 
 @property (nonatomic, strong) ADBannerView *iAdBannerView;
-@property (nonatomic, strong) GADBannerView *gAdBannerView;
+//@property (nonatomic, strong) GADBannerView *gAdBannerView;
 
 -(void)loadAds;
 @end

@@ -17,27 +17,28 @@
     [self showTopBanner:self.iAdBannerView];
     [self addSubview:self.iAdBannerView];
     
-    self.gAdBannerView = [[[GADBannerView alloc] initWithFrame:frameBanner] autorelease];
-    self.gAdBannerView.adUnitID = OAadmobID;
-    [self hideTopBanner:self.gAdBannerView];
-    self.gAdBannerView.rootViewController = self.rootViewController;
-    self.gAdBannerView.backgroundColor = [UIColor clearColor];
-    [self addSubview:self.gAdBannerView];
+//    self.gAdBannerView = [[[GADBannerView alloc] initWithFrame:frameBanner] autorelease];
+//    self.gAdBannerView.adUnitID = OAadmobID;
+//    [self hideTopBanner:self.gAdBannerView];
+//    self.gAdBannerView.rootViewController = self.rootViewController;
+//    self.gAdBannerView.backgroundColor = [UIColor clearColor];
+//    [self addSubview:self.gAdBannerView];
 }
 
 #pragma mark - Delegados iAD
 -(void)bannerViewDidLoadAd:(ADBannerView *)banner{
-    [self hideTopBanner:self.gAdBannerView];
+//    [self hideTopBanner:self.gAdBannerView];
     [self showTopBanner:banner];
 }
 -(void)bannerView:(ADBannerView *)banner didFailToReceiveAdWithError:(NSError *)error{
-    [self.gAdBannerView loadRequest:[GADRequest request]];
+//    [self.gAdBannerView loadRequest:[GADRequest request]];
     [self hideTopBanner:self.iAdBannerView];
-    [self showTopBanner:self.gAdBannerView];
+//    [self showTopBanner:self.gAdBannerView];
 }
 
 #pragma mark - Delegados AdMob
--(void)adViewDidReceiveAd:(GADBannerView *)banner{
+/*
+ -(void)adViewDidReceiveAd:(GADBannerView *)banner{
     if ([self.iAdBannerView isHidden]) {
         [self showTopBanner:banner];
     }
@@ -45,6 +46,7 @@
 -(void)adView:(GADBannerView *)banner didFailToReceiveAdWithError:(GADRequestError *)error{
     [self hideTopBanner:banner];
 }
+*/
 
 #pragma mark - Animaciones de los banners
 - (void)hideTopBanner:(UIView *)banner{

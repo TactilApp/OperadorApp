@@ -21,3 +21,6 @@ xcuserdata
 configuracion
 
 *.swp
+
+Podfile.lock
+Pods

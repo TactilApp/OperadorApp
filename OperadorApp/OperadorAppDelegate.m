@@ -9,7 +9,7 @@
 #import "OperadorAppDelegate.h"
 
 #import "MKStoreManager.h"
-#import "UAPush.h"
+#import <UrbanAirship-iOS-SDK/UAirship.h>
 
 #import "OperadorAppViewController.h"
 

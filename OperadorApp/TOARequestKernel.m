@@ -10,7 +10,6 @@
 
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
-#import "TAParserOperadorApp.h"
 
 NSString * const cmt_iframe_URL              = @"http://www.cmt.es/pmovil/SelectOption.do";
 NSString * const recaptcha_js_base_URL       = @"http://api.recaptcha.net/challenge?k=6LfgLNkSAAAAAMp-P85nbmpfAiIS6xDwWwYZSsux";
@@ -127,6 +126,8 @@ static TOARequestKernel *sharedRequestKernel = nil;
                   success:(void (^)(NSString *companyString))success
                   failure:(void (^)(NSError *error))failure
 {
+    
+#warning ACTUALIZAR A LA API
     /**
          tb_numMov : <telefono>
          recaptcha_challenge_field: <codigo>
@@ -135,7 +136,7 @@ static TOARequestKernel *sharedRequestKernel = nil;
          validar : 1
          tipo : buscar
      */
-    if (!self.recaptchaChallenge | !captchaStr | !mobileNumber){
+ /*   if (!self.recaptchaChallenge | !captchaStr | !mobileNumber){
         NSError *errorDatos = [NSError errorWithDomain:@"OperadorApp" code:0 userInfo:@{NSLocalizedDescriptionKey : @"Error en los datos introducidos"}];
         failure(errorDatos);
         return;
@@ -174,5 +175,6 @@ static TOARequestKernel *sharedRequestKernel = nil;
         failure(error);
     }];
     [operation start];
+  */
 }
 @end
