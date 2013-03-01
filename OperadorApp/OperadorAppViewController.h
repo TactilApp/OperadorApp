@@ -12,9 +12,6 @@
 
 #define URL_TACTILAPP   @"http://tactilapp.com"
 #define URL_CMT     @"http://www.cmt.es/estado-portabilidad-movil"
-#define POST_URL @"http://www.cmt.es/pmovil/SelectOption.do"
-#define CAPTCHA_URL @"http://www.cmt.es/pmovil/jcaptcha.jpg"
-
 
 @interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
 @property (nonatomic, strong) IBOutlet UIView *informacion;

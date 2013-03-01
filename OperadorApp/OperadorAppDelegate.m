@@ -8,9 +8,8 @@
 
 #import "OperadorAppDelegate.h"
 
-#import "MKStoreManager.h"
 #import <AFUrbanAirshipClient/AFUrbanAirshipClient.h>
-
+#import <MKStoreKit/MKStoreManager.h>
 #import "OperadorAppViewController.h"
 
 @implementation OperadorAppDelegate
@@ -38,6 +37,7 @@
         [TestFlight takeOff:TESTFLIGHT_TOKEN];
     #endif
     
+    // Inicializar MKStoreKit
     [MKStoreManager sharedManager];
     
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:

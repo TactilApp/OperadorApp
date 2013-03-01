@@ -73,6 +73,7 @@
 		B9F018D316810B1D00801F74 /* refresh_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B9F018D116810B1D00801F74 /* refresh_icon.png */; };
 		B9F018D416810B1D00801F74 /* refresh_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9F018D216810B1D00801F74 /* refresh_icon@2x.png */; };
 		B9F0D2BB16E09F9800F9316D /* TAAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F0D2BA16E09F9800F9316D /* TAAPIClient.m */; };
+		B9F0D2BD16E0D04B00F9316D /* MKStoreKitConfigs.plist in Resources */ = {isa = PBXBuildFile; fileRef = B9F0D2BC16E0D04B00F9316D /* MKStoreKitConfigs.plist */; };
 		CF4155D916068A6300E488ED /* UIImage+CropCaptcha.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4155D816068A6300E488ED /* UIImage+CropCaptcha.m */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +163,8 @@
 		B9F018D216810B1D00801F74 /* refresh_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "refresh_icon@2x.png"; sourceTree = "<group>"; };
 		B9F0D2B916E09F9800F9316D /* TAAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAPIClient.h; sourceTree = "<group>"; };
 		B9F0D2BA16E09F9800F9316D /* TAAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAPIClient.m; sourceTree = "<group>"; };
+		B9F0D2BC16E0D04B00F9316D /* MKStoreKitConfigs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = MKStoreKitConfigs.plist; path = configuracion/MKStoreKitConfigs.plist; sourceTree = SOURCE_ROOT; };
+		B9F0D2BE16E0DBE800F9316D /* OperadorApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = OperadorApp.entitlements; sourceTree = "<group>"; };
 		CF4155D716068A6300E488ED /* UIImage+CropCaptcha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CropCaptcha.h"; sourceTree = "<group>"; };
 		CF4155D816068A6300E488ED /* UIImage+CropCaptcha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CropCaptcha.m"; sourceTree = "<group>"; };
 		D2A5BC00406D4A64B10CE998 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -283,10 +286,12 @@
 			isa = PBXGroup;
 			children = (
 				B9CD949A1624582200DA9B27 /* README.md */,
+				B9F0D2BE16E0DBE800F9316D /* OperadorApp.entitlements */,
 				B95DB0D913688D0400E87EB6 /* OperadorApp-Info.plist */,
 				B95DB0DD13688D0400E87EB6 /* OperadorApp-Prefix.pch */,
 				B95DB0DE13688D0400E87EB6 /* main.m */,
 				B9D8CF99165708CD00F53CA6 /* OAprivate-configure.h */,
+				B9F0D2BC16E0D04B00F9316D /* MKStoreKitConfigs.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -579,6 +584,7 @@
 				B92E7FAA16DE4402007C99BA /* info_tactilapp@2x.png in Resources */,
 				B92E7FAB16DE4402007C99BA /* info_volver.png in Resources */,
 				B92E7FAC16DE4402007C99BA /* info_volver@2x.png in Resources */,
+				B9F0D2BD16E0D04B00F9316D /* MKStoreKitConfigs.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,6 +701,8 @@
 				ALWAYS_SEARCH_USER_PATHS = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = OperadorApp/OperadorApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer: Jorge Maroto (8S5VQF8K5F)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -712,6 +720,7 @@
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "6C0DED01-75C0-4AA0-9F4A-3B6DA1E908AB";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				VALID_ARCHS = "armv6 armv7";
@@ -726,6 +735,7 @@
 				ALWAYS_SEARCH_USER_PATHS = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = OperadorApp/OperadorApp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TactilApp  SL";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -772,6 +782,7 @@
 				ALWAYS_SEARCH_USER_PATHS = "$(inherited)";
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = OperadorApp/OperadorApp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: TactilApp  SL";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

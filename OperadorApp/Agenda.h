@@ -8,23 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import <AddressBookUI/AddressBookUI.h>
-#import <StoreKit/StoreKit.h>
-
-#import "MKStoreManager.h"
 
 #import "OperadorAppViewController.h"
 @class OperadorAppViewController;
 
 
-@interface Agenda : NSObject <SKProductsRequestDelegate, ABPeoplePickerNavigationControllerDelegate, UIAlertViewDelegate>{
-    OperadorAppViewController *__weak viewController;
-}
+@interface Agenda : NSObject <ABPeoplePickerNavigationControllerDelegate, UIAlertViewDelegate>
 
-@property (nonatomic, weak) OperadorAppViewController *viewController;
+    @property (nonatomic, weak) OperadorAppViewController *viewController;
 
-
--(void)mostrarAgenda;
--(void)sugerirComprar;
-    
--(NSString *)telefonoLimpio:(NSString *)telefono;
+    -(void)mostrarAgenda;
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 @end

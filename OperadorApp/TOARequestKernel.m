@@ -65,7 +65,15 @@
     [[TAAPIClient sharedInstance] postPath:nil
                                 parameters:@{@"mobile": mobileNumber, @"captcha_str": captchaStr}
                                    success:^(AFHTTPRequestOperation *operation, id JSON) {
-                                       success(JSON[@"result"][@"company"]);
+                                       if (JSON[@"result"][@"company"]){
+                                           success(JSON[@"result"][@"company"]);
+                                       }else if(JSON[@"errors"]){
+                                           NSError *error = [NSError errorWithDomain:@"OperadorApp" code:1001 userInfo:@{NSLocalizedDescriptionKey : [(JSON[@"errors"]) description]}];
+                                           failure(error);
+                                       }else{
+                                           NSError *error = [NSError errorWithDomain:@"OperadorApp" code:1001 userInfo:@{NSLocalizedDescriptionKey : @"Error desconocido"}];
+                                           failure(error);
+                                       }
                                    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                                        failure(error);
                                    }

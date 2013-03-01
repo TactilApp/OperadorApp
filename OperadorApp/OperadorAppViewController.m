@@ -21,6 +21,8 @@
 #import "EnviarMail.h"
 
 
+#import <MKStoreKit/MKStoreManager.h>
+
 /*
    *************
    * CONSTANTS *
@@ -53,6 +55,7 @@ const float scrollMarginX   = 30;
     UIScrollView *_scroll;
     MBProgressHUD *HUD;
 }
+@property (nonatomic, strong) Agenda *agenda;
 @end
 
 @implementation OperadorAppViewController
@@ -99,7 +102,8 @@ const float scrollMarginX   = 30;
 
 
 	if([MKStoreManager isFeaturePurchased:AGENDA_PRODUCT_ID]){
-        publicidad.hidden = TRUE;
+        NSLog(@"Publicidad oculta");
+//        publicidad.hidden = TRUE;
 	}
     
 
@@ -325,9 +329,9 @@ const float scrollMarginX   = 30;
 
 #pragma - Agenda de contactos
 -(IBAction)cargarAgendaDeContactos{
-    Agenda *contactos = [[Agenda alloc] init];
-    contactos.viewController = self;
-    [contactos mostrarAgenda];
+    self.agenda = [[Agenda alloc] init];
+    self.agenda.viewController = self;
+    [self.agenda mostrarAgenda];
 }
 
 
