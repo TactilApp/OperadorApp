@@ -9,7 +9,7 @@
 #import "OperadorAppDelegate.h"
 
 #import "MKStoreManager.h"
-#import <UrbanAirship-iOS-SDK/UAirship.h>
+#import <AFUrbanAirshipClient/AFUrbanAirshipClient.h>
 
 #import "OperadorAppViewController.h"
 
@@ -40,12 +40,8 @@
     
     [MKStoreManager sharedManager];
     
-    //  UrbanAirship
-    NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
-    [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
-    [UAirship takeOff:takeOffOptions];
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-        (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = [OperadorAppViewController new];
@@ -53,15 +49,18 @@
     return YES;
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-    [UAirship land];
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    AFUrbanAirshipClient *client = [[AFUrbanAirshipClient alloc]
+                                    initWithApplicationKey:kUrbanAirshipApplicationKey
+                                    applicationSecret:kUrbanAirshipApplicationSecret];
+    
+    [client registerDeviceToken:deviceToken withAlias:nil success:^{
+        NSLog(@"Success");
+    } failure:^(NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [[UAirship shared] registerDeviceToken:deviceToken];
-}
-
-
 
 #ifdef TESTFLIGHT
 void HandleExceptions(NSException *exception) {
