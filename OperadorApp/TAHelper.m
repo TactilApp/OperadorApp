@@ -16,6 +16,5 @@
 +(void)mostrarAlertaConTitulo:(NSString *)titulo mensaje:(NSString *)mensaje{
     UIAlertView *alerta = [[UIAlertView alloc] initWithTitle:titulo message:mensaje delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
     [alerta show];
-    [alerta release];
 }
 @end

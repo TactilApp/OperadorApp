@@ -17,14 +17,14 @@
 
 
 @interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
-@property (nonatomic, retain) IBOutlet UIView *informacion;
-@property (nonatomic, retain) IBOutlet UIView *paso1;
-@property (nonatomic, retain) IBOutlet UIView *paso2;
-@property (nonatomic, retain) IBOutlet UIView *paso3;
+@property (nonatomic, strong) IBOutlet UIView *informacion;
+@property (nonatomic, strong) IBOutlet UIView *paso1;
+@property (nonatomic, strong) IBOutlet UIView *paso2;
+@property (nonatomic, strong) IBOutlet UIView *paso3;
 
-@property (nonatomic, retain) IBOutlet UITextField *TFtelefono;
-@property (nonatomic, retain) IBOutlet UIImageView *captcha;
-@property (nonatomic, retain) IBOutlet UITextField *codigoCaptcha;
+@property (nonatomic, strong) IBOutlet UITextField *TFtelefono;
+@property (nonatomic, strong) IBOutlet UIImageView *captcha;
+@property (nonatomic, strong) IBOutlet UITextField *codigoCaptcha;
 
 
 -(IBAction)desplazarScroll:(id)sender;

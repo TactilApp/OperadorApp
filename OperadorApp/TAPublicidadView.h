@@ -16,7 +16,7 @@
 
 @interface TAPublicidadView : UIView<ADBannerViewDelegate>// GADBannerViewDelegate>
 
-@property (nonatomic, assign) UIViewController *rootViewController;
+@property (nonatomic, weak) UIViewController *rootViewController;
 
 @property (nonatomic, strong) ADBannerView *iAdBannerView;
 //@property (nonatomic, strong) GADBannerView *gAdBannerView;

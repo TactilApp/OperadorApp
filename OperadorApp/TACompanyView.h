@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface TACompanyView : UIView
-@property (nonatomic, retain) UIColor *topColor;
-@property (nonatomic, retain) UIColor *bottomColor;
-@property (nonatomic, retain) NSString *text;
+@property (nonatomic, strong) UIColor *topColor;
+@property (nonatomic, strong) UIColor *bottomColor;
+@property (nonatomic, strong) NSString *text;
 
 -(id)initWithFrame:(CGRect)frame topColor:(UIColor *)topColor bottomColor:(UIColor *)bottomColor text:(NSString *)text;
 @end

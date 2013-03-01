@@ -17,10 +17,10 @@
 
 
 @interface Agenda : NSObject <SKProductsRequestDelegate, ABPeoplePickerNavigationControllerDelegate, UIAlertViewDelegate>{
-    OperadorAppViewController *viewController;
+    OperadorAppViewController *__weak viewController;
 }
 
-@property (nonatomic, assign) OperadorAppViewController *viewController;
+@property (nonatomic, weak) OperadorAppViewController *viewController;
 
 
 -(void)mostrarAgenda;

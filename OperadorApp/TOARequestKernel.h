@@ -11,7 +11,7 @@
 #define TANOTIF_CAPTCHA_ERROR_LOAD      @"errorAlCargarElCaptcha"
 
 @interface TOARequestKernel : NSObject
-@property (nonatomic, retain) UIImage *recaptcha;
+@property (nonatomic, weak) UIImageView *captcha;
 
 
 + (id)sharedRequestKernel;

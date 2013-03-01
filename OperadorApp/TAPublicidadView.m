@@ -11,7 +11,7 @@
 @implementation TAPublicidadView
 -(void)loadAds{
     CGRect frameBanner = CGRectMake(0, 0, WIDTH(self), HEIGHT(self));
-    self.iAdBannerView = [[[ADBannerView alloc] initWithFrame:frameBanner] autorelease];
+    self.iAdBannerView = [[ADBannerView alloc] initWithFrame:frameBanner];
     self.iAdBannerView.delegate = self;
     self.iAdBannerView.backgroundColor = [UIColor clearColor];
     [self showTopBanner:self.iAdBannerView];

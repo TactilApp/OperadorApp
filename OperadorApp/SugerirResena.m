@@ -30,7 +30,5 @@
 
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=431750600"]];
     }
-    [alertView release];
-    [self release];
 }
 @end

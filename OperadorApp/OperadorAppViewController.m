@@ -56,18 +56,6 @@ const float scrollMarginX   = 30;
 @end
 
 @implementation OperadorAppViewController
-- (void)dealloc{
-    [_informacion release];
-    [_paso1 release];
-    [_paso2 release];
-    [_paso3 release];
-    
-    [_scroll release];
-    [_captcha release];
-    
-    [_companyView release];
-    [super dealloc];
-}
 
 #pragma mark - View lifecycle
 - (void)viewDidLoad{
@@ -86,6 +74,7 @@ const float scrollMarginX   = 30;
     // Add steps
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(verCaptcha) name:TANOTIF_CAPTCHA_LOADED object:nil];
     kernel = [TOARequestKernel sharedRequestKernel];
+    [kernel setCaptcha:self.captcha];
     
     [self.paso1 setFrame:CGRectMake(0, HEIGHT(_scroll), WIDTH(_scroll), HEIGHT(_scroll))];
     [super viewDidLoad];
@@ -107,7 +96,6 @@ const float scrollMarginX   = 30;
     [publicidad loadAds];
     
     [self.view addSubview:publicidad];
-    [publicidad release];
 
 
 	if([MKStoreManager isFeaturePurchased:AGENDA_PRODUCT_ID]){
@@ -140,7 +128,7 @@ const float scrollMarginX   = 30;
 }
 
 -(void)verCaptcha{
-    self.captcha.image = [kernel.recaptcha usefulRectangle];
+//    self.captcha.image = [kernel.recaptcha usefulRectangle];
 }
 
 - (void)enviarPeticionCompleta{
@@ -216,7 +204,6 @@ const float scrollMarginX   = 30;
     [_companyView removeFromSuperview];
     _companyView = [[TACompanyView alloc] initWithFrame:CGRectMake(0, 110, 261, 50) topColor:topColor bottomColor:bottomColor text:companyKey];
     [self.paso3 addSubview:_companyView];
-    [_companyView release];
 }
 
 
@@ -360,11 +347,9 @@ const float scrollMarginX   = 30;
     }else if ([sender tag] == BOTON_WEB_TACTILAPP){
         webACargar.url = URL_TACTILAPP;        
     }else{
-        [webACargar release];
         return ;
     }
     [self presentModalViewController:webACargar animated:YES];
-    [webACargar release];
 }
 
 -(IBAction)mandarMailAlSoporte{

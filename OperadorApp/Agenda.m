@@ -21,7 +21,6 @@
         ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
         picker.peoplePickerDelegate = self;
         [viewController presentModalViewController:picker animated:YES];
-        [picker release];
     }else{
         [self sugerirComprar];
         return;
@@ -44,7 +43,7 @@
 
 
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    [[MKStoreManager sharedManager] buyFeature:AGENDA_PRODUCT_ID];
+//    [[MKStoreManager sharedManager] buyFeature:AGENDA_PRODUCT_ID];
     #ifdef FLURRY
         [FlurryAnalytics logEvent:@"Compra aceptada"];
     #endif
@@ -53,7 +52,7 @@
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
     NSArray *myProduct = response.products;
     NSLog(@"producto: %d", [myProduct count]);
-    [request autorelease];
+//    [request autorelease];
 }
 
 
@@ -64,8 +63,8 @@
 
 -(BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
     if (property == kABPersonPhoneProperty){
-        ABMultiValueRef phones =(NSString*)ABRecordCopyValue(person, kABPersonPhoneProperty);
-        NSString *mobile = [self telefonoLimpio:(NSString*)ABMultiValueCopyValueAtIndex(phones, identifier)];
+        ABMultiValueRef phones =(__bridge ABMultiValueRef)((NSString*)CFBridgingRelease(ABRecordCopyValue(person, kABPersonPhoneProperty)));
+        NSString *mobile = [self telefonoLimpio:(NSString*)CFBridgingRelease(ABMultiValueCopyValueAtIndex(phones, identifier))];
         
 		viewController.TFtelefono.text = [mobile stringByReplacingOccurrencesOfString:@"+34" withString:@""];
         

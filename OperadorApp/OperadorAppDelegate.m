@@ -41,14 +41,14 @@
     [MKStoreManager sharedManager];
     
     //  UrbanAirship
-    NSMutableDictionary *takeOffOptions = [[[NSMutableDictionary alloc] init] autorelease];
+    NSMutableDictionary *takeOffOptions = [[NSMutableDictionary alloc] init];
     [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
     [UAirship takeOff:takeOffOptions];
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
         (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    self.window.rootViewController = [[OperadorAppViewController new] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = [OperadorAppViewController new];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -61,10 +61,6 @@
     [[UAirship shared] registerDeviceToken:deviceToken];
 }
 
-- (void)dealloc{
-    [_window release];
-    [super dealloc];
-}
 
 
 #ifdef TESTFLIGHT

@@ -37,7 +37,6 @@
     if (panelMail !=nil){
         [delegate presentModalViewController:panelMail animated:YES];
     }
-    [panelMail release];
 }
 
 #pragma mark -
@@ -56,7 +55,6 @@
 		default:{
 			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Ha ocurrido un error al intentar enviar el email, revise la configuración." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
 			[alert show];
-			[alert release];
 		}
 			break;
 	}
