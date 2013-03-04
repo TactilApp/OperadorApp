@@ -9,17 +9,14 @@
 #import "TOARequestKernel.h"
 
 #import "TAAPIClient.h"
-#import <AFNetworking//UIImageView+AFNetworking.h>
+#import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIImage+CropCaptcha.h"
 
 @implementation NSURLRequest(Helpers)
+
 +(NSURLRequest *)requestWithString:(NSString *)url_string{
     return [NSURLRequest requestWithURL:[NSURL URLWithString:url_string]];
 }
-@end
-
-
-@interface TOARequestKernel()
 
 @end
 
@@ -38,6 +35,8 @@
 
 #pragma mark - Generic methods
 -(void)reloadCaptcha{
+    self.captcha.image = nil;
+    
     [[TAAPIClient sharedInstance] getPath:nil parameters:nil
        success:^(AFHTTPRequestOperation *operation, id JSON) {
 
@@ -45,13 +44,15 @@
                placeholderImage:nil
                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                             self.captcha.image = [image usefulRectangle];
+                            [TAHelper registrarEvento:@"Carga Imagen" parametros:@{@"resultado" : @"OK"}];
                         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-                            NSLog(@"FAIL image: %@", error.localizedDescription);
+                            [TAHelper registrarEvento:@"Carga Imagen"
+                                           parametros:@{@"resultado" : @"NO", @"error" : error.localizedDescription, @"url" : request.URL.absoluteString}];
                         }
             ];
            
        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-           NSLog(@"ERROR: %@", error.localizedDescription); 
+           [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"GET", @"error": error.localizedDescription}];
        }
      ];
 
@@ -63,20 +64,33 @@
                   failure:(void (^)(NSError *error))failure{
     
     [[TAAPIClient sharedInstance] postPath:nil
-                                parameters:@{@"mobile": mobileNumber, @"captcha_str": captchaStr}
-                                   success:^(AFHTTPRequestOperation *operation, id JSON) {
-                                       if (JSON[@"result"][@"company"]){
-                                           success(JSON[@"result"][@"company"]);
-                                       }else if(JSON[@"errors"]){
-                                           NSError *error = [NSError errorWithDomain:@"OperadorApp" code:1001 userInfo:@{NSLocalizedDescriptionKey : [(JSON[@"errors"]) description]}];
-                                           failure(error);
-                                       }else{
-                                           NSError *error = [NSError errorWithDomain:@"OperadorApp" code:1001 userInfo:@{NSLocalizedDescriptionKey : @"Error desconocido"}];
-                                           failure(error);
-                                       }
-                                   } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                                       failure(error);
-                                   }
+        parameters:@{@"mobile": mobileNumber, @"captcha_str": captchaStr}
+           success:^(AFHTTPRequestOperation *operation, id JSON) {
+               
+               if (JSON[@"result"][@"company"]){
+                   success(JSON[@"result"][@"company"]);
+               }else if(JSON[@"errors"]){
+                   NSMutableString *errorStr = [NSMutableString string];
+                   for (NSString *jsonError in JSON[@"errors"]){
+                       [errorStr appendFormat:@"%@\n", jsonError];
+                   }
+                    NSError *error = [NSError errorWithDomain:@"OperadorApp" code:1001 userInfo:@{NSLocalizedDescriptionKey : errorStr}];
+                    [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"POST", @"error": error.localizedDescription}];
+                   failure(error);
+               }else{
+                   NSMutableString *errorStr = [NSMutableString string];
+                   for (NSString *jsonError in JSON[@"errors"]){
+                       [errorStr appendFormat:@"%@\n", jsonError];
+                   }
+                   NSError *error = [NSError errorWithDomain:@"OperadorApp" code:1002 userInfo:@{NSLocalizedDescriptionKey : errorStr}];
+                   [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"POST", @"error": error.localizedDescription}];
+                   failure(error);
+               }
+               
+           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"POST", @"error": error.localizedDescription}];
+               failure(error);
+           }
      ];
     
 }

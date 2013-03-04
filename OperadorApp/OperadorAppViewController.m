@@ -8,22 +8,16 @@
 
 #import "OperadorAppViewController.h"
 
+#import <MKStoreKit/MKStoreManager.h>
 #import "UIColor+Hex.h"
 
 #import "TOARequestKernel.h"
 #import "TACompanyView.h"
-#import "UIImage+CropCaptcha.h"
 #import "Contador.h"
 #import "SugerirResena.h"
 #import "Agenda.h"
 #import "ControladorWeb.h"
 #import "EnviarMail.h"
-
-
-#import <MKStoreKit/MKStoreManager.h>
-
-
-
 
 
 
@@ -55,7 +49,6 @@ const float scrollMarginX   = 30;
 
 @interface OperadorAppViewController (){
     TACompanyView *_companyView;
-    TOARequestKernel *kernel;
     UIScrollView *_scroll;
     MBProgressHUD *HUD;
 }
@@ -79,10 +72,6 @@ const float scrollMarginX   = 30;
     [self.view addSubview:_scroll];
     
     // Add steps
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(verCaptcha) name:TANOTIF_CAPTCHA_LOADED object:nil];
-    kernel = [TOARequestKernel sharedRequestKernel];
-    [kernel setCaptcha:self.captcha];
-    
     [self.paso1 setFrame:CGRectMake(0, HEIGHT(_scroll), WIDTH(_scroll), HEIGHT(_scroll))];
     [super viewDidLoad];
 
@@ -96,7 +85,8 @@ const float scrollMarginX   = 30;
     [_scroll addSubview:self.paso2];
     [_scroll addSubview:self.paso3];
     
-    [kernel reloadCaptcha];
+    [[TOARequestKernel sharedRequestKernel] setCaptcha:self.captcha];
+    [[TOARequestKernel sharedRequestKernel] reloadCaptcha];
     
     // Add ad view
 
@@ -140,7 +130,7 @@ const float scrollMarginX   = 30;
 - (IBAction)recargarCaptcha:(id)sender {
     [TAHelper registrarEvento:@"Recargar Captcha" parametros:@{@"Tipo" : @"Manual"}];
     self.codigoCaptcha.text = nil;
-    [kernel reloadCaptcha];
+    [[TOARequestKernel sharedRequestKernel] reloadCaptcha];
 }
 
 - (void)enviarPeticionCompleta{
@@ -151,14 +141,14 @@ const float scrollMarginX   = 30;
 	HUD.square = NO;
     [HUD show:YES];
 
-    [kernel doRequestForNumber:self.TFtelefono.text captcha:self.codigoCaptcha.text
+    [[TOARequestKernel sharedRequestKernel] doRequestForNumber:self.TFtelefono.text captcha:self.codigoCaptcha.text
                        success:^(NSString *companyString) {
                            [HUD hide:YES];
 
                            [self loadCompanyView:companyString];
                            [self goToPage:scrRESULT];
                            self.codigoCaptcha.text = nil;
-                            [kernel reloadCaptcha];
+                            [[TOARequestKernel sharedRequestKernel] reloadCaptcha];
                             [TAHelper registrarEvento:@"Recargar Captcha" parametros:@{@"Tipo" : @"Automático"}];
                        } failure:^(NSError *error) {
                            HUD.mode = MBProgressHUDModeText;
@@ -168,9 +158,9 @@ const float scrollMarginX   = 30;
                            [HUD hide:YES afterDelay:1];
                            [self performSelector:@selector(captchaBecomeFirstResponder) withObject:nil afterDelay:1];
                            
-                           self.codigoCaptcha.text = nil;
-                           [kernel reloadCaptcha];
-                           [TAHelper registrarEvento:@"Recargar Captcha" parametros:@{@"Tipo" : @"Erróneo"}];
+                            self.codigoCaptcha.text = nil;
+                            [[TOARequestKernel sharedRequestKernel] reloadCaptcha];
+                            [TAHelper registrarEvento:@"Recargar Captcha" parametros:@{@"Tipo" : @"Erróneo"}];
                        }];
 }
 
