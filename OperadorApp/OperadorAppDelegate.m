@@ -11,14 +11,13 @@
 #import <AFUrbanAirshipClient/AFUrbanAirshipClient.h>
 #import <MKStoreKit/MKStoreManager.h>
 #import "OperadorAppViewController.h"
-
 @implementation OperadorAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     #ifdef FLURRY
         NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-        [FlurryAnalytics startSession:FLURRY_TOKEN];
+        [Flurry startSession:FLURRY_TOKEN];
     #endif
     #ifdef TESTFLIGHT
         NSSetUncaughtExceptionHandler(&HandleExceptions);
@@ -75,7 +74,7 @@ void SignalHandler(int sig) {
 
 #ifdef FLURRY
     void uncaughtExceptionHandler(NSException *exception) {
-        [FlurryAnalytics logError:@"Uncaught" message:@"Crash!" exception:exception];
+        [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
     }
 #endif
 

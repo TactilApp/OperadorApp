@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
+#import <Admob/GADBannerView.h>
+
 #import "MBProgressHUD.h"
 
 #define URL_TACTILAPP   @"http://tactilapp.com"
 #define URL_CMT     @"http://www.cmt.es/estado-portabilidad-movil"
 
-@interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
+@interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, GADBannerViewDelegate>
 @property (nonatomic, strong) IBOutlet UIView *informacion;
 @property (nonatomic, strong) IBOutlet UIView *paso1;
 @property (nonatomic, strong) IBOutlet UIView *paso2;

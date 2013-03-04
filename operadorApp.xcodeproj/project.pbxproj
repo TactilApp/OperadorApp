@@ -11,7 +11,6 @@
 		B90C712713730C6F00BEFD81 /* Contador.m in Sources */ = {isa = PBXBuildFile; fileRef = B90C712613730C6F00BEFD81 /* Contador.m */; };
 		B90C712B137313E300BEFD81 /* SugerirResena.m in Sources */ = {isa = PBXBuildFile; fileRef = B90C712A137313E300BEFD81 /* SugerirResena.m */; };
 		B90C712E1373314D00BEFD81 /* Agenda.m in Sources */ = {isa = PBXBuildFile; fileRef = B90C712D1373314D00BEFD81 /* Agenda.m */; };
-		B92E7F9116DD2A41007C99BA /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B92E7F9016DD2A41007C99BA /* iAd.framework */; };
 		B92E7FA516DE4402007C99BA /* info_CMT.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E7F9D16DE4402007C99BA /* info_CMT.png */; };
 		B92E7FA616DE4402007C99BA /* info_CMT@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E7F9E16DE4402007C99BA /* info_CMT@2x.png */; };
 		B92E7FA716DE4402007C99BA /* info_mail.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E7F9F16DE4402007C99BA /* info_mail.png */; };
@@ -20,7 +19,6 @@
 		B92E7FAA16DE4402007C99BA /* info_tactilapp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E7FA216DE4402007C99BA /* info_tactilapp@2x.png */; };
 		B92E7FAB16DE4402007C99BA /* info_volver.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E7FA316DE4402007C99BA /* info_volver.png */; };
 		B92E7FAC16DE4402007C99BA /* info_volver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E7FA416DE4402007C99BA /* info_volver@2x.png */; };
-		B93362D3153A52620032C7C4 /* TAPublicidadView.m in Sources */ = {isa = PBXBuildFile; fileRef = B93362D2153A52620032C7C4 /* TAPublicidadView.m */; };
 		B937A9751625919D00C5B868 /* TACompanyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B937A9741625919D00C5B868 /* TACompanyView.m */; };
 		B94C60DA1627512900A28140 /* companies-color.plist in Resources */ = {isa = PBXBuildFile; fileRef = B94C60D91627512900A28140 /* companies-color.plist */; };
 		B95553E3136DFE1D0038DF00 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95553E1136DFE1D0038DF00 /* AddressBook.framework */; };
@@ -35,6 +33,10 @@
 		B95DB2A61368981500E87EB6 /* ControladorWeb.m in Sources */ = {isa = PBXBuildFile; fileRef = B95DB2A41368981500E87EB6 /* ControladorWeb.m */; };
 		B95DB2A71368981500E87EB6 /* ControladorWeb.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95DB2A51368981500E87EB6 /* ControladorWeb.xib */; };
 		B9AF9CFD165EA49B00EFA1CF /* TOARequestKernel.m in Sources */ = {isa = PBXBuildFile; fileRef = B9AF9CFC165EA49B00EFA1CF /* TOARequestKernel.m */; };
+		B9CC8F7516E4DF0F006A783C /* libAdapterIAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CC8F7416E4DF0F006A783C /* libAdapterIAd.a */; };
+		B9CC8F7716E4E271006A783C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CC8F7616E4E271006A783C /* iAd.framework */; };
+		B9CC8F7A16E50780006A783C /* banner_tactilapp.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC8F7816E50780006A783C /* banner_tactilapp.png */; };
+		B9CC8F7B16E50780006A783C /* banner_tactilapp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC8F7916E50780006A783C /* banner_tactilapp@2x.png */; };
 		B9D8CF6A165700E500F53CA6 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D8CF47165700E500F53CA6 /* Default.png */; };
 		B9D8CF6B165700E500F53CA6 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D8CF48165700E500F53CA6 /* Default@2x.png */; };
 		B9D8CF6C165700E500F53CA6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D8CF49165700E500F53CA6 /* Icon.png */; };
@@ -85,7 +87,6 @@
 		B90C712A137313E300BEFD81 /* SugerirResena.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SugerirResena.m; sourceTree = "<group>"; };
 		B90C712C1373314D00BEFD81 /* Agenda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Agenda.h; sourceTree = "<group>"; };
 		B90C712D1373314D00BEFD81 /* Agenda.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Agenda.m; sourceTree = "<group>"; };
-		B92E7F9016DD2A41007C99BA /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		B92E7F9D16DE4402007C99BA /* info_CMT.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_CMT.png; sourceTree = "<group>"; };
 		B92E7F9E16DE4402007C99BA /* info_CMT@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_CMT@2x.png"; sourceTree = "<group>"; };
 		B92E7F9F16DE4402007C99BA /* info_mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_mail.png; sourceTree = "<group>"; };
@@ -94,8 +95,6 @@
 		B92E7FA216DE4402007C99BA /* info_tactilapp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_tactilapp@2x.png"; sourceTree = "<group>"; };
 		B92E7FA316DE4402007C99BA /* info_volver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_volver.png; sourceTree = "<group>"; };
 		B92E7FA416DE4402007C99BA /* info_volver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_volver@2x.png"; sourceTree = "<group>"; };
-		B93362D1153A52620032C7C4 /* TAPublicidadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TAPublicidadView.h; path = Operadorapp/TAPublicidadView.h; sourceTree = SOURCE_ROOT; };
-		B93362D2153A52620032C7C4 /* TAPublicidadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TAPublicidadView.m; path = Operadorapp/TAPublicidadView.m; sourceTree = SOURCE_ROOT; };
 		B937A9731625919D00C5B868 /* TACompanyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TACompanyView.h; path = OperadorApp/TACompanyView.h; sourceTree = SOURCE_ROOT; };
 		B937A9741625919D00C5B868 /* TACompanyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TACompanyView.m; path = OperadorApp/TACompanyView.m; sourceTree = SOURCE_ROOT; };
 		B94C60D91627512900A28140 /* companies-color.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "companies-color.plist"; sourceTree = "<group>"; };
@@ -119,6 +118,10 @@
 		B95DB2A51368981500E87EB6 /* ControladorWeb.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ControladorWeb.xib; sourceTree = "<group>"; };
 		B9AF9CFB165EA49B00EFA1CF /* TOARequestKernel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOARequestKernel.h; sourceTree = "<group>"; };
 		B9AF9CFC165EA49B00EFA1CF /* TOARequestKernel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOARequestKernel.m; sourceTree = "<group>"; };
+		B9CC8F7416E4DF0F006A783C /* libAdapterIAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAdapterIAd.a; path = ThirdParty/libAdapterIAd.a; sourceTree = "<group>"; };
+		B9CC8F7616E4E271006A783C /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
+		B9CC8F7816E50780006A783C /* banner_tactilapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_tactilapp.png; sourceTree = "<group>"; };
+		B9CC8F7916E50780006A783C /* banner_tactilapp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_tactilapp@2x.png"; sourceTree = "<group>"; };
 		B9CD949A1624582200DA9B27 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		B9D8CF47165700E500F53CA6 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		B9D8CF48165700E500F53CA6 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -175,13 +178,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B92E7F9116DD2A41007C99BA /* iAd.framework in Frameworks */,
+				B9CC8F7716E4E271006A783C /* iAd.framework in Frameworks */,
 				B9F0187C167FE07A00801F74 /* CoreGraphics.framework in Frameworks */,
 				B95553E3136DFE1D0038DF00 /* AddressBook.framework in Frameworks */,
 				B95553E4136DFE1D0038DF00 /* AddressBookUI.framework in Frameworks */,
 				B95DB0D213688D0400E87EB6 /* UIKit.framework in Frameworks */,
 				B95DB0D413688D0400E87EB6 /* Foundation.framework in Frameworks */,
 				B05FB1647B2145669089A41A /* libPods.a in Frameworks */,
+				B9CC8F7516E4DF0F006A783C /* libAdapterIAd.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,15 +207,6 @@
 			path = "01 - informacion";
 			sourceTree = "<group>";
 		};
-		B93362D4153A52670032C7C4 /* Publicidad */ = {
-			isa = PBXGroup;
-			children = (
-				B93362D1153A52620032C7C4 /* TAPublicidadView.h */,
-				B93362D2153A52620032C7C4 /* TAPublicidadView.m */,
-			);
-			name = Publicidad;
-			sourceTree = "<group>";
-		};
 		B94FAD0F153A3565001B7049 /* Agenda */ = {
 			isa = PBXGroup;
 			children = (
@@ -230,7 +225,6 @@
 				B9D8CF951657064E00F53CA6 /* Reseñas */,
 				B95DB2A21368980700E87EB6 /* Contenedor Web */,
 				B9D8CF93165705DF00F53CA6 /* Mail */,
-				B93362D4153A52670032C7C4 /* Publicidad */,
 				B9F018DD1681254F00801F74 /* Request Kernel */,
 			);
 			name = Controladores;
@@ -257,7 +251,8 @@
 		B95DB0D013688D0400E87EB6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				B92E7F9016DD2A41007C99BA /* iAd.framework */,
+				B9CC8F7416E4DF0F006A783C /* libAdapterIAd.a */,
+				B9CC8F7616E4E271006A783C /* iAd.framework */,
 				B95DB0D113688D0400E87EB6 /* UIKit.framework */,
 				B95DB0D313688D0400E87EB6 /* Foundation.framework */,
 				B9F0187B167FE07A00801F74 /* CoreGraphics.framework */,
@@ -320,6 +315,15 @@
 			name = "Contenedor Web";
 			sourceTree = "<group>";
 		};
+		B9CC8F7C16E50791006A783C /* Publicidad */ = {
+			isa = PBXGroup;
+			children = (
+				B9CC8F7816E50780006A783C /* banner_tactilapp.png */,
+				B9CC8F7916E50780006A783C /* banner_tactilapp@2x.png */,
+			);
+			name = Publicidad;
+			sourceTree = "<group>";
+		};
 		B9CD91F116244A2000DA9B27 /* Companies */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,6 +339,7 @@
 			isa = PBXGroup;
 			children = (
 				B9D8CF46165700E500F53CA6 /* Icono y default */,
+				B9CC8F7C16E50791006A783C /* Publicidad */,
 				B9D8CF4B165700E500F53CA6 /* Estructura */,
 				B9D8CF50165700E500F53CA6 /* Pantallas */,
 			);
@@ -585,6 +590,8 @@
 				B92E7FAB16DE4402007C99BA /* info_volver.png in Resources */,
 				B92E7FAC16DE4402007C99BA /* info_volver@2x.png in Resources */,
 				B9F0D2BD16E0D04B00F9316D /* MKStoreKitConfigs.plist in Resources */,
+				B9CC8F7A16E50780006A783C /* banner_tactilapp.png in Resources */,
+				B9CC8F7B16E50780006A783C /* banner_tactilapp@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,7 +655,6 @@
 				B90C712713730C6F00BEFD81 /* Contador.m in Sources */,
 				B90C712B137313E300BEFD81 /* SugerirResena.m in Sources */,
 				B90C712E1373314D00BEFD81 /* Agenda.m in Sources */,
-				B93362D3153A52620032C7C4 /* TAPublicidadView.m in Sources */,
 				CF4155D916068A6300E488ED /* UIImage+CropCaptcha.m in Sources */,
 				B937A9751625919D00C5B868 /* TACompanyView.m in Sources */,
 				B9AF9CFD165EA49B00EFA1CF /* TOARequestKernel.m in Sources */,
@@ -708,7 +714,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OperadorApp/OperadorApp-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					DEBUG,
+					FLURRY,
+				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "$(inherited)/**";
@@ -717,6 +726,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"./**",
 					"$(inherited)",
+					"\"$(SRCROOT)/OperadorApp\"",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -749,6 +759,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"./**",
 					"$(inherited)",
+					"\"$(SRCROOT)/OperadorApp\"",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -796,6 +807,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"./**",
 					"$(inherited)",
+					"\"$(SRCROOT)/OperadorApp\"",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

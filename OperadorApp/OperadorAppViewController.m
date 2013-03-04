@@ -10,7 +10,6 @@
 
 #import "UIColor+Hex.h"
 
-#import "TAPublicidadView.h"
 #import "TOARequestKernel.h"
 #import "TACompanyView.h"
 #import "UIImage+CropCaptcha.h"
@@ -22,6 +21,11 @@
 
 
 #import <MKStoreKit/MKStoreManager.h>
+
+
+
+
+
 
 /*
    *************
@@ -66,7 +70,7 @@ const float scrollMarginX   = 30;
     float screenHeight = [UIScreen mainScreen].bounds.size.height;
     _scroll = [[UIScrollView alloc] initWithFrame:
                CGRectMake(scrollMarginX, headHeight,
-                          320 - 2 * scrollMarginX, screenHeight - 20 - headHeight - ADSHEIGHT)];
+                          320 - 2 * scrollMarginX, screenHeight - 20 - headHeight - 50)];
     _scroll.scrollEnabled = FALSE;
     _scroll.pagingEnabled = TRUE;
     _scroll.showsVerticalScrollIndicator = FALSE;
@@ -92,20 +96,28 @@ const float scrollMarginX   = 30;
     [_scroll addSubview:self.paso2];
     [_scroll addSubview:self.paso3];
     
+    [kernel reloadCaptcha];
     
     // Add ad view
-    TAPublicidadView *publicidad = [[TAPublicidadView alloc] initWithFrame:CGRectMake(0, screenHeight - 20 - ADSHEIGHT, WIDTH(self.view), ADSHEIGHT)];
-    publicidad.rootViewController = self;
-    [publicidad loadAds];
-    
-    [self.view addSubview:publicidad];
 
-
-	if([MKStoreManager isFeaturePurchased:AGENDA_PRODUCT_ID]){
-        NSLog(@"Publicidad oculta");
-//        publicidad.hidden = TRUE;
-	}
+    GADBannerView *_bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    CGFloat y = [TAHelper isIphone4] ? 480-20-50 : 568-20-50;
+    _bannerView.frame = CGRectMake(0, y, 320, 50);
     
+    _bannerView.adUnitID = OAadmobID;
+    _bannerView.delegate = self;
+
+    _bannerView.rootViewController = self;
+    _bannerView.backgroundColor = [UIColor clearColor];
+    
+    [_bannerView loadRequest:[GADRequest request]];
+    
+    
+    UIImageView *tactilapp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"banner_tactilapp.png"]];
+    tactilapp.frame = _bannerView.frame;
+    [self.view addSubview:tactilapp];
+    
+    [self.view addSubview:_bannerView];
 
     // Add HUD to the screen
 	HUD = [[MBProgressHUD alloc] initWithView:self.view];
@@ -121,18 +133,14 @@ const float scrollMarginX   = 30;
     }
 }
 
-- (IBAction)recargarCaptcha:(id)sender {
-    #ifdef FLURRY
-        NSDictionary *dictData = @{@"Tipo" : @"Manual"};
-        [FlurryAnalytics logEvent:@"Recargar Captcha" withParameters:dictData];
-    #endif
 
+
+
+
+- (IBAction)recargarCaptcha:(id)sender {
+    [TAHelper registrarEvento:@"Recargar Captcha" parametros:@{@"Tipo" : @"Manual"}];
     self.codigoCaptcha.text = nil;
     [kernel reloadCaptcha];
-}
-
--(void)verCaptcha{
-//    self.captcha.image = [kernel.recaptcha usefulRectangle];
 }
 
 - (void)enviarPeticionCompleta{
@@ -150,12 +158,8 @@ const float scrollMarginX   = 30;
                            [self loadCompanyView:companyString];
                            [self goToPage:scrRESULT];
                            self.codigoCaptcha.text = nil;
-                           [kernel reloadCaptcha];
-                            #ifdef FLURRY
-                               NSDictionary *dictData = @{@"Tipo" : @"Automática"};
-                               [FlurryAnalytics logEvent:@"Recargar Captcha" withParameters:dictData];
-                            #endif
-
+                            [kernel reloadCaptcha];
+                            [TAHelper registrarEvento:@"Recargar Captcha" parametros:@{@"Tipo" : @"Automático"}];
                        } failure:^(NSError *error) {
                            HUD.mode = MBProgressHUDModeText;
                            HUD.labelText = @"Error";
@@ -166,10 +170,7 @@ const float scrollMarginX   = 30;
                            
                            self.codigoCaptcha.text = nil;
                            [kernel reloadCaptcha];
-                            #ifdef FLURRY
-                               NSDictionary *dictData = @{@"Tipo" : @"Errónea"};
-                               [FlurryAnalytics logEvent:@"Recargar Captcha" withParameters:dictData];
-                            #endif
+                           [TAHelper registrarEvento:@"Recargar Captcha" parametros:@{@"Tipo" : @"Erróneo"}];
                        }];
 }
 
@@ -194,9 +195,7 @@ const float scrollMarginX   = 30;
         if (findFlag)
             break;
         else{
-            #ifdef FLURRY
-                 [FlurryAnalytics logEvent:@"New Company" withParameters:[NSDictionary dictionaryWithObject:companyString forKey:@"stringFromCMT"]];
-            #endif
+            [TAHelper registrarEvento:@"Compañía nueva" parametros:@{@"stringFromCMT" : companyString}];
         }
     
     }
@@ -270,7 +269,6 @@ const float scrollMarginX   = 30;
                 return FALSE;
             }
             
-            [kernel reloadCaptcha];
             self.codigoCaptcha.text = nil;
             
             [self goToPage:scrCAPTCHA];
@@ -344,7 +342,7 @@ const float scrollMarginX   = 30;
 
 #pragma mark - Parafernalia de la pantalla de info
 
--(IBAction)cargarWeb:(id)sender{
+-(IBAction)cargarWeb:(UIButton *)sender{
     ControladorWeb *webACargar = [[ControladorWeb alloc] initWithNibName:@"ControladorWeb" bundle:nil];
     if ([sender tag] == BOTON_WEB_CMT){
         webACargar.url = URL_CMT;
@@ -364,5 +362,18 @@ const float scrollMarginX   = 30;
     [pantallaMail setMensaje:@"Hola,<br />quiero sugerir para operadorApp..."];
 
     [pantallaMail mostrarPanelDelEmail];
+}
+
+
+#pragma mark - Delegados de la publicidad
+-(void)adViewDidReceiveAd:(GADBannerView *)banner{
+    [TAHelper registrarEvento:@"Publicidad" parametros:@{@"cargada" : @"si", @"clase" : [banner class]}];
+}
+
+-(void)adView:(GADBannerView *)banner didFailToReceiveAdWithError:(GADRequestError *)error{
+    [TAHelper registrarEvento:@"Publicidad" parametros:@{@"cargada" : @"no"}];
+    for (UIView *subview in banner.subviews){
+        [subview removeFromSuperview];
+    }
 }
 @end
