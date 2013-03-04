@@ -52,6 +52,7 @@ const float scrollMarginX   = 30;
     UIScrollView *_scroll;
     MBProgressHUD *HUD;
 }
+@property (nonatomic, strong) EnviarMail *pantallaMail;
 @property (nonatomic, strong) Agenda *agenda;
 @end
 
@@ -345,13 +346,8 @@ const float scrollMarginX   = 30;
 }
 
 -(IBAction)mandarMailAlSoporte{
-    EnviarMail *pantallaMail = [[EnviarMail alloc] init];
-
-    [pantallaMail setDelegate:self];
-    [pantallaMail setAsunto:[NSString stringWithFormat:@"[operadorApp iOS%@] Soporte", kVERSION]];
-    [pantallaMail setMensaje:@"Hola,<br />quiero sugerir para operadorApp..."];
-
-    [pantallaMail mostrarPanelDelEmail];
+    self.pantallaMail = [EnviarMail mailASoporteConDelegado:self];
+    [self.pantallaMail mostrarPanelDelEmail];
 }
 
 
