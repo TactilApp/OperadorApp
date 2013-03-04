@@ -1,6 +1,6 @@
 
 ![](https://github.com/TactilApp/OperadorApp/raw/master/Recursos/00%20-%20icono%20y%20default/Icon%402x.png) OperadorApp
-======================
+=======================
 OperadorApp sirve para descubrir de qué compañía es un número de teléfono móvil (de momento únicamente en España).
 
 Se puede descargar gratuítamente desde la AppStore: [OperadorApp](https://itunes.apple.com/es/app/operadorapp/id431750600?mt=8).
@@ -24,3 +24,4 @@ La aplicación utiliza diferentes librerías externas, por lo que en primer luga
 Configuración
 -------------
 Por último debes renombrar la carpeta `configuración-ejemplo` a `configuracion` y editar los archivos de su interior completando los distintos datos.
+
