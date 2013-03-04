@@ -52,8 +52,11 @@ const float scrollMarginX   = 30;
     UIScrollView *_scroll;
     MBProgressHUD *HUD;
 }
+
+// Properties temporales (deberían manejarse únicamente cuando se vayan a crear)
 @property (nonatomic, strong) EnviarMail *pantallaMail;
 @property (nonatomic, strong) Agenda *agenda;
+@property (nonatomic, strong) SugerirResena *sugerir;
 @end
 
 @implementation OperadorAppViewController
@@ -123,8 +126,6 @@ const float scrollMarginX   = 30;
         [self intentaIrAPagina:scrINFO];
     }
 }
-
-
 
 
 
@@ -231,8 +232,8 @@ const float scrollMarginX   = 30;
     else if (sender.tag == scrRESULT){
         self.TFtelefono.text = nil;
         if ([Contador sugerirResena]){
-            SugerirResena *resena = [[SugerirResena alloc] init];
-            [resena sugerir];
+            self.sugerir = [[SugerirResena alloc] init];
+            [self.sugerir sugerir];
         }else
             [self intentaIrAPagina:scrTELEPHONE];
     }
