@@ -6,22 +6,21 @@
 //  Copyright (c) 2012 TactilApp.com. All rights reserved.
 //
 
+
 #import "Agenda.h"
+
+#import <MKStoreKit/MKStoreManager.h>
+
 #import "OAprivate-configure.h"
 
 @implementation Agenda
-@synthesize viewController;
-
 -(void)mostrarAgenda{
-    #ifdef FLURRY
-        [FlurryAnalytics logEvent:@"Mostrar agenda"];
-    #endif
+    [TAHelper registrarEvento:@"Mostrar agenda"];
     
     if([MKStoreManager isFeaturePurchased:AGENDA_PRODUCT_ID]){
         ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
         picker.peoplePickerDelegate = self;
-        [viewController presentModalViewController:picker animated:YES];
-        [picker release];
+        [self.viewController presentModalViewController:picker animated:YES];
     }else{
         [self sugerirComprar];
         return;
@@ -30,30 +29,26 @@
 
 -(void)sugerirComprar{
     if ([SKPaymentQueue canMakePayments]){
-        #ifdef FLURRY
-            [FlurryAnalytics logEvent:@"Sugiere compra"];
-        #endif
-        [TAHelper mostrarAlertaConTitulo:@"Cargar contactos desde la agenda"  mensaje:@"La opción de cargar los contactos desde la agenda del iPhone debe adquirirse por separado.\nEn caso de que ya hubiese comprado esta opción anteriormente CON SU CUENTA, indique que lo desea comprar de nuevo para activarla con total tranquilidad, ya que no se le va a volver a cobrar, ESTA OPCIÓN SOLO SE PAGA LA PRIMERA VEZ y después se puede utilizar sin límites."];
+        [TAHelper registrarEvento:@"Sugiere compra"];
+
+        NSString *titulo = @"Cargar contactos desde la agenda";
+        NSString *mensaje = @"La opción de cargar los contactos desde la agenda del iPhone debe adquirirse por separado.\nEn caso de que ya hubiese comprado esta opción anteriormente CON SU CUENTA, indique que lo desea comprar de nuevo para activarla con total tranquilidad, ya que no se le va a volver a cobrar, ESTA OPCIÓN SOLO SE PAGA LA PRIMERA VEZ y después se puede utilizar sin límites.";
+        
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:titulo message:mensaje delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
+        [alert show];
     }else{
-        #ifdef FLURRY
-            [FlurryAnalytics logEvent:@"InAppPurchase desactivadas"];
-        #endif
+        [TAHelper registrarEvento:@"InAppPurchase desactivadas"];
         [TAHelper mostrarAlertaConTitulo:@"Cargar contactos desde la agenda" mensaje:@"La opción de cargar los contactos desde la agenda del iPhone debe adquirirse por separado.\nPara ello, debe activar la opción de \"Compras integradas\" desde los ajustes de su iPhone.\nInformar de que el importe se abonará una única vez, sin importar el número de dispositivos en que se instale (con la misma cuenta de usuario)."];
     }
 }
 
-
--(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
-    [[MKStoreManager sharedManager] buyFeature:AGENDA_PRODUCT_ID];
-    #ifdef FLURRY
-        [FlurryAnalytics logEvent:@"Compra aceptada"];
-    #endif
-}
-
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
-    NSArray *myProduct = response.products;
-    NSLog(@"producto: %d", [myProduct count]);
-    [request autorelease];
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    [[MKStoreManager sharedManager] buyFeature:AGENDA_PRODUCT_ID
+                                    onComplete:^(NSString *purchasedFeature, NSData *purchasedReceipt, NSArray *availableDownloads) {
+                                        [TAHelper registrarEvento:@"Compra aceptada"];
+                                    } onCancelled:^{
+                                        [TAHelper registrarEvento:@"Compra rechazada"];
+                                    }];
 }
 
 
@@ -64,16 +59,14 @@
 
 -(BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
     if (property == kABPersonPhoneProperty){
-        ABMultiValueRef phones =(NSString*)ABRecordCopyValue(person, kABPersonPhoneProperty);
-        NSString *mobile = [self telefonoLimpio:(NSString*)ABMultiValueCopyValueAtIndex(phones, identifier)];
+        ABMultiValueRef phones =(__bridge ABMultiValueRef)((NSString*)CFBridgingRelease(ABRecordCopyValue(person, kABPersonPhoneProperty)));
+        NSString *mobile = [self telefonoLimpio:(NSString*)CFBridgingRelease(ABMultiValueCopyValueAtIndex(phones, identifier))];
         
-		viewController.TFtelefono.text = [mobile stringByReplacingOccurrencesOfString:@"+34" withString:@""];
+		self.viewController.TFtelefono.text = [mobile stringByReplacingOccurrencesOfString:@"+34" withString:@""];
+
+        [TAHelper registrarEvento:@"Teléfono cargado desde agenda"];
         
-        #ifdef FLURRY
-            [FlurryAnalytics logEvent:@"Teléfono cargado desde agenda"];
-        #endif
-        
-        [viewController dismissModalViewControllerAnimated:YES];
+        [self.viewController dismissModalViewControllerAnimated:YES];
         return NO;
     }
     
@@ -83,7 +76,7 @@
 }
 
 -(void)peoplePickerNavigationControllerDidCancel:(ABPeoplePickerNavigationController *)peoplePicker{
-    [viewController dismissModalViewControllerAnimated:YES];
+    [self.viewController dismissModalViewControllerAnimated:YES];
 }
 
 -(NSString *)telefonoLimpio:(NSString *)telefono{

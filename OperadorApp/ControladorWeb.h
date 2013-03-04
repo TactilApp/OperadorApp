@@ -10,9 +10,9 @@
 
 @interface ControladorWeb : UIViewController<UIWebViewDelegate>
 
-@property (retain, nonatomic) IBOutlet UIActivityIndicatorView *activity;
-@property (nonatomic, retain) IBOutlet UIWebView *web;
-@property (nonatomic, retain) NSString *url;
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *activity;
+@property (nonatomic, strong) IBOutlet UIWebView *web;
+@property (nonatomic, strong) NSString *url;
 
 -(IBAction)volver;
 @end

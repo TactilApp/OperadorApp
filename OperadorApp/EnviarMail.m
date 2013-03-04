@@ -10,34 +10,43 @@
 
 #import "OAprivate-configure.h"
 
-@implementation EnviarMail
-@synthesize delegate, mailDestino, asunto, mensaje;
 
-- (id)init {
-    self = [super init];
-    if (self) {
-        mailDestino = MAIL_SOPORTE;
-        asunto = @"";
-        mensaje = @"";
-        delegate = nil;
-    }
-    return self;
+@interface EnviarMail()
+
+    @property (nonatomic, strong) UIViewController *delegate;
+
+    @property (nonatomic, strong) NSString *mailDestino;
+    @property (nonatomic, strong) NSString *asunto;
+    @property (nonatomic, strong) NSString *mensaje;
+
+@end
+
+
+@implementation EnviarMail
+
++(EnviarMail *)mailASoporteConDelegado:(UIViewController *)delegate{
+    EnviarMail *pantallaEmail = [[EnviarMail alloc] init];
+    pantallaEmail.mailDestino = MAIL_SOPORTE;
+    pantallaEmail.asunto = [NSString stringWithFormat:@"[operadorApp iOS%@] Soporte", kVERSION];
+    pantallaEmail.mensaje = @"Hola,<br />quiero sugerir para operadorApp...";
+    pantallaEmail.delegate = delegate;
+    
+    return pantallaEmail;
 }
 
--(void) mostrarPanelDelEmail {
+-(void)mostrarPanelDelEmail {
     MFMailComposeViewController *panelMail = [[MFMailComposeViewController alloc] init];
     panelMail.title = TITULO_VENTANA;
     [panelMail.navigationBar setTintColor:[UIColor colorWithRed:0.0156 green:0.211 blue:0.266 alpha:1]];
     [[panelMail.toolbarItems objectAtIndex:0] setTintColor:[UIColor redColor]];
     [panelMail setDelegate:self];
     panelMail.mailComposeDelegate = self;
-    [panelMail setToRecipients:[NSArray arrayWithObject:mailDestino]];
-    [panelMail setSubject:asunto];
-    [panelMail setMessageBody:mensaje isHTML:YES];
-    if (panelMail !=nil){
-        [delegate presentModalViewController:panelMail animated:YES];
-    }
-    [panelMail release];
+    [panelMail setToRecipients:[NSArray arrayWithObject:self.mailDestino]];
+    [panelMail setSubject:self.asunto];
+    [panelMail setMessageBody:self.mensaje isHTML:YES];
+
+    if (panelMail)
+        [self.delegate presentModalViewController:panelMail animated:YES];
 }
 
 #pragma mark -
@@ -45,20 +54,18 @@
 - (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error{
 	switch (result)	{
 		case MFMailComposeResultCancelled:
-			[delegate dismissModalViewControllerAnimated:YES];
+			[self.delegate dismissModalViewControllerAnimated:YES];
 			break;
 		case MFMailComposeResultSaved:
-			[delegate dismissModalViewControllerAnimated:YES];
+			[self.delegate dismissModalViewControllerAnimated:YES];
 			break;
 		case MFMailComposeResultSent:
-			[delegate dismissModalViewControllerAnimated:YES];
+			[self.delegate dismissModalViewControllerAnimated:YES];
 			break;
 		default:{
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Ha ocurrido un error al intentar enviar el email, revise la configuración." delegate:self cancelButtonTitle:@"OK" otherButtonTitles: nil];
-			[alert show];
-			[alert release];
+            [TAHelper mostrarAlertaConTitulo:@"Error" mensaje:@"Ha ocurrido un error al intentar enviar el email, revise la configuración."];
 		}
-			break;
+        break;
 	}
 }
 

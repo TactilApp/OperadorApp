@@ -16,6 +16,18 @@
 +(void)mostrarAlertaConTitulo:(NSString *)titulo mensaje:(NSString *)mensaje{
     UIAlertView *alerta = [[UIAlertView alloc] initWithTitle:titulo message:mensaje delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
     [alerta show];
-    [alerta release];
+}
+
++(void)registrarEvento:(NSString *)nombre{
+    #ifdef FLURRY
+        [Flurry logEvent:nombre];
+    #endif
+}
+
+
++(void)registrarEvento:(NSString *)nombre parametros:(NSDictionary *)dict{
+    #ifdef FLURRY
+        [Flurry logEvent:nombre withParameters:dict];
+    #endif
 }
 @end

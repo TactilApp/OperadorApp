@@ -66,11 +66,5 @@
     [self.text drawInRect:final_rect withFont:font lineBreakMode:UILineBreakModeWordWrap alignment:UITextAlignmentCenter];
 }
 
--(void)dealloc{
-    [_topColor release];
-    [_bottomColor release];
-    [_text release];
-    [super dealloc];
-}
 
 @end

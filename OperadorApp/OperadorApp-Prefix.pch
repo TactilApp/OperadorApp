@@ -4,8 +4,8 @@
 
 #import <Availability.h>
 
-#ifndef __IPHONE_3_0
-#warning "This project uses features only available in iPhone SDK 3.0 and later."
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iPhone SDK 5.0 and later."
 #endif
 
 #ifdef __OBJC__
@@ -19,10 +19,10 @@
     #import "TAHelper.h"
 
     #ifdef TESTFLIGHT
-        #import "TestFlight.h"
+        #import <TestFlightSDK/TestFlight.h>
     #endif
 
     #ifdef FLURRY
-        #import "FlurryAnalytics.h"
+        #import <FlurrySDK/Flurry.h>
     #endif
 #endif

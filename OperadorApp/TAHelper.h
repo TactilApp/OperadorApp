@@ -16,4 +16,8 @@
 @interface TAHelper : NSObject
     +(BOOL)isIphone4;
     +(void)mostrarAlertaConTitulo:(NSString *)titulo mensaje:(NSString *)mensaje;
+
+// FLURRY
+    +(void)registrarEvento:(NSString *)nombre;
+    +(void)registrarEvento:(NSString *)nombre parametros:(NSDictionary *)dict;
 @end

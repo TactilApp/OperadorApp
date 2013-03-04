@@ -8,23 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
+#import <Admob/GADBannerView.h>
+
 #import "MBProgressHUD.h"
 
 #define URL_TACTILAPP   @"http://tactilapp.com"
 #define URL_CMT     @"http://www.cmt.es/estado-portabilidad-movil"
-#define POST_URL @"http://www.cmt.es/pmovil/SelectOption.do"
-#define CAPTCHA_URL @"http://www.cmt.es/pmovil/jcaptcha.jpg"
 
+@interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate, MBProgressHUDDelegate, GADBannerViewDelegate>
+@property (nonatomic, strong) IBOutlet UIView *informacion;
+@property (nonatomic, strong) IBOutlet UIView *paso1;
+@property (nonatomic, strong) IBOutlet UIView *paso2;
+@property (nonatomic, strong) IBOutlet UIView *paso3;
 
-@interface OperadorAppViewController : UIViewController <UITextFieldDelegate, UIAlertViewDelegate, MBProgressHUDDelegate>
-@property (nonatomic, retain) IBOutlet UIView *informacion;
-@property (nonatomic, retain) IBOutlet UIView *paso1;
-@property (nonatomic, retain) IBOutlet UIView *paso2;
-@property (nonatomic, retain) IBOutlet UIView *paso3;
-
-@property (nonatomic, retain) IBOutlet UITextField *TFtelefono;
-@property (nonatomic, retain) IBOutlet UIImageView *captcha;
-@property (nonatomic, retain) IBOutlet UITextField *codigoCaptcha;
+@property (nonatomic, strong) IBOutlet UITextField *TFtelefono;
+@property (nonatomic, strong) IBOutlet UIImageView *captcha;
+@property (nonatomic, strong) IBOutlet UITextField *codigoCaptcha;
 
 
 -(IBAction)desplazarScroll:(id)sender;

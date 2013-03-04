@@ -8,18 +8,16 @@
 
 #import "OperadorAppDelegate.h"
 
-#import "MKStoreManager.h"
-#import "UAPush.h"
-
+#import <AFUrbanAirshipClient/AFUrbanAirshipClient.h>
+#import <MKStoreKit/MKStoreManager.h>
 #import "OperadorAppViewController.h"
-
 @implementation OperadorAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     #ifdef FLURRY
         NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-        [FlurryAnalytics startSession:FLURRY_TOKEN];
+        [Flurry startSession:FLURRY_TOKEN];
     #endif
     #ifdef TESTFLIGHT
         NSSetUncaughtExceptionHandler(&HandleExceptions);
@@ -38,34 +36,30 @@
         [TestFlight takeOff:TESTFLIGHT_TOKEN];
     #endif
     
+    // Inicializar MKStoreKit
     [MKStoreManager sharedManager];
     
-    //  UrbanAirship
-    NSMutableDictionary *takeOffOptions = [[[NSMutableDictionary alloc] init] autorelease];
-    [takeOffOptions setValue:launchOptions forKey:UAirshipTakeOffOptionsLaunchOptionsKey];
-    [UAirship takeOff:takeOffOptions];
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:
-        (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
 
-    self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    self.window.rootViewController = [[OperadorAppViewController new] autorelease];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = [OperadorAppViewController new];
     [self.window makeKeyAndVisible];
     return YES;
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-    [UAirship land];
-}
 
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [[UAirship shared] registerDeviceToken:deviceToken];
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
+    AFUrbanAirshipClient *client = [[AFUrbanAirshipClient alloc]
+                                    initWithApplicationKey:kUrbanAirshipApplicationKey
+                                    applicationSecret:kUrbanAirshipApplicationSecret];
+    
+    [client registerDeviceToken:deviceToken withAlias:nil success:^{
+        NSLog(@"Success");
+    } failure:^(NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
-
-- (void)dealloc{
-    [_window release];
-    [super dealloc];
-}
-
 
 #ifdef TESTFLIGHT
 void HandleExceptions(NSException *exception) {
@@ -80,7 +74,7 @@ void SignalHandler(int sig) {
 
 #ifdef FLURRY
     void uncaughtExceptionHandler(NSException *exception) {
-        [FlurryAnalytics logError:@"Uncaught" message:@"Crash!" exception:exception];
+        [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
     }
 #endif
 

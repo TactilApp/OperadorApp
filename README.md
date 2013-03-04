@@ -7,19 +7,20 @@ Se puede descargar gratuítamente desde la AppStore: [OperadorApp](https://itune
 
 Instalación
 ===========
-La aplicación incluye diferentes submodulos, por lo que en primer lugar hay que inicializarlos y descargar su código fuente.
+A continuación se explican los 3 pasos que necesitas para probar la aplicación en tu propio ordenador.
 
 Clonado
 -------
 	git clone git@github.com:TactilApp/OperadorApp.git
 
-Para inicializar todos los módulos
-----------------------------------
-	git submodule init
-	git submodule update
+CocoaPods
+---------
+La aplicación utiliza diferentes librerías externas, por lo que en primer lugar hay que descargarlas utilizando **CocoaPods**:
 
-Copiar configuraciones
-----------------------
-	mv configuracion-ejemplo configuracion
+	pod install
+	
+\* Si necesitas información de cómo instalar Cocoa Pods, date una vuelta por [su web](http://cocoapods.org/).
 
-Sería conveniente editar los dos ficheros que contiene el directorio que se acaba de renombrar con los parámetros de cada servicio (UrbanAirship, Flurry, …).
+Configuración
+-------------
+Por último debes renombrar la carpeta `configuración-ejemplo` a `configuracion` y editar los archivos de su interior completando los distintos datos.

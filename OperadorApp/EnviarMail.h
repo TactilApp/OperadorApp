@@ -11,21 +11,9 @@
 
 #define TITULO_VENTANA @"Soporte"
 
-@interface EnviarMail : UIViewController <MFMailComposeViewControllerDelegate, UINavigationControllerDelegate> {
-    id delegate;
-    
-    NSString *mailDestino;
-    NSString *asunto;
-    NSString *mensaje;
-}
+@interface EnviarMail : UIViewController <MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
 
-@property (nonatomic, assign) id delegate;
-
-@property (nonatomic, retain) NSString *mailDestino;
-@property (nonatomic, retain) NSString *asunto;
-@property (nonatomic, retain) NSString *mensaje;
-
-
--(void) mostrarPanelDelEmail;
+    +(EnviarMail *)mailASoporteConDelegado:(UIViewController *)delegate;
+    -(void)mostrarPanelDelEmail;
 
 @end

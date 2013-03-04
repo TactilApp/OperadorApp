@@ -44,10 +44,4 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)dealloc{
-    [_web release];
-    [_url release];
-    [_activity release];
-    [super dealloc];
-}
 @end

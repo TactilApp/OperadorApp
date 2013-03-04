@@ -13,24 +13,18 @@
 -(void)sugerir{
     UIAlertView *alerta = [[UIAlertView alloc] initWithTitle:TITULO message:MENSAJE delegate:self cancelButtonTitle:NEGATIVO otherButtonTitles:POSITIVO, nil];
     [alerta show];
-    #ifdef FLURRY
-        [FlurryAnalytics logEvent:@"Sugiere reseña"];
-    #endif
+    [TAHelper registrarEvento:@"Sugiere reseña"];
 }
 
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1){
-        #ifdef FLURRY
-                [FlurryAnalytics logEvent:@"Reseña efectuada"];
-        #endif
+        [TAHelper registrarEvento:@"Reseña efectuada"];
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:@"SI" forKey:kHARESENADO];
 
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=431750600"]];
     }
-    [alertView release];
-    [self release];
 }
 @end
