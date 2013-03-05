@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  operadorApp
+
+  Created by Jorge Maroto Garcia on 5/3/13.
+  Copyright (c) 2013 TactilApp.com. All rights reserved.
+*/
+
+// GENÉRICO
+BTN_ACEPTAR = "Aceptar";
+BTN_CANCELAR = "Cancelar";
+
+// AGENDA
+AGENDA_SUGERIR_COMPRA_TIT = "Cargar contactos desde la agenda";
+AGENDA_SUGERIR_COMPRA_MSG = "La opción de cargar los contactos desde la agenda del iPhone debe adquirirse por separado.\nEn caso de que ya hubiese comprado esta opción anteriormente CON SU CUENTA, indique que lo desea comprar de nuevo para activarla con total tranquilidad, ya que no se le va a volver a cobrar, ESTA OPCIÓN SOLO SE PAGA LA PRIMERA VEZ y después se puede utilizar sin límites.";
+
+AGENDA_INAPP_DESACTIVADAS_TIT = "Cargar contactos desde la agenda";
+AGENDA_INAPP_DESACTIVADAS_MSG = "La opción de cargar los contactos desde la agenda del iPhone debe adquirirse por separado.\nPara ello, debe activar la opción de \"Compras integradas\" desde los ajustes de su iPhone.\nInformar de que el importe se abonará una única vez, sin importar el número de dispositivos en que se instale (con la misma cuenta de usuario).";
+
+AGENDA_TELEFONO_INCORRECTO_TIT = "Teléfono incorrecto";
+AGENDA_TELEFONO_INCORRECTO_MSG = "OperadorApp solo funciona con números de móviles en España";
+
+// RESEÑAS
+RESENA_TIT = "Haz una reseña";
+RESENA_MSG = "Si OperadorApp te ha resultado útil nos gustaría que dejases una reseña en la AppStore. Cada versión de la aplicación es independiente, por lo que aunque lo hicieses en el pasado, agradeceríamos que opinases también sobre esta versión.\n Si lo deseas, también puedes enviarnos tus sugerencias por mail pulsando en el logo de la aplicación.";
+
+// MAIL
+MAIL_VENTANA_TITULO = "Soporte";
+MAIL_TIT = "[operadorApp iOS%@] Soporte";
+MAIL_MSG = "Hola,<br />quiero sugerir para operadorApp...";
+MAIL_ERROR_DESCONOCIDO = "Ha ocurrido un error al intentar enviar el email, revise la configuración.";
+
+// VIEWCONTROLLER
+VC_PRIMERA_CARGA_TIT = "OperadorApp %@";
+VC_PRIMERA_CARGA_MSG = "Hola, bienvenido a OperadorApp %@. Ésta es la última versión de la aplicación compatible con iOS4, por lo que si tienes una versión anterior, aconsejamos actualizar tu dispositivo para poder seguir disfrutando de las mejoras de OperadorApp en futuras versiones.";
+
+// HUD
+HUD_CARGANDO_TIT = "Cargando";
+HUD_CARGANDO_MSG = "Realizando consulta a la CMT";
+HUD_TELEFONO_INCORRECTO = "El teléfono introducido no es válido";

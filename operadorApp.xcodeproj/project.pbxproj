@@ -37,6 +37,7 @@
 		B9CC8F7716E4E271006A783C /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B9CC8F7616E4E271006A783C /* iAd.framework */; };
 		B9CC8F7A16E50780006A783C /* banner_tactilapp.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC8F7816E50780006A783C /* banner_tactilapp.png */; };
 		B9CC8F7B16E50780006A783C /* banner_tactilapp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9CC8F7916E50780006A783C /* banner_tactilapp@2x.png */; };
+		B9CE77B816E6696700DF174C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B9CE77B716E6696700DF174C /* Localizable.strings */; };
 		B9D8CF6A165700E500F53CA6 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D8CF47165700E500F53CA6 /* Default.png */; };
 		B9D8CF6B165700E500F53CA6 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D8CF48165700E500F53CA6 /* Default@2x.png */; };
 		B9D8CF6C165700E500F53CA6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B9D8CF49165700E500F53CA6 /* Icon.png */; };
@@ -123,6 +124,7 @@
 		B9CC8F7816E50780006A783C /* banner_tactilapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = banner_tactilapp.png; sourceTree = "<group>"; };
 		B9CC8F7916E50780006A783C /* banner_tactilapp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "banner_tactilapp@2x.png"; sourceTree = "<group>"; };
 		B9CD949A1624582200DA9B27 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		B9CE77B716E6696700DF174C /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		B9D8CF47165700E500F53CA6 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		B9D8CF48165700E500F53CA6 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		B9D8CF49165700E500F53CA6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -287,6 +289,7 @@
 				B95DB0DE13688D0400E87EB6 /* main.m */,
 				B9D8CF99165708CD00F53CA6 /* OAprivate-configure.h */,
 				B9F0D2BC16E0D04B00F9316D /* MKStoreKitConfigs.plist */,
+				B9CE77B716E6696700DF174C /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				B9F0D2BD16E0D04B00F9316D /* MKStoreKitConfigs.plist in Resources */,
 				B9CC8F7A16E50780006A783C /* banner_tactilapp.png in Resources */,
 				B9CC8F7B16E50780006A783C /* banner_tactilapp@2x.png in Resources */,
+				B9CE77B816E6696700DF174C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -714,10 +718,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "OperadorApp/OperadorApp-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					DEBUG,
-					FLURRY,
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = "$(inherited)/**";
