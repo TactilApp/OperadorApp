@@ -8,6 +8,7 @@
 
 // GENÉRICO
 BTN_ACEPTAR = "Aceptar";
+BTN_CANCELAR = "Cancelar";
 
 // AGENDA
 AGENDA_SUGERIR_COMPRA_TIT = "Cargar contactos desde la agenda";
@@ -18,3 +19,7 @@ AGENDA_INAPP_DESACTIVADAS_MSG = "La opción de cargar los contactos desde la age
 
 AGENDA_TELEFONO_INCORRECTO_TIT = "Teléfono incorrecto";
 AGENDA_TELEFONO_INCORRECTO_MSG = "OperadorApp solo funciona con números de móviles en España";
+
+// RESEÑAS
+RESENA_TIT = "Haz una reseña";
+RESENA_MSG = "Si OperadorApp te ha resultado útil nos gustaría que dejases una reseña en la AppStore. Cada versión de la aplicación es independiente, por lo que aunque lo hicieses en el pasado, agradeceríamos que opinases también sobre esta versión.\n Si lo deseas, también puedes enviarnos tus sugerencias por mail pulsando en el logo de la aplicación.";

@@ -11,9 +11,15 @@
 @implementation SugerirResena
 
 -(void)sugerir{
-    UIAlertView *alerta = [[UIAlertView alloc] initWithTitle:TITULO message:MENSAJE delegate:self cancelButtonTitle:NEGATIVO otherButtonTitles:POSITIVO, nil];
-    [alerta show];
     [TAHelper registrarEvento:@"Sugiere reseña"];
+    
+    UIAlertView *alerta = [[UIAlertView alloc]
+                       initWithTitle:NSLocalizedString(@"RESENA_TIT", nil)
+                       message:NSLocalizedString(@"RESENA_MSG", nil)
+                       delegate:self
+                       cancelButtonTitle:NSLocalizedString(@"BTN_CANCELAR", nil)
+                       otherButtonTitles:NSLocalizedString(@"BTN_ACEPTAR", nil), nil];
+    [alerta show];
 }
 
 
