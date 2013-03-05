@@ -8,9 +8,6 @@
 
 #import "EnviarMail.h"
 
-#import "OAprivate-configure.h"
-
-
 @interface EnviarMail()
 
     @property (nonatomic, strong) UIViewController *delegate;
@@ -27,8 +24,9 @@
 +(EnviarMail *)mailASoporteConDelegado:(UIViewController *)delegate{
     EnviarMail *pantallaEmail = [[EnviarMail alloc] init];
     pantallaEmail.mailDestino = MAIL_SOPORTE;
-    pantallaEmail.asunto = [NSString stringWithFormat:@"[operadorApp iOS%@] Soporte", kVERSION];
-    pantallaEmail.mensaje = @"Hola,<br />quiero sugerir para operadorApp...";
+    pantallaEmail.asunto = [NSString stringWithFormat:
+                            NSLocalizedString(@"MAIL_TIT", nil), kVERSION];
+    pantallaEmail.mensaje = NSLocalizedString(@"MAIL_MSG", nil);
     pantallaEmail.delegate = delegate;
     
     return pantallaEmail;
@@ -36,9 +34,8 @@
 
 -(void)mostrarPanelDelEmail {
     MFMailComposeViewController *panelMail = [[MFMailComposeViewController alloc] init];
-    panelMail.title = TITULO_VENTANA;
+    panelMail.title = NSLocalizedString(@"MAIL_VENTANA_TITULO", nil);
     [panelMail.navigationBar setTintColor:[UIColor colorWithRed:0.0156 green:0.211 blue:0.266 alpha:1]];
-    [[panelMail.toolbarItems objectAtIndex:0] setTintColor:[UIColor redColor]];
     [panelMail setDelegate:self];
     panelMail.mailComposeDelegate = self;
     [panelMail setToRecipients:[NSArray arrayWithObject:self.mailDestino]];
@@ -63,7 +60,7 @@
 			[self.delegate dismissModalViewControllerAnimated:YES];
 			break;
 		default:{
-            [TAHelper mostrarAlertaConTitulo:@"Error" mensaje:@"Ha ocurrido un error al intentar enviar el email, revise la configuración."];
+            [TAHelper mostrarAlertaConTitulo:@"Error" mensaje:NSLocalizedString(@"MAIL_ERROR_DESCONOCIDO", nil)];
 		}
         break;
 	}

@@ -23,3 +23,9 @@ AGENDA_TELEFONO_INCORRECTO_MSG = "OperadorApp solo funciona con números de móv
 // RESEÑAS
 RESENA_TIT = "Haz una reseña";
 RESENA_MSG = "Si OperadorApp te ha resultado útil nos gustaría que dejases una reseña en la AppStore. Cada versión de la aplicación es independiente, por lo que aunque lo hicieses en el pasado, agradeceríamos que opinases también sobre esta versión.\n Si lo deseas, también puedes enviarnos tus sugerencias por mail pulsando en el logo de la aplicación.";
+
+// MAIL
+MAIL_VENTANA_TITULO = "Soporte";
+MAIL_TIT = "[operadorApp iOS%@] Soporte";
+MAIL_MSG = "Hola,<br />quiero sugerir para operadorApp...";
+MAIL_ERROR_DESCONOCIDO = "Ha ocurrido un error al intentar enviar el email, revise la configuración.";
