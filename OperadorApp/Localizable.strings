@@ -6,6 +6,10 @@
   Copyright (c) 2013 TactilApp.com. All rights reserved.
 */
 
+// VIEWCONTROLLER
+VC_PRIMERA_CARGA_TIT = "OperadorApp %@";
+VC_PRIMERA_CARGA_MSG = "Has actualizado a la versión %@. Te agradeceríamos que dejases una reseña en la AppStore si te es útil la aplicación para que más gente la pueda descubrir.";
+
 // GENÉRICO
 BTN_ACEPTAR = "Aceptar";
 BTN_CANCELAR = "Cancelar";
@@ -29,10 +33,6 @@ MAIL_VENTANA_TITULO = "Soporte";
 MAIL_TIT = "[operadorApp iOS%@] Soporte";
 MAIL_MSG = "Hola,<br />quiero sugerir para operadorApp...";
 MAIL_ERROR_DESCONOCIDO = "Ha ocurrido un error al intentar enviar el email, revise la configuración.";
-
-// VIEWCONTROLLER
-VC_PRIMERA_CARGA_TIT = "OperadorApp %@";
-VC_PRIMERA_CARGA_MSG = "Hola, bienvenido a OperadorApp %@. Ésta es la última versión de la aplicación compatible con iOS4, por lo que si tienes una versión anterior, aconsejamos actualizar tu dispositivo para poder seguir disfrutando de las mejoras de OperadorApp en futuras versiones.";
 
 // HUD
 HUD_CARGANDO_TIT = "Cargando";
