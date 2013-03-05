@@ -6,6 +6,9 @@
   Copyright (c) 2013 TactilApp.com. All rights reserved.
 */
 
+// GENÉRICO
+BTN_ACEPTAR = "Aceptar";
+
 // AGENDA
 AGENDA_SUGERIR_COMPRA_TIT = "Cargar contactos desde la agenda";
 AGENDA_SUGERIR_COMPRA_MSG = "La opción de cargar los contactos desde la agenda del iPhone debe adquirirse por separado.\nEn caso de que ya hubiese comprado esta opción anteriormente CON SU CUENTA, indique que lo desea comprar de nuevo para activarla con total tranquilidad, ya que no se le va a volver a cobrar, ESTA OPCIÓN SOLO SE PAGA LA PRIMERA VEZ y después se puede utilizar sin límites.";
