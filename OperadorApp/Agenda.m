@@ -49,6 +49,7 @@
             onComplete:^(NSString *purchasedFeature, NSData *purchasedReceipt, NSArray *availableDownloads) {
                 
                 [TAHelper registrarEvento:@"Compra" parametros:@{@"aceptada" : @"SI"} ];
+                [self mostrarAgenda];
                 
             } onCancelled:^{
                 
