@@ -11,4 +11,5 @@
 
 @interface TAAPIClient : AFHTTPClient
     +(TAAPIClient *)sharedInstance;
+    + (id)sharedInstance:(NSURL *)url;
 @end

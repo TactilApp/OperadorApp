@@ -29,5 +29,9 @@
     #ifdef FLURRY
         [Flurry logEvent:nombre withParameters:dict];
     #endif
+    
+    #ifdef DEBUG
+        NSLog(@"--Evento: %@\%@", nombre, dict);
+    #endif
 }
 @end
