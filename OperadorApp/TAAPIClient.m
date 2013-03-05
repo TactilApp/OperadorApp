@@ -10,7 +10,7 @@
 
 
 @implementation TAAPIClient
-#define     API_URL @"http://operadorapp.herokuapp.com"
+#define     API_URL @"http://operadorapp.com/api/v1"
 
 
 + (id)sharedInstance {
@@ -26,7 +26,6 @@
 - (id)initWithBaseURL:(NSURL *)url {
     self = [super initWithBaseURL:url];
     if (self) {
-//        [self setDefaultHeader:@"x-api-token" value:BeersAPIToken];
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
         [self setDefaultHeader:@"Accept" value:@"application/json"];
     }
