@@ -29,3 +29,12 @@ MAIL_VENTANA_TITULO = "Soporte";
 MAIL_TIT = "[operadorApp iOS%@] Soporte";
 MAIL_MSG = "Hola,<br />quiero sugerir para operadorApp...";
 MAIL_ERROR_DESCONOCIDO = "Ha ocurrido un error al intentar enviar el email, revise la configuración.";
+
+// VIEWCONTROLLER
+VC_PRIMERA_CARGA_TIT = "OperadorApp %@";
+VC_PRIMERA_CARGA_MSG = "Hola, bienvenido a OperadorApp %@. Ésta es la última versión de la aplicación compatible con iOS4, por lo que si tienes una versión anterior, aconsejamos actualizar tu dispositivo para poder seguir disfrutando de las mejoras de OperadorApp en futuras versiones.";
+
+// HUD
+HUD_CARGANDO_TIT = "Cargando";
+HUD_CARGANDO_MSG = "Realizando consulta a la CMT";
+HUD_TELEFONO_INCORRECTO = "El teléfono introducido no es válido";
