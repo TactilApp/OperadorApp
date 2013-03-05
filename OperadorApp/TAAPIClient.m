@@ -8,13 +8,13 @@
 
 #import "TAAPIClient.h"
 
-
 @implementation TAAPIClient
-#define     API_URL @"http://operadorapp.herokuapp.com"
 
+#define     API_URL @"http://operadorapp.com/api/v1"
+
+TAAPIClient *__sharedInstance;
 
 + (id)sharedInstance {
-    static TAAPIClient *__sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         __sharedInstance = [[TAAPIClient alloc] initWithBaseURL:[NSURL URLWithString:API_URL]];
@@ -23,16 +23,22 @@
     return __sharedInstance;
 }
 
-- (id)initWithBaseURL:(NSURL *)url {
-    self = [super initWithBaseURL:url];
-    if (self) {
-//        [self setDefaultHeader:@"x-api-token" value:BeersAPIToken];
-        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-        [self setDefaultHeader:@"Accept" value:@"application/json"];
-    }
++ (id)sharedInstance:(NSURL *)url {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        __sharedInstance = [[TAAPIClient alloc] initWithBaseURL:url];
+    });
     
-    return self;
+    return __sharedInstance;
 }
 
 
+- (id)initWithBaseURL:(NSURL *)url {
+    self = [super initWithBaseURL:url];
+    if (self) {
+        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+        [self setDefaultHeader:@"Accept" value:@"application/json"];
+    }
+    return self;
+}
 @end

@@ -9,11 +9,9 @@
 #import <UIKit/UIKit.h>
 #import <MessageUI/MessageUI.h>
 
-#define TITULO_VENTANA @"Soporte"
 
 @interface EnviarMail : UIViewController <MFMailComposeViewControllerDelegate, UINavigationControllerDelegate>
 
     +(EnviarMail *)mailASoporteConDelegado:(UIViewController *)delegate;
     -(void)mostrarPanelDelEmail;
-
 @end

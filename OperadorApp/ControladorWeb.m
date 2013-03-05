@@ -39,9 +39,4 @@
     [TAHelper mostrarAlertaConTitulo:@"Error" mensaje:error.localizedDescription];
     [self.activity stopAnimating];
 }
-#pragma mark - Misc
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation{
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
 @end

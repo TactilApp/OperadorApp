@@ -120,9 +120,13 @@ const float scrollMarginX   = 30;
     
     
     if ([Contador primeraCarga]){
-    //  NSString *title = [NSString stringWithFormat:@"OperadorApp %@", kVERSION];
-    //  NSString *description = [NSString stringWithFormat:@"Hola, bienvenido a OperadorApp %@. Ésta es la última versión de la aplicación compatible con iOS4, por lo que si tienes una versión anterior, aconsejamos actualizar tu dispositivo para poder seguir disfrutando de las mejoras de OperadorApp en futuras versiones.", kVERSION];
-    //  [TAHelper mostrarAlertaConTitulo:title mensaje:description];
+        NSString *title = [NSString
+            stringWithFormat:NSLocalizedString(@"VC_PRIMERA_CARGA_TIT", nil), kVERSION];
+        NSString *description = [NSString
+            stringWithFormat:NSLocalizedString(@"VC_PRIMERA_CARGA_MSG", nil), kVERSION];
+        
+        [TAHelper mostrarAlertaConTitulo:title mensaje:description];
+        
         [self intentaIrAPagina:scrINFO];
     }
 }
@@ -138,32 +142,46 @@ const float scrollMarginX   = 30;
 - (void)enviarPeticionCompleta{
     [self ocultarTecladoYColocarScroll];
     HUD.mode = MBProgressHUDModeIndeterminate;
-    HUD.labelText = @"Cargando";
-	HUD.detailsLabelText = @"Realizando consulta a la CMT";
+    HUD.labelText = NSLocalizedString(@"HUD_CARGANDO_TIT", nil);
+	HUD.detailsLabelText = NSLocalizedString(@"HUD_CARGANDO_MSG", nil);
 	HUD.square = NO;
     [HUD show:YES];
 
-    [[TOARequestKernel sharedRequestKernel] doRequestForNumber:self.TFtelefono.text captcha:self.codigoCaptcha.text
-                       success:^(NSString *companyString) {
-                           [HUD hide:YES];
+    [[TOARequestKernel sharedRequestKernel]
+        doRequestForNumber:self.TFtelefono.text
+        captcha:self.codigoCaptcha.text
+        success:^(NSString *companyString) {
+    
+            [TAHelper registrarEvento:@"Recargar Captcha"
+                           parametros:@{@"Tipo" : @"Automático"}];
 
-                           [self loadCompanyView:companyString];
-                           [self goToPage:scrRESULT];
-                           self.codigoCaptcha.text = nil;
-                            [[TOARequestKernel sharedRequestKernel] reloadCaptcha];
-                            [TAHelper registrarEvento:@"Recargar Captcha" parametros:@{@"Tipo" : @"Automático"}];
-                       } failure:^(NSError *error) {
-                           HUD.mode = MBProgressHUDModeText;
-                           HUD.labelText = @"Error";
-                           HUD.detailsLabelText = error.localizedDescription;
-                           
-                           [HUD hide:YES afterDelay:1];
-                           [self performSelector:@selector(captchaBecomeFirstResponder) withObject:nil afterDelay:1];
-                           
-                            self.codigoCaptcha.text = nil;
-                            [[TOARequestKernel sharedRequestKernel] reloadCaptcha];
-                            [TAHelper registrarEvento:@"Recargar Captcha" parametros:@{@"Tipo" : @"Erróneo"}];
-                       }];
+            [HUD hide:YES];
+
+            [self loadCompanyView:companyString];
+
+            [self goToPage:scrRESULT];
+            self.codigoCaptcha.text = nil;
+           
+            [[TOARequestKernel sharedRequestKernel] reloadCaptcha];
+           
+       } failure:^(NSError *error) {
+           
+            [TAHelper registrarEvento:@"Recargar Captcha"
+                           parametros:@{@"Tipo" : @"Erróneo"}];
+           
+            HUD.mode = MBProgressHUDModeText;
+            HUD.labelText = @"Error";
+            HUD.detailsLabelText = error.localizedDescription;
+            [HUD hide:YES afterDelay:1];
+           
+            [self performSelector:@selector(captchaBecomeFirstResponder)
+                       withObject:nil afterDelay:1];
+
+            self.codigoCaptcha.text = nil;
+           
+            [[TOARequestKernel sharedRequestKernel] reloadCaptcha];
+          
+       }];
 }
 
 -(void)captchaBecomeFirstResponder{
@@ -172,49 +190,53 @@ const float scrollMarginX   = 30;
 
 -(void)loadCompanyView:(NSString *)companyString{
     NSDictionary *plistData = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"companies-color.plist"]];
+    
     NSString *companyKey = @"Default";
     bool findFlag = false;
     
     for(NSString *key in plistData){
-        NSArray *companyStrings = [[plistData objectForKey:key] objectForKey:@"strings"];
+        NSArray *companyStrings = plistData[key][@"strings"];
+        
         for (NSString *companyTmp in companyStrings){
             if ([companyString isEqualToString:companyTmp]){
+                findFlag = TRUE;
                 companyKey = key;
                 break;
             }
         }
         
-        if (findFlag)
-            break;
-        else{
-            [TAHelper registrarEvento:@"Compañía nueva" parametros:@{@"stringFromCMT" : companyString}];
-        }
-    
+        if (findFlag)   break;  // Para no seguir buscando
     }
     
-    UIColor *topColor = [UIColor colorWithHexString:[[plistData objectForKey:companyKey] objectForKey:@"top"]];
-    UIColor *bottomColor = [UIColor colorWithHexString:[[plistData objectForKey:companyKey] objectForKey:@"bottom"]];
-    if (findFlag)  companyKey = companyString;
+    UIColor *topColor =    [UIColor colorWithHexString:plistData[companyKey][@"top"]];
+    UIColor *bottomColor = [UIColor colorWithHexString:plistData[companyKey][@"bottom"]];
+
+    if (!findFlag){
+        [TAHelper registrarEvento:@"Compañía nueva"
+                       parametros:@{@"stringFromCMT" : companyString}];
+
+        companyKey = companyString;
+    }
     
     [_companyView removeFromSuperview];
     _companyView = [[TACompanyView alloc] initWithFrame:CGRectMake(0, 110, 261, 50) topColor:topColor bottomColor:bottomColor text:companyKey];
+    
     [self.paso3 addSubview:_companyView];
 }
 
 
 -(IBAction)desplazarScroll:(UIButton *)sender{
-    // On iPhone 5 isn't necessary to move the scroll because keyboard never hide the fields.
+    // En el iPhone 5 no es necesario mover el scroll, ya que nunca se tapan los campos.
     if ([TAHelper isIphone4]){
-        // When keyboard is showed in step 1, scroll is moved to up to show well top-button.
+        // Cuando se muestra el teclado en el paso 1, el scroll se mueve para mostrar el botón superior.
         int newHeight = (sender.tag * HEIGHT(_scroll)) + 14;
-        
-        // If is the captcha-screen, we move up a little bit for show correctly all the captcha (on this screen, keyboar cover the next-button but user can press on the background to hide it).
+
+        // En caso de estar en la pantalla del captcha, se mueve un poco más hacia arriba para mostrar correctamente el captcha en mitad de la pantalla.
         if (sender.tag == scrCAPTCHA) newHeight += 62;
         
         [_scroll setContentOffset:CGPointMake(0, newHeight) animated:YES];
     }
 }
-
 
 
 #pragma mark - Controlador de navegacion
@@ -255,7 +277,7 @@ const float scrollMarginX   = 30;
             if ([self.TFtelefono.text length] != minPHONELength){
                 HUD.mode = MBProgressHUDModeText;
                 HUD.labelText = @"Error";
-                HUD.detailsLabelText = @"El teléfono introducido no es válido";
+                HUD.detailsLabelText = NSLocalizedString(@"HUD_TELEFONO_INCORRECTO", nil);
                 [HUD show:YES];
                 [HUD hide:YES afterDelay:1];
                 return FALSE;
@@ -354,13 +376,15 @@ const float scrollMarginX   = 30;
 
 #pragma mark - Delegados de la publicidad
 -(void)adViewDidReceiveAd:(GADBannerView *)banner{
-    [TAHelper registrarEvento:@"Publicidad" parametros:@{@"cargada" : @"si", @"clase" : [banner class]}];
+    [TAHelper registrarEvento:@"Publicidad"
+                   parametros:@{@"cargada" : @"si", @"clase" : [banner class]}];
 }
 
 -(void)adView:(GADBannerView *)banner didFailToReceiveAdWithError:(GADRequestError *)error{
-    [TAHelper registrarEvento:@"Publicidad" parametros:@{@"cargada" : @"no"}];
-    for (UIView *subview in banner.subviews){
+    [TAHelper registrarEvento:@"Publicidad"
+                   parametros:@{@"cargada" : @"no"}];
+    
+    for (UIView *subview in banner.subviews)
         [subview removeFromSuperview];
-    }
 }
 @end

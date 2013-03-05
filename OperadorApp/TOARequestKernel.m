@@ -12,15 +12,6 @@
 #import <AFNetworking/UIImageView+AFNetworking.h>
 #import "UIImage+CropCaptcha.h"
 
-@implementation NSURLRequest(Helpers)
-
-+(NSURLRequest *)requestWithString:(NSString *)url_string{
-    return [NSURLRequest requestWithURL:[NSURL URLWithString:url_string]];
-}
-
-@end
-
-
 @implementation TOARequestKernel
 #pragma mark - Singleton
 + (TOARequestKernel *)sharedRequestKernel {
@@ -39,20 +30,30 @@
     
     [[TAAPIClient sharedInstance] getPath:nil parameters:nil
        success:^(AFHTTPRequestOperation *operation, id JSON) {
-
-           [self.captcha setImageWithURLRequest:[NSURLRequest requestWithString:JSON[@"captcha_url"]]
-               placeholderImage:nil
+           [TAAPIClient sharedInstance:operation.response.URL.absoluteURL];
+           
+          NSURLRequest *captchaRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:JSON[@"captcha_url"]]];
+           
+           [self.captcha setImageWithURLRequest:captchaRequest placeholderImage:nil
                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                            
                             self.captcha.image = [image usefulRectangle];
                             [TAHelper registrarEvento:@"Carga Imagen" parametros:@{@"resultado" : @"OK"}];
+                            
                         } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+                            
                             [TAHelper registrarEvento:@"Carga Imagen"
-                                           parametros:@{@"resultado" : @"NO", @"error" : error.localizedDescription, @"url" : request.URL.absoluteString}];
+                                           parametros:@{@"resultado" : @"NO", @"error" : error.localizedDescription, @"url" : request.URL.absoluteString,
+                             @"request": operation.request.URL.absoluteString, @"response": operation.response.URL.absoluteString}];
+                            
                         }
             ];
            
        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-           [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"GET", @"error": error.localizedDescription}];
+           
+           [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"GET", @"error": error.localizedDescription,
+            @"request": operation.request.URL.absoluteString, @"response": operation.response.URL.absoluteString}];
+           
        }
      ];
 
@@ -75,7 +76,8 @@
                        [errorStr appendFormat:@"%@\n", jsonError];
                    }
                     NSError *error = [NSError errorWithDomain:@"OperadorApp" code:1001 userInfo:@{NSLocalizedDescriptionKey : errorStr}];
-                    [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"POST", @"error": error.localizedDescription}];
+                   [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"POST", @"error": error.localizedDescription,
+                    @"request": operation.request.URL.absoluteString, @"response": operation.response.URL.absoluteString}];
                    failure(error);
                }else{
                    NSMutableString *errorStr = [NSMutableString string];
@@ -83,12 +85,14 @@
                        [errorStr appendFormat:@"%@\n", jsonError];
                    }
                    NSError *error = [NSError errorWithDomain:@"OperadorApp" code:1002 userInfo:@{NSLocalizedDescriptionKey : errorStr}];
-                   [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"POST", @"error": error.localizedDescription}];
+                   [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"POST", @"error": error.localizedDescription,
+                    @"request": operation.request.URL.absoluteString, @"response": operation.response.URL.absoluteString}];
                    failure(error);
                }
                
            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-              [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"POST", @"error": error.localizedDescription}];
+               [TAHelper registrarEvento:@"Error request" parametros:@{@"tipo" : @"POST", @"error": error.localizedDescription,
+                @"request": operation.request.URL.absoluteString, @"response": operation.response.URL.absoluteString}];
                failure(error);
            }
      ];

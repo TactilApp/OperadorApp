@@ -14,7 +14,12 @@
 }
 
 +(void)mostrarAlertaConTitulo:(NSString *)titulo mensaje:(NSString *)mensaje{
-    UIAlertView *alerta = [[UIAlertView alloc] initWithTitle:titulo message:mensaje delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
+    UIAlertView *alerta = [[UIAlertView alloc]
+                           initWithTitle:titulo
+                           message:mensaje
+                           delegate:nil
+                           cancelButtonTitle:NSLocalizedString(@"BTN_ACEPTAR", nil)
+                           otherButtonTitles:nil];
     [alerta show];
 }
 
@@ -22,12 +27,20 @@
     #ifdef FLURRY
         [Flurry logEvent:nombre];
     #endif
+    
+    #ifdef DEBUG
+        NSLog(@"--Evento: %@", nombre);
+    #endif
 }
 
 
 +(void)registrarEvento:(NSString *)nombre parametros:(NSDictionary *)dict{
     #ifdef FLURRY
         [Flurry logEvent:nombre withParameters:dict];
+    #endif
+    
+    #ifdef DEBUG
+        NSLog(@"++Evento: %@\%@", nombre, dict);
     #endif
 }
 @end
