@@ -176,28 +176,30 @@ const float scrollMarginX   = 30;
     bool findFlag = false;
     
     for(NSString *key in plistData){
-        NSArray *companyStrings = [[plistData objectForKey:key] objectForKey:@"strings"];
+        NSArray *companyStrings = plistData[key][@"strings"];
+        
         for (NSString *companyTmp in companyStrings){
             if ([companyString isEqualToString:companyTmp]){
+                findFlag = TRUE;
                 companyKey = key;
                 break;
             }
         }
         
-        if (findFlag)
-            break;
-        else{
-            [TAHelper registrarEvento:@"Compañía nueva" parametros:@{@"stringFromCMT" : companyString}];
-        }
-    
+        if (findFlag)   break;  // Para no seguir buscando
     }
     
-    UIColor *topColor = [UIColor colorWithHexString:[[plistData objectForKey:companyKey] objectForKey:@"top"]];
-    UIColor *bottomColor = [UIColor colorWithHexString:[[plistData objectForKey:companyKey] objectForKey:@"bottom"]];
-    if (findFlag)  companyKey = companyString;
+    UIColor *topColor =     [UIColor colorWithHexString:plistData[companyKey][@"top"]];
+    UIColor *bottomColor =  [UIColor colorWithHexString:plistData[companyKey][@"bottom"]];
+
+    if (!findFlag){
+        companyKey = companyString;
+        [TAHelper registrarEvento:@"Compañía nueva" parametros:@{@"stringFromCMT" : companyString}];
+    }
     
     [_companyView removeFromSuperview];
     _companyView = [[TACompanyView alloc] initWithFrame:CGRectMake(0, 110, 261, 50) topColor:topColor bottomColor:bottomColor text:companyKey];
+    
     [self.paso3 addSubview:_companyView];
 }
 
