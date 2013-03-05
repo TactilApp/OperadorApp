@@ -11,44 +11,50 @@
 
 #import <MKStoreKit/MKStoreManager.h>
 
-#import "OAprivate-configure.h"
-
 @implementation Agenda
 -(void)mostrarAgenda{
-    [TAHelper registrarEvento:@"Mostrar agenda"];
-    
     if([MKStoreManager isFeaturePurchased:AGENDA_PRODUCT_ID]){
+        
+        [TAHelper registrarEvento:@"Mostrar agenda"];
         ABPeoplePickerNavigationController *picker = [[ABPeoplePickerNavigationController alloc] init];
         picker.peoplePickerDelegate = self;
         [self.viewController presentModalViewController:picker animated:YES];
+        
     }else{
+        
+        [TAHelper registrarEvento:@"Sugiere compra"];
         [self sugerirComprar];
+        
         return;
+        
     }
 }
 
 -(void)sugerirComprar{
     if ([SKPaymentQueue canMakePayments]){
-        [TAHelper registrarEvento:@"Sugiere compra"];
-
-        NSString *titulo = @"Cargar contactos desde la agenda";
-        NSString *mensaje = @"La opción de cargar los contactos desde la agenda del iPhone debe adquirirse por separado.\nEn caso de que ya hubiese comprado esta opción anteriormente CON SU CUENTA, indique que lo desea comprar de nuevo para activarla con total tranquilidad, ya que no se le va a volver a cobrar, ESTA OPCIÓN SOLO SE PAGA LA PRIMERA VEZ y después se puede utilizar sin límites.";
+        NSString *titulo = NSLocalizedString(@"AGENDA_SUGERIR_COMPRA_TIT", nil);
+        NSString *mensaje = NSLocalizedString(@"AGENDA_SUGERIR_COMPRA_MSG", nil);
         
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:titulo message:mensaje delegate:self cancelButtonTitle:@"Aceptar" otherButtonTitles:nil];
+        
         [alert show];
     }else{
         [TAHelper registrarEvento:@"InAppPurchase desactivadas"];
-        [TAHelper mostrarAlertaConTitulo:@"Cargar contactos desde la agenda" mensaje:@"La opción de cargar los contactos desde la agenda del iPhone debe adquirirse por separado.\nPara ello, debe activar la opción de \"Compras integradas\" desde los ajustes de su iPhone.\nInformar de que el importe se abonará una única vez, sin importar el número de dispositivos en que se instale (con la misma cuenta de usuario)."];
+        [TAHelper mostrarAlertaConTitulo:@"AGENDA_INAPP_DESACTIVADAS_TIT" mensaje:@"AGENDA_INAPP_DESACTIVADAS_MSG"];
     }
 }
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     [[MKStoreManager sharedManager] buyFeature:AGENDA_PRODUCT_ID
-                                    onComplete:^(NSString *purchasedFeature, NSData *purchasedReceipt, NSArray *availableDownloads) {
-                                        [TAHelper registrarEvento:@"Compra aceptada"];
-                                    } onCancelled:^{
-                                        [TAHelper registrarEvento:@"Compra rechazada"];
-                                    }];
+            onComplete:^(NSString *purchasedFeature, NSData *purchasedReceipt, NSArray *availableDownloads) {
+                
+                [TAHelper registrarEvento:@"Compra" parametros:@{@"aceptada" : @"SI"} ];
+                
+            } onCancelled:^{
+                
+                [TAHelper registrarEvento:@"Compra" parametros:@{@"aceptada" : @"NO"} ];
+                
+            }];
 }
 
 
@@ -59,18 +65,21 @@
 
 -(BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
     if (property == kABPersonPhoneProperty){
+        
+        [TAHelper registrarEvento:@"Teléfono cargado desde agenda"];
+        
         ABMultiValueRef phones =(__bridge ABMultiValueRef)((NSString*)CFBridgingRelease(ABRecordCopyValue(person, kABPersonPhoneProperty)));
         NSString *mobile = [self telefonoLimpio:(NSString*)CFBridgingRelease(ABMultiValueCopyValueAtIndex(phones, identifier))];
         
 		self.viewController.TFtelefono.text = [mobile stringByReplacingOccurrencesOfString:@"+34" withString:@""];
-
-        [TAHelper registrarEvento:@"Teléfono cargado desde agenda"];
         
         [self.viewController dismissModalViewControllerAnimated:YES];
         return NO;
     }
     
-    [TAHelper mostrarAlertaConTitulo:@"Teléfono incorrecto" mensaje:@"OperadorApp solo funciona con números de móviles en España"];
+    [TAHelper
+     mostrarAlertaConTitulo:NSLocalizedString(@"AGENDA_TELEFONO_INCORRECTO_TIT", nil)
+     mensaje:NSLocalizedString(@"AGENDA_TELEFONO_INCORRECTO_MSG", nil)];
     
     return NO;   
 }

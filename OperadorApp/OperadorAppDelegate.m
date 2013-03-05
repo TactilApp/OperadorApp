@@ -45,6 +45,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.rootViewController = [OperadorAppViewController new];
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -73,9 +74,9 @@ void SignalHandler(int sig) {
 #endif
 
 #ifdef FLURRY
-    void uncaughtExceptionHandler(NSException *exception) {
-        [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
-    }
+void uncaughtExceptionHandler(NSException *exception) {
+    [Flurry logError:@"Uncaught" message:@"Crash!" exception:exception];
+}
 #endif
 
 @end
