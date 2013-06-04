@@ -150,14 +150,16 @@ const float scrollMarginX   = 30;
     [[TOARequestKernel sharedRequestKernel]
         doRequestForNumber:self.TFtelefono.text
         captcha:self.codigoCaptcha.text
-        success:^(NSString *companyString) {
+        success:^(NSString *companyString, NSString *topColor, NSString *bottomColor) {
     
             [TAHelper registrarEvento:@"Recargar Captcha"
                            parametros:@{@"Tipo" : @"Automático"}];
 
             [HUD hide:YES];
 
-            [self loadCompanyView:companyString];
+            [self loadCompanyView:companyString
+                         topColor:[UIColor colorWithHexString:topColor]
+                      bottomColor:[UIColor colorWithHexString:bottomColor]];
 
             [self goToPage:scrRESULT];
             self.codigoCaptcha.text = nil;
@@ -188,38 +190,9 @@ const float scrollMarginX   = 30;
    [self.codigoCaptcha becomeFirstResponder];
 }
 
--(void)loadCompanyView:(NSString *)companyString{
-    NSDictionary *plistData = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"companies-color.plist"]];
-    
-    NSString *companyKey = @"Default";
-    bool findFlag = false;
-    
-    for(NSString *key in plistData){
-        NSArray *companyStrings = plistData[key][@"strings"];
-        
-        for (NSString *companyTmp in companyStrings){
-            if ([companyString isEqualToString:companyTmp]){
-                findFlag = TRUE;
-                companyKey = key;
-                break;
-            }
-        }
-        
-        if (findFlag)   break;  // Para no seguir buscando
-    }
-    
-    UIColor *topColor =    [UIColor colorWithHexString:plistData[companyKey][@"top"]];
-    UIColor *bottomColor = [UIColor colorWithHexString:plistData[companyKey][@"bottom"]];
-
-    if (!findFlag){
-        [TAHelper registrarEvento:@"Compañía nueva"
-                       parametros:@{@"stringFromCMT" : companyString}];
-
-        companyKey = companyString;
-    }
-    
+-(void)loadCompanyView:(NSString *)companyString topColor:(UIColor*)topColor bottomColor:(UIColor*)bottomColor{
     [_companyView removeFromSuperview];
-    _companyView = [[TACompanyView alloc] initWithFrame:CGRectMake(0, 110, 261, 50) topColor:topColor bottomColor:bottomColor text:companyKey];
+    _companyView = [[TACompanyView alloc] initWithFrame:CGRectMake(0, 110, 261, 50) topColor:topColor bottomColor:bottomColor text:companyString];
     
     [self.paso3 addSubview:_companyView];
 }

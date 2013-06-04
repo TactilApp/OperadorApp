@@ -15,6 +15,6 @@
 
     -(void)reloadCaptcha;
     -(void)doRequestForNumber:(NSString *)mobileNumber captcha:(NSString *)captchaStr
-                      success:(void (^)(NSString *companyString))success
-                      failure:(void (^)(NSError *error))failure;
+                  success:(void (^)(NSString *companyString, NSString *topColor, NSString *bottomColor))success
+                  failure:(void (^)(NSError *error))failure;
 @end
