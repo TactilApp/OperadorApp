@@ -20,7 +20,6 @@
 		B92E7FAB16DE4402007C99BA /* info_volver.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E7FA316DE4402007C99BA /* info_volver.png */; };
 		B92E7FAC16DE4402007C99BA /* info_volver@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B92E7FA416DE4402007C99BA /* info_volver@2x.png */; };
 		B937A9751625919D00C5B868 /* TACompanyView.m in Sources */ = {isa = PBXBuildFile; fileRef = B937A9741625919D00C5B868 /* TACompanyView.m */; };
-		B94C60DA1627512900A28140 /* companies-color.plist in Resources */ = {isa = PBXBuildFile; fileRef = B94C60D91627512900A28140 /* companies-color.plist */; };
 		B95553E3136DFE1D0038DF00 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95553E1136DFE1D0038DF00 /* AddressBook.framework */; };
 		B95553E4136DFE1D0038DF00 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95553E2136DFE1D0038DF00 /* AddressBookUI.framework */; };
 		B95DB0D213688D0400E87EB6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B95DB0D113688D0400E87EB6 /* UIKit.framework */; };
@@ -98,7 +97,6 @@
 		B92E7FA416DE4402007C99BA /* info_volver@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "info_volver@2x.png"; sourceTree = "<group>"; };
 		B937A9731625919D00C5B868 /* TACompanyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TACompanyView.h; path = OperadorApp/TACompanyView.h; sourceTree = SOURCE_ROOT; };
 		B937A9741625919D00C5B868 /* TACompanyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TACompanyView.m; path = OperadorApp/TACompanyView.m; sourceTree = SOURCE_ROOT; };
-		B94C60D91627512900A28140 /* companies-color.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "companies-color.plist"; sourceTree = "<group>"; };
 		B95553E1136DFE1D0038DF00 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		B95553E2136DFE1D0038DF00 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		B95DB0CD13688D0400E87EB6 /* OperadorApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OperadorApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -330,7 +328,6 @@
 		B9CD91F116244A2000DA9B27 /* Companies */ = {
 			isa = PBXGroup;
 			children = (
-				B94C60D91627512900A28140 /* companies-color.plist */,
 				B937A9731625919D00C5B868 /* TACompanyView.h */,
 				B937A9741625919D00C5B868 /* TACompanyView.m */,
 			);
@@ -550,7 +547,6 @@
 			files = (
 				B95DB2A01368966800E87EB6 /* OperadorAppViewController.xib in Resources */,
 				B95DB2A71368981500E87EB6 /* ControladorWeb.xib in Resources */,
-				B94C60DA1627512900A28140 /* companies-color.plist in Resources */,
 				B9D8CF6A165700E500F53CA6 /* Default.png in Resources */,
 				B9D8CF6B165700E500F53CA6 /* Default@2x.png in Resources */,
 				B9D8CF6C165700E500F53CA6 /* Icon.png in Resources */,
