@@ -61,15 +61,15 @@
 
 
 -(void)doRequestForNumber:(NSString *)mobileNumber captcha:(NSString *)captchaStr
-                  success:(void (^)(NSString *companyString))success
+                  success:(void (^)(NSString *companyString, NSString *topColor, NSString *bottomColor))success
                   failure:(void (^)(NSError *error))failure{
     
     [[TAAPIClient sharedInstance] postPath:nil
-        parameters:@{@"mobile": mobileNumber, @"captcha_str": captchaStr}
+        parameters:@{@"telephone": mobileNumber, @"captcha_str": captchaStr, @"platform": @"iPhone"}
            success:^(AFHTTPRequestOperation *operation, id JSON) {
                
                if (JSON[@"result"][@"company"]){
-                   success(JSON[@"result"][@"company"]);
+                   success(JSON[@"result"][@"company"], JSON[@"result"][@"topColor"], JSON[@"result"][@"bottomColor"]);
                }else if(JSON[@"errors"]){
                    NSMutableString *errorStr = [NSMutableString string];
                    for (NSString *jsonError in JSON[@"errors"]){

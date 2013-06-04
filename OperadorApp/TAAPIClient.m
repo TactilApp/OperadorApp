@@ -10,7 +10,7 @@
 
 @implementation TAAPIClient
 
-#define     API_URL @"http://operadorapp.com/api/v1"
+#define     API_URL @"http://operadorapp.com/api/v2/"
 
 TAAPIClient *__sharedInstance;
 
